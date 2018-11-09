@@ -77,15 +77,12 @@ public class Login implements Serializable {
                 //if(id.equals(rs.getString(3)))
                 if (id.equals("admin")) {
 
-                    /*   new adminAccount(id, password,
+                    //TODO
+                  /*  this.theLoginAccount = 
+                     new adminAccount1(id, password,
                         rs.getString(3).split("#"),
                         rs.getString("favoriteattractions").split("#"),
-                        rs.getString("favoritecities").split("#")).displayMenu();*/
-                    //password is good 
-                    //display welcome.xhtml
-                    //create an OnlineAccount object
-                    /*   theLoginAccount = new OnlineAccount(id, 
-                            resultSet.getString(2), password);*/
+                        rs.getString("favoritecities").split("#")); */
                     return "welcome";
 
                 } else {
