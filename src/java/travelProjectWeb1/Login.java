@@ -78,12 +78,9 @@ public class Login implements Serializable {
                 //if(id.equals(rs.getString(3)))
                 if (id.equals("admin")) {
 
-                    //TODO
-                  /*  this.theLoginAccount = 
-                     new adminAccount1(id, password,
-                        rs.getString(3).split("#"),
-                        rs.getString("favoriteattractions").split("#"),
-                        rs.getString("favoritecities").split("#")); */
+                    
+                    this.theLoginAccount = 
+                     new adminAccount(id, password); 
                     return "welcome";
 
                 } else {

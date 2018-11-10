@@ -30,9 +30,6 @@ public class userAccount1 implements Serializable{
     public String getAccountID() {
         return accountID;
     }
-
-    
-    
     
     public userAccount1(String accountId, String password/*, String[] tags
             ,String[] favoriteattractions, String[] favoritecities*/) {
