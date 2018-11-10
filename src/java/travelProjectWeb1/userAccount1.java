@@ -34,18 +34,18 @@ public class userAccount1 implements Serializable{
     
     
     
-    public userAccount1(String accountId, String password, String[] tags
-            ,String[] favoriteattractions, String[] favoritecities) {
+    public userAccount1(String accountId, String password/*, String[] tags
+            ,String[] favoriteattractions, String[] favoritecities*/) {
         this.accountID = accountId;
         this.password = password;
-        this.tags = tags;
+        //this.tags = tags;
         
         //check for unread answers 
         Connection conn0 = openDatabase();
         Statement stat0 = null;
         ResultSet rs0 = null;
 
-        try {
+      /*  try {
             stat0 = conn0.createStatement();
             rs0 = stat0.executeQuery("Select distinct q.attractionName from "
                     + "answer a,question q where a.questionid = q.questionID "
@@ -92,7 +92,7 @@ public class userAccount1 implements Serializable{
                                     .map(x -> "tags like '%" + x + "%'")
                                     .collect(Collectors.joining(" OR "))
                     + " )a )a order by 6 desc LIMIT 0,3");
-
+*/
      /*       while (rs.next()) {
                 youMayLike.add(new attraction(rs.getString("Name")
                         , rs.getString("description")
@@ -102,13 +102,13 @@ public class userAccount1 implements Serializable{
                 youMayLike.get(youMayLike.size() - 1).avg = rs.getDouble("avg");
             }  */
 
-        } catch (SQLException e) {
+  /*      } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeDatabase(rs, stat, conn);
-        }
+        } 
 
-        int index = 97;
+        int index = 97; */
    /*     for (attraction x : youMayLike) {
             menu += "\n" + ((char) index++) 
                     + ": You may like " + x.name + " (" + x.avg + ")";  */

@@ -1,6 +1,7 @@
 package travelProjectWeb1;
 
 import java.io.Serializable;
+import static java.lang.System.out;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -20,7 +21,7 @@ public class Login implements Serializable {
     //attributes
     public static final Scanner keyboard = new Scanner(System.in);
     private static final String URL
-            = "jdbc:mysql://mis-sql.uhcl.edu/piccod6036";
+            = "jdbc:mysql://mis-sql.uhcl.edu/antaor0966";
     public static final List<String> validTags
             = Arrays.asList("history", "shopping",
                     "beach", "urban", "explorer", "nature", "family");
@@ -56,10 +57,10 @@ public class Login implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
             //return to internalError.xhtml
-            return ("internalError");
+            return ("internalError1");
         }
 
-        final String DATABASE_URL = "jdbc:mysql://mis-sql.uhcl.edu/piccod6036";
+        final String DATABASE_URL = "jdbc:mysql://mis-sql.uhcl.edu/antaor0966";
         Connection conn = null;
         Statement stat = null;
         ResultSet rs = null;
@@ -67,10 +68,10 @@ public class Login implements Serializable {
         try {
             //connect to the database with user name and password
             conn = DriverManager.getConnection(DATABASE_URL,
-                    "piccod6036", "0969750");
+                    "antaor0966", "1637556");
             stat = conn.createStatement();
 
-            rs = stat.executeQuery("Select * from travelaccount where accountID = '" + id + "' and password = '" + password + "'"); 
+            rs = stat.executeQuery("Select * from account where userName = '" + id + "' and password = '" + password + "'"); 
 
             if (rs.next()) {
 
@@ -87,10 +88,12 @@ public class Login implements Serializable {
 
                 } else {
                     this.theLoginAccount = 
-                     new userAccount1(id, password,
+                     new userAccount1(id, password
+                             /*,
                         rs.getString(3).split("#"),
                         rs.getString("favoriteattractions").split("#"),
-                        rs.getString("favoritecities").split("#")); 
+                        rs.getString("favoritecities").split("#")*/
+                     ); 
 
                     return "welcome";
                 }
@@ -104,7 +107,7 @@ public class Login implements Serializable {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            return ("internalError");
+            return ("internalError2");
         } finally {
             try {
                 rs.close();
@@ -122,7 +125,7 @@ public class Login implements Serializable {
             //connect to the db - login id and password below
             return DriverManager.getConnection(URL, "piccod6036", "0969750");
         } catch (SQLException e) {
-            System.err.println("Database access failed!");
+            out.println("Database access failed!");
             e.printStackTrace();
         }
         return null;
