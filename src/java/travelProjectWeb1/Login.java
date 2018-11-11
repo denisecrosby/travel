@@ -75,23 +75,15 @@ public class Login implements Serializable {
 
             if (rs.next()) {
 
-                //if(id.equals(rs.getString(3)))
                 if (id.equals("admin")) {
-
                     
                     this.theLoginAccount = 
                      new adminAccount(id, password); 
-                    return "welcome";
+                    return "welcomeAdmin";
 
                 } else {
                     this.theLoginAccount = 
-                     new userAccount1(id, password
-                             /*,
-                        rs.getString(3).split("#"),
-                        rs.getString("favoriteattractions").split("#"),
-                        rs.getString("favoritecities").split("#")*/
-                     ); 
-
+                     new userAccount1(id, password); 
                     return "welcome";
                 }
             } else {
@@ -120,7 +112,7 @@ public class Login implements Serializable {
     public static Connection openDatabase() {
         try {
             //connect to the db - login id and password below
-            return DriverManager.getConnection(URL, "piccod6036", "0969750");
+            return DriverManager.getConnection(URL, "antaor0966", "1637556");
         } catch (SQLException e) {
             out.println("Database access failed!");
             e.printStackTrace();
