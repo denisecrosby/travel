@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <title>Show Pending Attractions</title>
+    <body>
+        <h:form>
+
+            <p>Pending Attractions:</p>
+            <h:dataTable id="pending" 
+                         rows ="#{login.theLoginAccount.viewMarked('pending').size()}" 
+                         value="#{login.theLoginAccount.viewMarked('pending')}" var="pend">
+                <h:column>  
+                    <h:outputText styleClass="dataTableOutputText" id="pendvalue1" value="#{pend.name}"/>  
+                </h:column>
+                <h:column>  
+                    <h:outputText styleClass="dataTableOutputText" id="pendvalue2" value="#{pend.description}"/>  
+                </h:column>  
+                <h:column>  
+                    <h:outputText styleClass="dataTableOutputText" id="pendvalue3" value="#{pend.city}"/>  
+                </h:column>  
+                <h:column>  
+                    <h:outputText styleClass="dataTableOutputText" id="pendvalue4" value="#{pend.state}"/>  
+                </h:column>  
+                <h:column>
+                    <h:commandButton value="Approve" action="#{pend.mark('approve')}" />
+                    <h:commandButton value="Reject"  action="#{pend.mark('reject')}" />        
+                </h:column>
+            </h:dataTable>  
+
+            <br></br>
+            <br></br>
+            <br></br>
+            <h:commandButton id="return" value="Return" immediate="true"
+                             action="welcomeAdmin.xhtml" />
+        </h:form>
+    </body>
+</html>

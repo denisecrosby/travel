@@ -24,6 +24,31 @@ public class adminAccount extends userAccount1 {
         Connection conn = openDatabase();
         try {
             stat = conn.createStatement();
+            rs = stat.executeQuery("Select att_id,att_name,description,cityName,stateName from attractions a, status s, state, city c where a.state_id = state.sNum and a.city_id = c.cNum "
+                    + " and s.statusNum = a.status and s.status = '" + mark + "'");
+            while (rs.next()) {
+                result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName")));
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeDatabase(rs, stat, conn);
+        }
+        return result;
+
+    }
+
+    public void approve() {
+        /*
+        Statement stat = null;
+        ResultSet rs = null;
+
+        ArrayList<attraction> result = new ArrayList<>();
+
+        Connection conn = openDatabase();
+        try {
+            stat = conn.createStatement();
             rs = stat.executeQuery("Select att_name,description,cityName,stateName from attractions a, status s, state, city c where a.state_id = state.sNum and a.city_id = c.cNum "
                     + " and s.statusNum = a.status and s.status = '" + mark + "'");
             while (rs.next()) {
@@ -36,7 +61,7 @@ public class adminAccount extends userAccount1 {
             closeDatabase(rs, stat, conn);
         }
         return result;
-
+         */
     }
 
 }
