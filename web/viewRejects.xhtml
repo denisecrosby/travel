@@ -5,29 +5,29 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
 
-    <title>Show Approved Attractions</title>
+    <title>Show Rejected Attractions</title>
     <body>
         <h:form>
 
-            <p>Approved Attractions:</p>
-            <h:dataTable id="approvals" 
-                         rows ="#{login.theLoginAccount.viewMarked('approved').size()}" 
-                         value="#{login.theLoginAccount.viewMarked('approved')}" var="att">
+            <p>Rejected Attractions:</p>
+            <h:dataTable id="rejects" 
+                         rows ="#{login.theLoginAccount.viewMarked('reject').size()}" 
+                         value="#{login.theLoginAccount.viewMarked('reject')}" var="rej">
                 <h:column>  
                     <h:outputText styleClass="dataTableOutputText" 
-                                  id="appvalue" value="#{att.name}"/>  
+                                  id="rejectvalue1" value="#{rej.name}"/>  
                 </h:column>
                 <h:column>  
                     <h:outputText styleClass="dataTableOutputText" 
-                                  id="appvalue" value="#{att.description}"/>  
+                                  id="rejectvalue2" value="#{rej.description}"/>  
                 </h:column>  
                 <h:column>  
                     <h:outputText styleClass="dataTableOutputText" 
-                                  id="appvalue" value="#{att.city}"/>  
+                                  id="rejectvalue3" value="#{rej.city}"/>  
                 </h:column>  
                 <h:column>  
                     <h:outputText styleClass="dataTableOutputText" 
-                                  id="appvalue" value="#{att.state}"/>  
+                                  id="rejectvalue4" value="#{rej.state}"/>  
                 </h:column>  
             </h:dataTable>  
 
