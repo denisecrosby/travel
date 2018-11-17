@@ -42,10 +42,12 @@ public class userAccount1 implements Serializable {
         Connection conn = openDatabase();
         try {
             stat = conn.createStatement();
-            rs = stat.executeQuery("Select att_id,att_name,description,cityName,stateName from attractions a, status s, state, city c where a.state_id = state.sNum and a.city_id = c.cNum "
-                    + " and s.statusNum = a.status");
+            rs = stat.executeQuery("Select att_id,att_name,description,cityName,stateName,  "
+                    + " (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + this.accountID + "') then 'true' else 'false' END) as favorite "
+                    + " from attractions a, status s, state, city c where a.state_id = state.sNum and a.city_id = c.cNum "
+                    + " and s.statusNum = a.status and s.status = 'approved'");
             while (rs.next()) {
-                result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName")));
+                result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite")));
 
             }
         } catch (SQLException e) {

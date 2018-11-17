@@ -14,32 +14,43 @@
                          rows ="#{login.theLoginAccount.viewAttractions().size()}" 
                          value="#{login.theLoginAccount.viewAttractions()}" var="att">
                 <h:column>  
+                    <f:facet name = "header">Name</f:facet>    
                     <h:outputText styleClass="dataTableOutputText" id="attvalue1" value="#{att.name}"/>  
                 </h:column>
                 <h:column>  
+                    <f:facet name = "header">Description</f:facet>  
                     <h:outputText styleClass="dataTableOutputText" id="attvalue2" value="#{att.description}"/>  
                 </h:column>  
                 <h:column>  
+                    <f:facet name = "header">City</f:facet>                      
                     <h:outputText styleClass="dataTableOutputText" id="attvalue3" value="#{att.city}"/>  
                 </h:column>  
                 <h:column>  
+                    <f:facet name = "header">State</f:facet>                          
                     <h:outputText styleClass="dataTableOutputText" id="attvalue4" value="#{att.state}"/>  
                 </h:column>  
+            <!--    <h:column> 
+                    <f:facet name = "header">Favorite</f:facet>                          
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue5" value="#{att.favorite}"/>  
+                </h:column>                  -->
+                <!--      <h:column>
+                               <h:commandButton id="favbutton" value="Add Favorite" action="#{att.addFavorite(login.theLoginAccount.accountID)}" 
+                               disabled="#{att.favorite(login.theLoginAccount.accountID)}" />
+                           </h:column>  -->
                 <h:column>
-                    <h:commandButton value="Add Favorite" action="#{att.addFavorite(login.theLoginAccount.accountID)}" 
-                    disabled="#{att.favorite(login.theLoginAccount.accountID)}" />
-                </h:column>
-            </h:dataTable>  
+                    <h:commandButton id="favbutton" value="Add Favorite" action="#{att.addFavorite(login.theLoginAccount.accountID)}" 
+                                     disabled="#{att.isFavorite()}" />
+                </h:column>  
+            </h:dataTable>
+            <br></br>
+            <br></br>
+            <br></br>
+            <!--      <h:commandButton id="return" value="Return" immediate="true"
+                       action="#{login.theLoginAccount.returnToMain()} " />  -->
+            <!-- <h:commandButton id="return" value="Return" immediate="true"
+                              action="#{(login.theLoginAccount.isAdmin()) ? 'welcomeAdmin.xhtml' : 'welcome.xhtml'}" />  -->
 
-            <br></br>
-            <br></br>
-            <br></br>
-                  <!--      <h:commandButton id="return" value="Return" immediate="true"
-                             action="#{login.theLoginAccount.returnToMain()} " />  -->
-           <!-- <h:commandButton id="return" value="Return" immediate="true"
-                             action="#{(login.theLoginAccount.isAdmin()) ? 'welcomeAdmin.xhtml' : 'welcome.xhtml'}" />  -->
-                             
-                        
+
 
         </h:form>
     </body>

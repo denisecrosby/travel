@@ -19,6 +19,7 @@ public class attraction {
     public String description;
     public String city;
     public String state;
+    public String favorite;
 
     public String getName() {
         return name;
@@ -40,6 +41,29 @@ public class attraction {
         return id;
     }
 
+    public String getFavorite() {
+        return favorite;
+    }
+
+    public boolean isFavorite() {
+        if (this.favorite.equals("true")) {
+            return true;
+        }
+        return false;
+    }
+
+    public attraction(String id, String name, String description,
+            String city, String state, String favorite) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.city = city;
+        this.state = state;
+        this.favorite = favorite;
+
+    }
+
+    //this constructor is used by the admin to view, approve, and reject attractions (they don't need favorites)
     public attraction(String id, String name, String description,
             String city, String state) {
         this.id = id;
@@ -47,6 +71,7 @@ public class attraction {
         this.description = description;
         this.city = city;
         this.state = state;
+
     }
 
     public void mark(String state) {

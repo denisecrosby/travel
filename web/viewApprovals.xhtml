@@ -14,18 +14,22 @@
                          rows ="#{login.theLoginAccount.viewMarked('approved').size()}" 
                          value="#{login.theLoginAccount.viewMarked('approved')}" var="att">
                 <h:column>  
+                    <f:facet name = "header">Name</f:facet>                     
                     <h:outputText styleClass="dataTableOutputText" 
                                   id="appvalue" value="#{att.name}"/>  
                 </h:column>
                 <h:column>  
+                    <f:facet name = "header">Description</f:facet>                     
                     <h:outputText styleClass="dataTableOutputText" 
                                   id="appvalue" value="#{att.description}"/>  
                 </h:column>  
                 <h:column>  
+                    <f:facet name = "header">City</f:facet>                     
                     <h:outputText styleClass="dataTableOutputText" 
                                   id="appvalue" value="#{att.city}"/>  
                 </h:column>  
                 <h:column>  
+                    <f:facet name = "header">State</f:facet>                     
                     <h:outputText styleClass="dataTableOutputText" 
                                   id="appvalue" value="#{att.state}"/>  
                 </h:column>  
