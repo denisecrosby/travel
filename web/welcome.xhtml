@@ -10,7 +10,13 @@
     <body>
         <h:form> 
             <div><p>Welcome to Travel Advisor 2018, #{login.getTheLoginAccount().accountID}! Login successful!!</p></div>
-
+            <h3>Please select what you want to do:</h3>
+            <p>
+                <h:link outcome="viewAttractions.xhtml">
+                    View Attractions
+                </h:link> 
+               
+            </p>      
         </h:form>
     </body>
 </html>

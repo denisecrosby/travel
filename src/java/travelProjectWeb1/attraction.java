@@ -19,7 +19,7 @@ public class attraction {
     public String description;
     public String city;
     public String state;
-    
+
     public String getName() {
         return name;
     }
@@ -39,7 +39,6 @@ public class attraction {
     public String getId() {
         return id;
     }
-        
 
     public attraction(String id, String name, String description,
             String city, String state) {
@@ -50,30 +49,26 @@ public class attraction {
         this.state = state;
     }
 
-    public void mark(String state)
-    {
+    public void mark(String state) {
         String mark;
-        if (state.equals("approve"))
-        {
+        if (state.equals("approve")) {
             mark = "2";
-        }
-        else 
-        {
+        } else {
             mark = "3";
         }
-        
+
         Connection conn = openDatabase();
         Statement stat = null;
         ResultSet rs = null;
         try {
 
-            stat = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE
-                    , ResultSet.CONCUR_UPDATABLE);
+            stat = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
             rs = stat.executeQuery("select * from attractions "
                     + "WHERE att_id = '" + this.id + "'");
             while (rs.next()) {
 
-                rs.updateString("status" , mark);
+                rs.updateString("status", mark);
                 rs.updateRow();
             }
         } catch (SQLException e) {
@@ -81,8 +76,49 @@ public class attraction {
         } finally {
             closeDatabase(rs, stat, conn);
         }
-        
-        
-        
+
     }
+
+    public void addFavorite(String userID) {
+        Connection conn = openDatabase();
+        Statement stat = null;
+        try {
+
+            stat = conn.createStatement();
+            stat.executeUpdate("insert into myfavoritedes values ('" + this.getId() + "', '" + userID + "')");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeDatabase(null, stat, conn);
+        }
+
+    }
+
+    //the favorite method returns true if this attraction is already marked as a favorite for the logged in user
+    public boolean favorite(String userID) {
+
+        Connection conn = openDatabase();
+        Statement stat = null;
+        ResultSet rs = null;
+        try {
+
+            stat = conn.createStatement();
+            rs = stat.executeQuery("select * from myfavoritedes "
+                    + "WHERE att_id = '" + this.id + "' and username = '" + userID + "'");
+            if (rs.next()) {
+
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeDatabase(rs, stat, conn);
+        }
+        return false;
+
+    }
+
 }

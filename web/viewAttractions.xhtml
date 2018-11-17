@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <title>View Attractions</title>
+    <body>
+        <h:form>
+
+            <p>Attractions:</p>
+            <h:dataTable id="att" 
+                         rows ="#{login.theLoginAccount.viewAttractions().size()}" 
+                         value="#{login.theLoginAccount.viewAttractions()}" var="att">
+                <h:column>  
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue1" value="#{att.name}"/>  
+                </h:column>
+                <h:column>  
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue2" value="#{att.description}"/>  
+                </h:column>  
+                <h:column>  
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue3" value="#{att.city}"/>  
+                </h:column>  
+                <h:column>  
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue4" value="#{att.state}"/>  
+                </h:column>  
+                <h:column>
+                    <h:commandButton value="Add Favorite" action="#{att.addFavorite(login.theLoginAccount.accountID)}" 
+                    disabled="#{att.favorite(login.theLoginAccount.accountID)}" />
+                </h:column>
+            </h:dataTable>  
+
+            <br></br>
+            <br></br>
+            <br></br>
+                  <!--      <h:commandButton id="return" value="Return" immediate="true"
+                             action="#{login.theLoginAccount.returnToMain()} " />  -->
+           <!-- <h:commandButton id="return" value="Return" immediate="true"
+                             action="#{(login.theLoginAccount.isAdmin()) ? 'welcomeAdmin.xhtml' : 'welcome.xhtml'}" />  -->
+                             
+                        
+
+        </h:form>
+    </body>
+</html>

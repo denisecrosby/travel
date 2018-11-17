@@ -12,6 +12,7 @@ public class adminAccount extends userAccount1 {
 
     public adminAccount(String accountId, String password) {
         super(accountId, password);
+        isAdmin = true;
     }
 
     public ArrayList<attraction> viewMarked(String mark) {
@@ -38,30 +39,13 @@ public class adminAccount extends userAccount1 {
         return result;
 
     }
+    
+    @Override
+        public String returnToMain() {
 
-    public void approve() {
-        /*
-        Statement stat = null;
-        ResultSet rs = null;
+        return ("welcomeAdmin");
 
-        ArrayList<attraction> result = new ArrayList<>();
-
-        Connection conn = openDatabase();
-        try {
-            stat = conn.createStatement();
-            rs = stat.executeQuery("Select att_name,description,cityName,stateName from attractions a, status s, state, city c where a.state_id = state.sNum and a.city_id = c.cNum "
-                    + " and s.statusNum = a.status and s.status = '" + mark + "'");
-            while (rs.next()) {
-                result.add(new attraction(rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName")));
-
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeDatabase(rs, stat, conn);
-        }
-        return result;
-         */
     }
+
 
 }
