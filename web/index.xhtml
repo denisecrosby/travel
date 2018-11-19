@@ -5,37 +5,49 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
+        <link href="css/login.css" rel="stylesheet" type="text/css"/>
+        <style>
+            @import url('http://fonts.googleapis.com/css?family=Lobster|Pacifico');
+        </style>
+        
         <title>Login</title>
         <meta http-equiv="cache-control" content="no-cache" />
         <meta http-equiv="pragma" content="no-cache" />
         <meta http-equiv="refresh"/>
        
     </h:head>
-    <h:body>
-        <h:form>
-            <h3>Login to Trip Advisor!</h3>
-                 
-            <p>Please enter your account ID:<br></br>
-                <h:inputText id="id" required ="true" 
+    <h:body class="main">
+        <h:form >
+            <section class="intro">
+                <div class="inner">
+                <div class="content">
+                <p>
+                    <h:inputText  id="id" required ="true" 
                              requiredMessage="The ID field cannot be empty"
                         title="Please enter your ID"
-                        value="#{login.id}"
+                        value="#{login.id}" class="input1"
                  validatorMessage="The ID must be between 3 and 10 characters">
                     <f:validateLength maximum="10" minimum="3" />
                 </h:inputText>
             </p>
             
-            <p>Please enter your password:<br></br>
-                <h:inputText id="psw" required ="true" 
+            <p>
+                <h:inputSecret id="psw" required ="true" 
                           requiredMessage="The password field cannot be empty"
-                        title="Please enter your psw"
+                          title="Please enter your psw" class="input2"
                         value="#{login.password}"/>
                      
             </p>
             <p>
-                <h:commandButton id="submit" value="Submit"
+                <h:commandButton id="submit" value="Login" class="btn"
                                  action="#{login.login()}" />
             </p>
+            </div>
+            </div>
+            </section>
+            
+                 
+            
 
         </h:form>
         
