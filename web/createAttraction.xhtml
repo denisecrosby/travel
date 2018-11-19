@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <head>
+        <title>Create Attraction</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <h:form enctype="multipart/form-data" >
+            <div>
+            <p>Attraction Name  
+                <h:inputText id="att_name" required ="true" 
+                             requiredMessage="The ID field cannot be empty"
+                        title="Please enter your ID"
+                        value="#{attraction.name}">
+                </h:inputText>
+            </p>
+                
+            <p>Select State
+                <h:selectOneMenu id="att_state" required="true" style="width:150px" 
+                                 value="#{attraction.state}" onchange="" >
+                    <f:selectItems value="#{login.st.state}" />
+                </h:selectOneMenu>
+            </p>
+            <p >Select City
+                <h:selectOneMenu id="att_city" required="true" style="width:150px" value="#{attraction.city}"   >
+                    <f:selectItems  value="#{login.ct.city}"  />
+                </h:selectOneMenu>
+            </p>
+            <p>Description:  
+                <h:inputTextarea id="att_desc" required ="true" 
+                             requiredMessage=""
+                        title="describe"
+                        value="#{attraction.description}">
+                </h:inputTextarea>
+            </p>
+            <p> Add Image
+                
+                <h:inputFile  id="att_img" value="#{attraction.path}"  maxlength="16177215" />
+                
+               
+            </p>
+                <p>
+                    <h:commandButton id="submit" value="Submit"
+                                     action="#{attraction.createAttraction(login.theLoginAccount.accountID)}" />
+                </p>   
+            </div>
+        </h:form>
+    </body>
+</html>

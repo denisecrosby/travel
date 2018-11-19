@@ -1,17 +1,26 @@
 package travelProjectWeb1;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import javax.faces.bean.ManagedBean;
+import javax.servlet.http.Part;
 import static jdk.nashorn.internal.objects.NativeJava.type;
 import static travelProjectWeb1.Login.closeDatabase;
 import static travelProjectWeb1.Login.openDatabase;
 
 @Named(value = "attraction")
-@Dependent
+@ManagedBean
 public class attraction {
 
     public String id;
@@ -20,6 +29,9 @@ public class attraction {
     public String city;
     public String state;
     public String favorite;
+    public Part path;
+    public byte[] image;
+    FileInputStream imageInputStream = null;
 
     public String getName() {
         return name;
@@ -45,6 +57,32 @@ public class attraction {
         return favorite;
     }
 
+    public Part getPath() {
+        return path;
+    }
+
+    public void setPath(Part path) {
+        this.path = path;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+    
+    
+    
     public boolean isFavorite() {
         if (this.favorite.equals("true")) {
             return true;
@@ -52,6 +90,11 @@ public class attraction {
         return false;
     }
 
+    public attraction()
+    {
+        
+    }
+    
     public attraction(String id, String name, String description,
             String city, String state, String favorite) {
         this.id = id;
@@ -61,6 +104,17 @@ public class attraction {
         this.state = state;
         this.favorite = favorite;
 
+    }
+    
+    public attraction(String id, String name, String description,
+            String city, String state,String un,byte[] image) 
+    {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.city= city;
+        this.state = state;
+        this.image=image;
     }
 
     //this constructor is used by the admin to view, approve, and reject attractions (they don't need favorites)
@@ -144,6 +198,110 @@ public class attraction {
         }
         return false;
 
+    }
+    
+    
+    //method to create attraction
+     public void createAttraction(String userName) 
+    {
+        Connection conn = openDatabase();
+        Statement stat = null;
+        ResultSet rs = null;
+        
+        int max=0;
+        int s=getStateID();
+        int c=getCityID();
+        try {
+            
+            stat = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE
+                    , ResultSet.CONCUR_UPDATABLE);
+            rs=stat.executeQuery("select max(att_ID) from attractions");
+            if(rs.next())
+            {
+                max=rs.getByte(1)+1;
+            }
+            InputStream input = path.getInputStream();
+            String fileName = path.getSubmittedFileName();
+            imageInputStream = new FileInputStream(new File(fileName));
+            PreparedStatement ps=conn.prepareStatement("insert into attractions values(?,?,?,?,?,?,?,?)");
+            ps.setInt(1, max);
+            ps.setString(2, name);
+            ps.setInt(3, s);
+            ps.setInt(4, c);
+            ps.setString(5, description);
+            ps.setString(6, userName);
+            ps.setInt(7, 1);
+            ps.setBinaryStream(8,imageInputStream);
+            int r = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException ex) {
+            Logger.getLogger(attraction.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeDatabase(rs, stat, conn);
+        }
+    }
+    
+    
+    //get state id
+     public  int getStateID()
+    {
+        int s=0;
+        Connection conn = openDatabase();
+        Statement stat = null;
+        ResultSet rs = null;
+        
+        try {
+            
+            stat = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE
+                    , ResultSet.CONCUR_UPDATABLE);
+            rs = stat.executeQuery("select * from att_state");
+            while (rs.next()) 
+            {
+                if(rs.getString(2).equals(state))
+                {
+                    s=rs.getInt(1);
+                }
+            }
+            
+            //System.out.println("x: back to home page");
+            //test = input.nextLine();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+                closeDatabase(rs, stat, conn);
+        }
+        return s;
+    }
+     
+     
+     //get city id
+     public  int getCityID()
+    {
+        int c=0;
+        Connection conn = openDatabase();
+        Statement stat = null;
+        ResultSet rs = null;
+        
+        try {
+            
+            stat = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE
+                    , ResultSet.CONCUR_UPDATABLE);
+            rs = stat.executeQuery("select * from att_city");
+            while (rs.next()) 
+            {
+                if(rs.getString(3).equals(city))
+                {
+                    c=rs.getInt(1);
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+                closeDatabase(rs, stat, conn);
+        }
+        return c;
     }
 
 }

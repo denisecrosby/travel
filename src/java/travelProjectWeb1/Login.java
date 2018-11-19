@@ -29,7 +29,8 @@ public class Login implements Serializable {
     private String id;
     private String password;
     private userAccount1 theLoginAccount;
-
+    private state st;
+    private city ct;
     //get methods and set methods
     public String getId() {
         return id;
@@ -51,6 +52,24 @@ public class Login implements Serializable {
         this.password = password;
     }
 
+    public state getSt() {
+        return st;
+    }
+
+    public city getCt() {
+        return ct;
+    }
+
+    public void setSt(state st) {
+        this.st = st;
+    }
+
+    public void setCt(city ct) {
+        this.ct = ct;
+    }
+    
+    
+    
     public String login() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -78,7 +97,9 @@ public class Login implements Serializable {
                 if (id.equals("admin")) {
                     
                     this.theLoginAccount = 
-                     new adminAccount(id, password); 
+                    new adminAccount(id, password); 
+                    st=new state();
+                    ct=new city();
                     return "welcomeAdmin";
 
                 } else {
