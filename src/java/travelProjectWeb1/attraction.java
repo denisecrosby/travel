@@ -242,6 +242,11 @@ public class attraction {
             ps.setInt(7, 1);
             ps.setBinaryStream(8,imageInputStream);
             int r = ps.executeUpdate();
+            
+            for(int i=0;i<tags.length;i++)
+            {
+                int a=stat.executeUpdate("insert into attraction_tag values('"+max+"','"+tags[i]+"')");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException ex) {
