@@ -31,7 +31,16 @@ public class attraction {
     public String favorite;
     public Part path;
     public byte[] image;
+    public String[] tags;
     FileInputStream imageInputStream = null;
+
+    public String[] getTags() {
+        return tags;
+    }
+
+    public void setTags(String[] tags) {
+        this.tags = tags;
+    }
 
     public String getName() {
         return name;

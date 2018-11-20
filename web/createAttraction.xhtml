@@ -40,9 +40,19 @@
             </p>
             <p> Add Image
                 
-                <h:inputFile  id="att_img" value="#{attraction.path}"  maxlength="16177215" />
-                
-               
+                <h:inputFile  id="att_img" value="#{attraction.path}"  maxlength="16177215"  />
+             </p>
+              <p >Select the Tags from below
+                <h:selectManyCheckbox   value="#{attraction.tags}">
+                    <div >
+                    <f:selectItem   itemValue="1" itemLabel="History" /> 
+                    <f:selectItem   itemValue="2" itemLabel="Shopping" /> 
+                    <f:selectItem   itemValue="3" itemLabel="Beach" /> 
+                    <f:selectItem   itemValue="4" itemLabel="Urban" /> 
+                    <f:selectItem   itemValue="5" itemLabel="Nature" /> 
+                    <f:selectItem   itemValue="6" itemLabel="Family" />
+                   </div>
+            </h:selectManyCheckbox> 
             </p>
                 <p>
                     <h:commandButton id="submit" value="Submit"
