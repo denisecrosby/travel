@@ -12,7 +12,9 @@
     <body>
         <h:form>
 
-            <p>Rejected Attractions:</p>
+            <h1>Rejected Attractions:</h1>
+                        
+            <hr />
             <h:dataTable id="rejects" styleClass="table"
                          rows ="#{login.theLoginAccount.viewMarked('reject').size()}" 
                          value="#{login.theLoginAccount.viewMarked('reject')}" var="rej">

@@ -12,7 +12,9 @@
     <body>
         <h:form>
 
-            <p>Approved Attractions:</p>
+            <h1>Approved Attractions:</h1>
+                        
+            <hr />
             <h:dataTable id="approvals" styleClass="table"
                          rows ="#{login.theLoginAccount.viewMarked('approved').size()}" 
                          value="#{login.theLoginAccount.viewMarked('approved')}" var="att">

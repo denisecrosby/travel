@@ -11,7 +11,9 @@
     <body>
         <h:form>
 
-            <p>Pending Attractions:</p>
+            <h1>Pending Attractions:</h1>
+                        
+            <hr />
             <h:dataTable id="pending" styleClass="table"
                          rows ="#{login.theLoginAccount.viewMarked('pending').size()}" 
                          value="#{login.theLoginAccount.viewMarked('pending')}" var="pend">

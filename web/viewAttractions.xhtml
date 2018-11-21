@@ -12,8 +12,11 @@
     <body>
         <h:form>
 
-            <p>Attractions:</p>
-            <h:dataTable id="att" styleClass="table"
+            <h1>Attractions:</h1>
+                        
+            <hr />
+            
+            <h:dataTable id="att" styleClass="table" 
                          rows ="#{login.theLoginAccount.viewAttractions().size()}" 
                          value="#{login.theLoginAccount.viewAttractions()}" var="att">
                 <h:column>  
