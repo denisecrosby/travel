@@ -235,7 +235,7 @@ public class attraction {
             }
             else
             {
-                InputStream input = path.getInputStream();
+            InputStream input = path.getInputStream();
             String fileName = path.getSubmittedFileName();
             System.out.println("filename>>>>>>>>>>>>>>>>>>>>>>>>>>"+fileName);
             imageInputStream = new FileInputStream(new File(fileName));

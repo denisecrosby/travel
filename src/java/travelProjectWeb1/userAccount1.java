@@ -27,11 +27,30 @@ public class userAccount1 implements Serializable {
     protected String[] favAttractions;
     protected String[] favCities;
     protected boolean isAdmin;
+    
+    protected String searchCity;
 
     public String getAccountID() {
         return accountID;
     }
 
+    public String getSearchCity() {
+        return searchCity;
+    }
+
+    
+    
+    public void setSearchCity(String searchCity) {
+        this.searchCity = searchCity;
+    }
+
+    public userAccount1(String searchCity) {
+        this.searchCity = searchCity;
+    }
+    
+    
+    
+    
     public ArrayList<attraction> viewAttractions() {
 
         Statement stat = null;
@@ -45,7 +64,8 @@ public class userAccount1 implements Serializable {
             rs = stat.executeQuery("Select att_id,att_name,description,cityName,stateName,  "
                     + " (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + this.accountID + "') then 'true' else 'false' END) as favorite "
                     + " from attractions a, status s, state, city c where a.state_id = state.sNum and a.city_id = c.cNum "
-                    + " and s.statusNum = a.status and s.status = 'approved'");
+                    + " and s.statusNum = a.status and s.status = 'approved'"
+                            + " and cityName like '%" + this.searchCity + "%'"  );
             while (rs.next()) {
                 result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite")));
 
@@ -57,6 +77,11 @@ public class userAccount1 implements Serializable {
         }
         return result;
 
+    }
+
+    public void searchAttractions() {
+        
+        
     }
 
     public boolean isAdmin() {
@@ -74,6 +99,7 @@ public class userAccount1 implements Serializable {
         ResultSet rs0 = null;
 
         isAdmin = false;
+        this.searchCity = "";
     }
 
     public String returnToMain() {
