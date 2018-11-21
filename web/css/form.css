@@ -21,14 +21,15 @@ body
     
 }
 
+/* Denise: I made it a bit more opaque, I wanted to know if you liked it better this way */
 .content
 {
-  background-color: rgba(73, 86, 95, 0.2);
+  background-color: rgba(50, 75, 200, 0.8);
   color: white;
   font-weight: bold;
   border: 3px solid #320f9a;
   position: absolute;
-  width: 50%;
+  width: 40%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
