@@ -4,17 +4,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
-
-    <title>Show Pending Attractions</title>
+    <h:head>
+        <link href="css/tables.css" rel="stylesheet" type="text/css"/>
+        <title>Show Pending Attractions</title>
+    </h:head>
     <body>
         <h:form>
 
             <p>Pending Attractions:</p>
-            <h:dataTable id="pending" 
+            <h:dataTable id="pending" styleClass="table"
                          rows ="#{login.theLoginAccount.viewMarked('pending').size()}" 
                          value="#{login.theLoginAccount.viewMarked('pending')}" var="pend">
                 <h:column>  
-                                        <f:facet name = "header">Name</f:facet> 
+                    <f:facet name = "header">Name</f:facet> 
                     <h:outputText styleClass="dataTableOutputText" id="pendvalue1" value="#{pend.name}"/>  
                 </h:column>
                 <h:column>  

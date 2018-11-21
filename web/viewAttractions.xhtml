@@ -5,12 +5,15 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
 
-    <title>View Attractions</title>
+    <h:head>
+        <link href="css/tables.css" rel="stylesheet" type="text/css"/>
+        <title>View Attractions</title>
+    </h:head>
     <body>
         <h:form>
 
             <p>Attractions:</p>
-            <h:dataTable id="att" 
+            <h:dataTable id="att" styleClass="table"
                          rows ="#{login.theLoginAccount.viewAttractions().size()}" 
                          value="#{login.theLoginAccount.viewAttractions()}" var="att">
                 <h:column>  
