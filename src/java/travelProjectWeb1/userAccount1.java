@@ -15,6 +15,11 @@ import static travelProjectWeb1.Login.closeDatabase;
 import static travelProjectWeb1.Login.keyboard;
 import static travelProjectWeb1.Login.openDatabase;
 
+/* 
+
+    Authors    : raisa, denise
+*/
+
 @Named(value = "userAccount1")
 @SessionScoped
 public class userAccount1 implements Serializable {

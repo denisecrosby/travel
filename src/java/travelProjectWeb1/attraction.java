@@ -19,6 +19,12 @@ import static jdk.nashorn.internal.objects.NativeJava.type;
 import static travelProjectWeb1.Login.closeDatabase;
 import static travelProjectWeb1.Login.openDatabase;
 
+/* 
+
+    Authors    : raisa, denise
+*/
+
+
 @Named(value = "attraction")
 @ManagedBean
 public class attraction {

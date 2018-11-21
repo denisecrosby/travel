@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import static travelProjectWeb1.Login.closeDatabase;
 import static travelProjectWeb1.Login.openDatabase;
 
+/* 
+
+    Author    : denise
+*/
+
 public class adminAccount extends userAccount1 {
 
     public adminAccount(String accountId, String password) {

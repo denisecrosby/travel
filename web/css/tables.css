@@ -8,6 +8,10 @@ Licence URI: http://www.os-templates.com/template-terms
 File: Tables CSS
 */
 
+/* 
+    inserted into travel project by Denise for table styling on : 21 Nov, 2018
+*/
+
 table{width:100%; border-collapse:collapse; table-layout:auto; vertical-align:top; margin-bottom:15px; border:1px solid #CCCCCC;}
 table thead th{color:#FFFFFF; background-color:#666666; border:1px solid #CCCCCC; border-collapse:collapse; text-align:center; table-layout:auto; vertical-align:middle;}
 table tbody td{vertical-align:top; border-collapse:collapse; border-left:1px solid #CCCCCC; border-right:1px solid #CCCCCC;}

@@ -13,6 +13,11 @@ import java.util.Scanner;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+/* 
+
+    Authors    : raisa, denise
+*/
+
 @ManagedBean
 @SessionScoped
 //sessionScoped need to implement the interface Serializable
