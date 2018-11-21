@@ -29,7 +29,7 @@ public class attraction {
     public String city;
     public String state;
     public String favorite;
-    public Part path;
+    public Part path=null;
     public byte[] image;
     public String[] tags;
     FileInputStream imageInputStream = null;
@@ -229,9 +229,18 @@ public class attraction {
             {
                 max=rs.getByte(1)+1;
             }
-            InputStream input = path.getInputStream();
+            if(path==null)
+            {
+                imageInputStream = new FileInputStream(new File("C:\\Users\\raisa\\Downloads\\attractions-att_Img.jpg"));    
+            }
+            else
+            {
+                InputStream input = path.getInputStream();
             String fileName = path.getSubmittedFileName();
+            System.out.println("filename>>>>>>>>>>>>>>>>>>>>>>>>>>"+fileName);
             imageInputStream = new FileInputStream(new File(fileName));
+            }
+            
             PreparedStatement ps=conn.prepareStatement("insert into attractions values(?,?,?,?,?,?,?,?)");
             ps.setInt(1, max);
             ps.setString(2, name);

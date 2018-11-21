@@ -5,13 +5,19 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <head>
+        <link href="css/form.css" rel="stylesheet" type="text/css"/>
+        <style>
+            @import url('http://fonts.googleapis.com/css?family=Lobster|Pacifico');
+        </style>
         <title>Create Attraction</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
-    <body>
+    <body class="main">
         <h:form enctype="multipart/form-data" >
-            <div>
-            <p>Attraction Name  
+            <div class="content">
+                <div class="inner">
+            <p>
+                Attraction Name  
                 <h:inputText id="att_name" required ="true" 
                              requiredMessage="The ID field cannot be empty"
                         title="Please enter your ID"
@@ -31,8 +37,8 @@
                     <f:selectItems  value="#{login.ct.city}"  />
                 </h:selectOneMenu>
             </p>
-            <p>Description:  
-                <h:inputTextarea id="att_desc" required ="true" 
+            <p>Description: <br/> 
+                <h:inputTextarea class="txt-area" id="att_desc" required ="true" 
                              requiredMessage=""
                         title="describe"
                         value="#{attraction.description}">
@@ -58,6 +64,7 @@
                     <h:commandButton id="submit" value="Submit"
                                      action="#{attraction.createAttraction(login.theLoginAccount.accountID)}" />
                 </p>   
+                </div>
             </div>
         </h:form>
     </body>
