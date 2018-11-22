@@ -20,7 +20,7 @@ public class Login implements Serializable {
 
     //attributes
     public static final Scanner keyboard = new Scanner(System.in);
-    private static final String URL = "jdbc:mysql://mis-sql.uhcl.edu/antaor0966";
+    public static final String URL = "jdbc:mysql://mis-sql.uhcl.edu/antaor0966";
     public static final List<String> validTags = Arrays.asList("history", "shopping",
                     "beach", "urban", "explorer", "nature", "family");
     private String id;
@@ -81,7 +81,7 @@ public class Login implements Serializable {
 
         try {
             //connect to the database with user name and password
-            conn = DriverManager.getConnection(URL,"antaor0966", "1637556");
+            conn = openDatabase();
             stat = conn.createStatement();
             rs = stat.executeQuery("Select * from account where userName = '" + id + "' and password = '" + password + "'");
 
@@ -108,14 +108,7 @@ public class Login implements Serializable {
             e.printStackTrace();
             return ("internalError");
         } finally {
-            try {
-                rs.close();
-                stat.close();
-                conn.close();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            closeDatabase(rs,stat,conn);
         }
     }
 

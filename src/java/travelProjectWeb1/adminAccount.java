@@ -9,7 +9,6 @@ import static travelProjectWeb1.Login.closeDatabase;
 import static travelProjectWeb1.Login.openDatabase;
 
 /* 
-
     Author    : denise
 */
 
@@ -51,6 +50,5 @@ public class adminAccount extends userAccount1 {
         return ("welcomeAdmin");
 
     }
-
 
 }

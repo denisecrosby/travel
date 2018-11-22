@@ -20,10 +20,8 @@ import static travelProjectWeb1.Login.closeDatabase;
 import static travelProjectWeb1.Login.openDatabase;
 
 /* 
-
     Authors    : raisa, denise
 */
-
 
 @Named(value = "attraction")
 @ManagedBean
@@ -96,8 +94,6 @@ public class attraction {
         this.state = state;
     }
     
-    
-    
     public boolean isFavorite() {
         if (this.favorite.equals("true")) {
             return true;
@@ -118,7 +114,6 @@ public class attraction {
         this.city = city;
         this.state = state;
         this.favorite = favorite;
-
     }
     
     public attraction(String id, String name, String description,
@@ -143,6 +138,7 @@ public class attraction {
 
     }
 
+    //this method is used by the admin to approve to reject attractions
     public void mark(String state) {
         String mark;
         if (state.equals("approve")) {
@@ -170,7 +166,6 @@ public class attraction {
         } finally {
             closeDatabase(rs, stat, conn);
         }
-
     }
 
     public void addFavorite(String userID) {
@@ -186,7 +181,6 @@ public class attraction {
         } finally {
             closeDatabase(null, stat, conn);
         }
-
     }
 
     //the favorite method returns true if this attraction is already marked as a favorite for the logged in user
@@ -212,10 +206,8 @@ public class attraction {
             closeDatabase(rs, stat, conn);
         }
         return false;
-
     }
-    
-    
+        
     //method to create attraction
      public void createAttraction(String userName) 
     {
@@ -270,8 +262,7 @@ public class attraction {
             closeDatabase(rs, stat, conn);
         }
     }
-    
-    
+        
     //get state id
      public  int getStateID()
     {
@@ -282,8 +273,7 @@ public class attraction {
         
         try {
             
-            stat = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE
-                    , ResultSet.CONCUR_UPDATABLE);
+            stat = conn.createStatement();
             rs = stat.executeQuery("select * from att_state");
             while (rs.next()) 
             {
@@ -293,8 +283,6 @@ public class attraction {
                 }
             }
             
-            //System.out.println("x: back to home page");
-            //test = input.nextLine();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -314,8 +302,7 @@ public class attraction {
         
         try {
             
-            stat = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE
-                    , ResultSet.CONCUR_UPDATABLE);
+            stat = conn.createStatement();
             rs = stat.executeQuery("select * from att_city");
             while (rs.next()) 
             {
@@ -332,5 +319,4 @@ public class attraction {
         }
         return c;
     }
-
 }

@@ -4,19 +4,13 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import static java.lang.System.out;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
-import static travelProjectWeb1.Login.closeDatabase;
-import static travelProjectWeb1.Login.keyboard;
-import static travelProjectWeb1.Login.openDatabase;
+import static travelProjectWeb1.Login.*;
 
 /* 
-
     Authors    : raisa, denise
 */
 
@@ -42,9 +36,7 @@ public class userAccount1 implements Serializable {
     public String getSearchCity() {
         return searchCity;
     }
-
-    
-    
+      
     public void setSearchCity(String searchCity) {
         this.searchCity = searchCity;
     }
@@ -52,10 +44,7 @@ public class userAccount1 implements Serializable {
     public userAccount1(String searchCity) {
         this.searchCity = searchCity;
     }
-    
-    
-    
-    
+         
     public ArrayList<attraction> viewAttractions() {
 
         Statement stat = null;
@@ -84,8 +73,9 @@ public class userAccount1 implements Serializable {
 
     }
 
+    //this method is empty - a postback of the page causes the viewAttractions method to run and search with the specified city
+    //this could be done better using javascript/refresh only part of the page
     public void searchAttractions() {
-        
         
     }
 
@@ -97,11 +87,6 @@ public class userAccount1 implements Serializable {
         this.accountID = accountId;
         this.password = password;
         //this.tags = tags;
-
-        //check for unread answers 
-        Connection conn0 = openDatabase();
-        Statement stat0 = null;
-        ResultSet rs0 = null;
 
         isAdmin = false;
         this.searchCity = "";
