@@ -2,11 +2,7 @@ package travelProjectWeb1;
 
 import java.io.Serializable;
 import static java.lang.System.out;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +10,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 /* 
-
     Authors    : raisa, denise
 */
 
@@ -25,12 +20,9 @@ public class Login implements Serializable {
 
     //attributes
     public static final Scanner keyboard = new Scanner(System.in);
-    private static final String URL
-            = "jdbc:mysql://mis-sql.uhcl.edu/antaor0966";
-    public static final List<String> validTags
-            = Arrays.asList("history", "shopping",
+    private static final String URL = "jdbc:mysql://mis-sql.uhcl.edu/antaor0966";
+    public static final List<String> validTags = Arrays.asList("history", "shopping",
                     "beach", "urban", "explorer", "nature", "family");
-
     private String id;
     private String password;
     private userAccount1 theLoginAccount;
@@ -83,28 +75,23 @@ public class Login implements Serializable {
             return ("internalError1");
         }
 
-        final String DATABASE_URL = "jdbc:mysql://mis-sql.uhcl.edu/antaor0966";
         Connection conn = null;
         Statement stat = null;
         ResultSet rs = null;
 
         try {
             //connect to the database with user name and password
-            conn = DriverManager.getConnection(DATABASE_URL,
-                    "antaor0966", "1637556");
+            conn = DriverManager.getConnection(URL,"antaor0966", "1637556");
             stat = conn.createStatement();
-
             rs = stat.executeQuery("Select * from account where userName = '" + id + "' and password = '" + password + "'");
 
             if (rs.next()) {
                 st = new state();
                 ct = new city();
                 if (id.equals("admin")) {
-
                     this.theLoginAccount
                             = new adminAccount(id, password);
                     return "welcomeAdmin";
-
                 } else {
                     this.theLoginAccount
                             = new userAccount1(id, password);
@@ -115,7 +102,6 @@ public class Login implements Serializable {
                 password = "";
                 //id is not found, display loginNotOK.xhtml
                 return "loginNotOK";
-
             }
 
         } catch (SQLException e) {
@@ -144,8 +130,7 @@ public class Login implements Serializable {
         return null;
     }
 
-    public static void closeDatabase(ResultSet rs, Statement stat,
-            Connection conn) {
+    public static void closeDatabase(ResultSet rs, Statement stat, Connection conn) {
         if (rs != null) {
             try {
                 rs.close();
