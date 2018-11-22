@@ -27,8 +27,17 @@ public class userAccount1 implements Serializable {
     protected String[] favCities;
     protected boolean isAdmin;
     
-    protected String searchCity;
+    protected String searchCity = "";
+    protected String searchTag = "";
 
+    public String getSearchTag() {
+        return searchTag;
+    }
+
+    public void setSearchTag(String searchTag) {
+        this.searchTag = searchTag;
+    }
+    
     public String getAccountID() {
         return accountID;
     }
@@ -55,14 +64,21 @@ public class userAccount1 implements Serializable {
         Connection conn = openDatabase();
         try {
             stat = conn.createStatement();
-            rs = stat.executeQuery("Select att_id,att_name,description,cityName,stateName,  "
+            String query = "Select att_id, att_name, description, cityName, stateName,  "
                     + " (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + this.accountID + "') then 'true' else 'false' END) as favorite "
                     + " from attractions a, status s, state, city c where a.state_id = state.sNum and a.city_id = c.cNum "
-                    + " and s.statusNum = a.status and s.status = 'approved'"
-                            + " and cityName like '%" + this.searchCity + "%'"  );
+                    + " and s.statusNum = a.status and s.status = 'approved' and cityName like '%" + this.searchCity + "%'"
+                            + " and exists (select 1 from attraction_tag where att_ID = a.att_id and tag_ID in (select tag_id from tags where tag like '%" + this.searchTag + "%'))";
+            
+            rs = stat.executeQuery("Select att_id, att_name, description, cityName, stateName,  "
+                    + " (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + this.accountID + "') then 'true' else 'false' END) as favorite "
+                    + " from attractions a, status s, state, city c where a.state_id = state.sNum and a.city_id = c.cNum "
+                    + " and s.statusNum = a.status and s.status = 'approved' and cityName like '%" + this.searchCity + "%'"
+                            + " and exists (select 1 from attraction_tag where att_ID = a.att_id and tag_ID in (select tag_id from tags where tag like '%" + this.searchTag + "%'))");
+            
+            
             while (rs.next()) {
                 result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite")));
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -89,7 +105,6 @@ public class userAccount1 implements Serializable {
         //this.tags = tags;
 
         isAdmin = false;
-        this.searchCity = "";
     }
 
     public String returnToMain() {

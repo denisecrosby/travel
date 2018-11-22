@@ -18,7 +18,16 @@
 
 
             <h:selectOneMenu id="search_city" style="width:150px" value="#{login.theLoginAccount.searchCity}">
-                <f:selectItems value="#{login.ct.city}"   />
+                <f:selectItems value="#{login.ct.city}"/>
+            </h:selectOneMenu>
+            <h:outputText value="&#160;" />
+            <h:selectOneMenu id="search_tag" style="width:150px" value="#{login.theLoginAccount.searchTag}">
+                <f:selectItem   itemValue="History" itemLabel="History" /> 
+                <f:selectItem   itemValue="Shopping" itemLabel="Shopping" /> 
+                <f:selectItem   itemValue="Beach" itemLabel="Beach" /> 
+                <f:selectItem   itemValue="Urban" itemLabel="Urban" /> 
+                <f:selectItem   itemValue="Nature" itemLabel="Nature" /> 
+                <f:selectItem   itemValue="Family" itemLabel="Family" />
             </h:selectOneMenu>
             <h:outputText value="&#160;" />
             <h:commandButton id="search" value="Search"  action="#{login.theLoginAccount.searchAttractions()}" />
