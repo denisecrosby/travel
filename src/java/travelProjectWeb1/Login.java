@@ -72,7 +72,7 @@ public class Login implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
             //return to internalError.xhtml
-            return ("internalError1");
+            return ("internalError");
         }
 
         Connection conn = null;
@@ -106,7 +106,7 @@ public class Login implements Serializable {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            return ("internalError2");
+            return ("internalError");
         } finally {
             try {
                 rs.close();
