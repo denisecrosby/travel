@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <link href="css/tables.css" rel="stylesheet" type="text/css"/>
+        <title>View Favorites</title>
+    </h:head>
+    <body>
+        <h:form>
+
+            <h1>Favorites:</h1>
+
+            <hr />
+
+            <h:selectOneMenu id="search_city" style="width:150px" value="#{login.theLoginAccount.searchCity}">
+                <f:selectItem   itemValue=" " itemLabel="City" />
+                <f:selectItems value="#{login.ct.city}"/>
+            </h:selectOneMenu>
+            <h:outputText value="&#160;" />
+            <h:selectOneMenu id="search_tag" style="width:150px" value="#{login.theLoginAccount.searchTag}">
+                <f:selectItem itemValue=" " itemLabel="Tag" />
+                <f:selectItem itemValue="History" itemLabel="History" /> 
+                <f:selectItem itemValue="Shopping" itemLabel="Shopping" /> 
+                <f:selectItem itemValue="Beach" itemLabel="Beach" /> 
+                <f:selectItem itemValue="Urban" itemLabel="Urban" /> 
+                <f:selectItem itemValue="Nature" itemLabel="Nature" /> 
+                <f:selectItem itemValue="Family" itemLabel="Family" />
+            </h:selectOneMenu>
+            <h:outputText value="&#160;" />
+            <h:inputText title="temp" value="#{login.theLoginAccount.searchName}"/>
+            <h:outputText value="&#160;" />
+            <h:commandButton id="search" value="Search"  action="#{login.theLoginAccount.searchAttractions()}" />
+
+            <hr />
+            <h:dataTable id="att" styleClass="table" 
+
+                         value="#{login.theLoginAccount.viewFavorites()}" var="att">
+                <h:column>  
+                    <f:facet name = "header">Name</f:facet>    
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue1" value="#{att.name}"/>  
+                </h:column>
+                <h:column>  
+                    <f:facet name = "header">Description</f:facet>  
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue2" value="#{att.description}"/>  
+                </h:column>  
+                <h:column>  
+                    <f:facet name = "header">City</f:facet>                      
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue3" value="#{att.city}"/>  
+                </h:column>  
+                <h:column>  
+                    <f:facet name = "header">State</f:facet>                          
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue4" value="#{att.state}"/>  
+                </h:column>  
+                <h:column>  
+                    <f:facet name = "header">Rating</f:facet>                          
+                    <h:graphicImage  value="#{att.getStar()}"/>
+                </h:column>                  
+                <!--    <h:column> 
+                        <f:facet name = "header">Favorite</f:facet>                          
+                        <h:outputText styleClass="dataTableOutputText" id="attvalue5" value="#{att.favorite}"/>  
+                    </h:column>                  -->
+                <!--      <h:column>
+                               <h:commandButton id="favbutton" value="Add Favorite" action="#{att.addFavorite(login.theLoginAccount.accountID)}" 
+                               disabled="#{att.favorite(login.theLoginAccount.accountID)}" />
+                           </h:column>  -->
+                <h:column>
+                    <h:commandButton id="favbutton" action="#{att.addFavorite(login.theLoginAccount.accountID)}" 
+                                     disabled="#{att.isFavorite()}" image="#{att.favImg()}"/>
+                </h:column>  
+            </h:dataTable>
+        </h:form>
+    </body>
+</html>

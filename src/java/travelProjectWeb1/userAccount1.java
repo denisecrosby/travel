@@ -63,28 +63,18 @@ public class userAccount1 implements Serializable {
     }
 
     public ArrayList<attraction> viewAttractions() {
-
-        //this if statement is necessary to prevent a null pointer exception when searching with no city. Please do not remove this code!
-        if (this.searchCity.equals(" ")) {
-            this.searchCity = "";
-        }
-
         Statement stat = null;
         ResultSet rs = null;
-
         ArrayList<attraction> result = new ArrayList<>();
-
         Connection conn = openDatabase();
         try {
             stat = conn.createStatement();
-
             rs = stat.executeQuery("Select att_id, att_name, description, cityName, stateName "
                     + ", (select truncate(coalesce(sum(score)/count(score),0),1) from att_score where att_ID = a.att_id) as avg  "
                     + ", (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + accountID + "') then 'true' else 'false' END) as favorite "
                     + " from attractions a, status s, state, city c where a.state_id = state.sNum and a.city_id = c.cNum "
-                    + " and s.statusNum = a.status and s.status = 'approved' and cityName like '%" + searchCity + "%' and att_name like '%" + (searchName.equals("Name") ? "" : searchName) + "%'"
-                    + " and exists (select 1 from attraction_tag where att_ID = a.att_id and tag_ID in (select tag_id from tags where tag like '%" + searchTag + "%')) order by 6 desc");
-
+                    + " and s.statusNum = a.status and s.status = 'approved' and cityName like '%" + searchCity.trim() + "%' and att_name like '%" + (searchName.equals("Name") ? "" : searchName) + "%'"
+                    + " and exists (select 1 from attraction_tag where att_ID = a.att_id and tag_ID in (select tag_id from tags where tag like '%" + searchTag.trim() + "%')) order by 6 desc");
             while (rs.next()) {
                 result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite"), rs.getFloat("avg")));
             }
@@ -97,6 +87,33 @@ public class userAccount1 implements Serializable {
 
     }
 
+    
+        public ArrayList<attraction> viewFavorites() {
+        Statement stat = null;
+        ResultSet rs = null;
+        ArrayList<attraction> result = new ArrayList<>();
+        Connection conn = openDatabase();
+        try {
+            stat = conn.createStatement();
+            rs = stat.executeQuery("select * from (Select att_id, att_name, description, cityName, stateName "
+                    + ", (select truncate(coalesce(sum(score)/count(score),0),1) from att_score where att_ID = a.att_id) as avg  "
+                    + ", (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + accountID + "') then 'true' else 'false' END) as favorite "
+                    + " from attractions a, status s, state, city c where a.state_id = state.sNum and a.city_id = c.cNum "
+                    + " and s.statusNum = a.status and s.status = 'approved' and cityName like '%" + searchCity.trim() + "%' and att_name like '%" + (searchName.equals("Name") ? "" : searchName) + "%'"
+                    + " and exists (select 1 from attraction_tag where att_ID = a.att_id and tag_ID in (select tag_id from tags where tag like '%" + searchTag.trim() + "%')))a where favorite='true' order by 6 desc");
+            while (rs.next()) {
+                result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite"), rs.getFloat("avg")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeDatabase(rs, stat, conn);
+        }
+        return result;
+
+    }
+    
+    
     //this method is empty - a postback of the page causes the viewAttractions method to run and search with the specified city
     //this could be done better using javascript/refresh only part of the page
     public void searchAttractions() {
