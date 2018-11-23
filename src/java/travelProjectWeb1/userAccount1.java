@@ -87,8 +87,7 @@ public class userAccount1 implements Serializable {
 
     }
 
-    
-        public ArrayList<attraction> viewFavorites() {
+    public ArrayList<attraction> viewFavorites() {
         Statement stat = null;
         ResultSet rs = null;
         ArrayList<attraction> result = new ArrayList<>();
@@ -112,8 +111,34 @@ public class userAccount1 implements Serializable {
         return result;
 
     }
-    
-    
+
+    public ArrayList<attraction> youMayLike() {
+        Statement stat = null;
+        ResultSet rs = null;
+        ArrayList<attraction> result = new ArrayList<>();
+        Connection conn = openDatabase();
+        try {
+            stat = conn.createStatement();
+           
+            rs = stat.executeQuery("select * from (Select a.att_id, att_name, description, cityName, stateName "
+                    + ", (select truncate(coalesce(sum(score)/count(score),0),1) from att_score where att_ID = a.att_id) as avg  "
+                    + ", (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + accountID + "') then 'true' else 'false' END) as favorite "
+                    + " from attractions a, status s, state, city c, acc_tag act, attraction_tag att"
+                    + " where a.state_id = state.sNum and a.city_id = c.cNum and act.username = '" + accountID + "' and att.att_ID = a.att_id and att.tag_ID = act.tag_id "
+                    + " and s.statusNum = a.status and s.status = 'approved' "
+                    + " and exists (select 1 from attraction_tag where att_ID = a.att_id and tag_ID in (select tag_id from tags where tag like '%" + searchTag.trim() + "%')))a where favorite='false' order by 6 desc LIMIT 0,3");
+            while (rs.next()) {
+                result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite"), rs.getFloat("avg")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeDatabase(rs, stat, conn);
+        }
+        return result;
+
+    }
+
     //this method is empty - a postback of the page causes the viewAttractions method to run and search with the specified city
     //this could be done better using javascript/refresh only part of the page
     public void searchAttractions() {
