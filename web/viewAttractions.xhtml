@@ -32,7 +32,7 @@
             </h:selectOneMenu>
             <h:outputText value="&#160;" />
             <h:commandButton id="search" value="Search"  action="#{login.theLoginAccount.searchAttractions()}" />
-            
+
             <hr />
             <h:dataTable id="att" styleClass="table" 
                          rows ="#{login.theLoginAccount.viewAttractions().size()}" 
@@ -53,6 +53,10 @@
                     <f:facet name = "header">State</f:facet>                          
                     <h:outputText styleClass="dataTableOutputText" id="attvalue4" value="#{att.state}"/>  
                 </h:column>  
+                <h:column>  
+                    <f:facet name = "header">Rating</f:facet>                          
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue4" value="#{att.avg}"/>  
+                </h:column>                  
                 <!--    <h:column> 
                         <f:facet name = "header">Favorite</f:facet>                          
                         <h:outputText styleClass="dataTableOutputText" id="attvalue5" value="#{att.favorite}"/>  
@@ -62,6 +66,7 @@
                                disabled="#{att.favorite(login.theLoginAccount.accountID)}" />
                            </h:column>  -->
                 <h:column>
+                    <f:facet name = "header">Favorite</f:facet>  
                     <h:commandButton id="favbutton" value="Add Favorite" action="#{att.addFavorite(login.theLoginAccount.accountID)}" 
                                      disabled="#{att.isFavorite()}" />
                 </h:column>  

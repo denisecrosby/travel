@@ -28,6 +28,7 @@ public class attraction {
     public String city;
     public String state;
     public String favorite;
+    public float avg;
     public Part path=null;
     public byte[] image;
     public String[] tags;
@@ -39,6 +40,14 @@ public class attraction {
 
     public void setTags(String[] tags) {
         this.tags = tags;
+    }
+
+    public float getAvg() {
+        return avg;
+    }
+
+    public void setAvg(float avg) {
+        this.avg = avg;
     }
 
     public String getName() {
@@ -102,13 +111,14 @@ public class attraction {
     }
     
     public attraction(String id, String name, String description,
-            String city, String state, String favorite) {
+            String city, String state, String favorite, float avg) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.city = city;
         this.state = state;
         this.favorite = favorite;
+        this.avg = avg;
     }
     
     public attraction(String id, String name, String description,
