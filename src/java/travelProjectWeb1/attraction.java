@@ -99,16 +99,20 @@ public class attraction {
     }
     
     public boolean isFavorite() {
-        if (this.favorite.equals("true")) {
-            return true;
-        }
-        return false;
+        return this.favorite.equals("true");
     }
-
-    public attraction()
+    
+    public String favImg()
     {
-        
+        return isFavorite() ? "/image/heart-full.png" : "/image/heart-empty.png";
     }
+    
+    public String getStar()
+    {
+        return ("/image/stars/stars-" + Math.round(avg * 2) / 2.0 + ".png").replaceFirst("\\.", "_");
+    }
+    
+    public attraction() {}
     
     public attraction(String id, String name, String description,
             String city, String state, String favorite, float avg) {

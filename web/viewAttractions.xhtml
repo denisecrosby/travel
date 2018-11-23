@@ -55,7 +55,7 @@
                 </h:column>  
                 <h:column>  
                     <f:facet name = "header">Rating</f:facet>                          
-                    <h:outputText styleClass="dataTableOutputText" id="attvalue4" value="#{att.avg}"/>  
+                    <h:graphicImage  value="#{att.getStar()}" height="20" width="100"/>
                 </h:column>                  
                 <!--    <h:column> 
                         <f:facet name = "header">Favorite</f:facet>                          
@@ -66,9 +66,8 @@
                                disabled="#{att.favorite(login.theLoginAccount.accountID)}" />
                            </h:column>  -->
                 <h:column>
-                    <f:facet name = "header">Favorite</f:facet>  
-                    <h:commandButton id="favbutton" value="Add Favorite" action="#{att.addFavorite(login.theLoginAccount.accountID)}" 
-                                     disabled="#{att.isFavorite()}" />
+                    <h:commandButton id="favbutton" action="#{att.addFavorite(login.theLoginAccount.accountID)}" 
+                                     disabled="#{att.isFavorite()}" image="#{att.favImg()}"/>
                 </h:column>  
             </h:dataTable>
             <br></br>
