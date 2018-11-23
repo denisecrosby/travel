@@ -215,20 +215,7 @@ public class attraction {
         int s = getStateID();
         int c = getCityID();
         try {
-
-            stat = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
-                     ResultSet.CONCUR_UPDATABLE);
-            rs = stat.executeQuery("select max(att_ID) from attractions");
-            if (rs.next()) {
-                max = rs.getByte(1) + 1;
-            }
-            if (path == null) {
-                imageInputStream = new FileInputStream(new File("C:/Users/raisa/Downloads/attractions-att_Img.jpg"));
-            } else {
-                InputStream input = path.getInputStream();
-                String fileName = path.getSubmittedFileName();
-                imageInputStream = new FileInputStream(new File(fileName));
-            }
+            imageInputStream = new FileInputStream(new File(path.getSubmittedFileName()));
 
             PreparedStatement ps = conn.prepareStatement("insert into attractions values(?, ?, ?, ?, ?, ?, ?, ?)");
             ps.setInt(1, max);
@@ -239,8 +226,7 @@ public class attraction {
             ps.setString(6, userName);
             ps.setInt(7, 1);
             ps.setBinaryStream(8, imageInputStream);
-            int r = ps.executeUpdate();
-
+            ps.executeUpdate();
             for (String tag : tags) {
                 stat.executeUpdate("insert into attraction_tag values('" + max + "','" + tag + "')");
             }

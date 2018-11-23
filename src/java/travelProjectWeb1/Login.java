@@ -21,8 +21,7 @@ public class Login implements Serializable {
     //attributes
     public static final Scanner keyboard = new Scanner(System.in);
     public static final String URL = "jdbc:mysql://mis-sql.uhcl.edu/antaor0966";
-    public static final List<String> validTags = Arrays.asList("history", "shopping",
-                    "beach", "urban", "explorer", "nature", "family");
+    public static final List<String> validTags = Arrays.asList("history", "shopping", "beach", "urban", "explorer", "nature", "family");
     private String id;
     private String password;
     private userAccount1 theLoginAccount;
