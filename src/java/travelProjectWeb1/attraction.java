@@ -5,19 +5,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Named;
 import javax.faces.bean.ManagedBean;
 import javax.servlet.http.Part;
 import static jdk.nashorn.internal.objects.NativeJava.type;
-import static travelProjectWeb1.Login.closeDatabase;
-import static travelProjectWeb1.Login.openDatabase;
+import static travelProjectWeb1.Login.*;
 
 /* 
     Authors    : raisa, denise
