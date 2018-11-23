@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <head>
+        <title>Register</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <h:form enctype="multipart/form-data">
+            <div>
+                <p>User Id  
+                <h:inputText id="id" required ="true" 
+                             requiredMessage="The ID field cannot be empty"
+                        title="Please enter your ID"
+                        value="#{register.id}"
+                    validatorMessage="The length of your 
+                        id must be between 3 and 10.">
+                    <f:validateLength maximum="10" minimum="3" />
+                </h:inputText>
+                </p>
+                <p>password  
+                <h:inputText id="password" required ="true" 
+                             requiredMessage="The password field cannot be empty"
+                        title="Please enter your password"
+                        value="#{register.password}"
+                        validatorMessage="The length of your selected 
+                        password must be between 3 and 10 , should contain a number [0 -9],a special char [#,?,!,*] and an .">
+                        <f:validateLength maximum="10" minimum="3" />
+                        
+                </h:inputText>
+                    
+            </p>
+               <p>
+                    select your tag
+                    <h:selectOneMenu id="acc_tag" style="width:150px"
+                                     value ="#{register.tag}">
+                    <f:selectItem   itemValue="1" itemLabel="History" /> 
+                    <f:selectItem   itemValue="2" itemLabel="Shopping" /> 
+                    <f:selectItem   itemValue="3" itemLabel="Beach" /> 
+                    <f:selectItem   itemValue="4" itemLabel="Urban" /> 
+                    <f:selectItem   itemValue="5" itemLabel="Nature" /> 
+                    <f:selectItem   itemValue="6" itemLabel="Family" />
+                    </h:selectOneMenu>
+                </p>
+                <p>
+                    <h:commandButton id="submit" value="Submit"
+                                     action="#{register.register1()}"/>
+                </p>
+            </div>
+        </h:form>
+    </body>
+</html>
