@@ -6,9 +6,6 @@
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <link href="css/login.css" rel="stylesheet" type="text/css"/>
-        <style>
-            @import url('http://fonts.googleapis.com/css?family=Lobster|Pacifico');
-        </style>
 
         <title>Login</title>
         <meta http-equiv="cache-control" content="no-cache" />
@@ -38,13 +35,13 @@
                                            value="#{login.password}"/>
 
                         </p>
+                        <h:messages/>
                         <p>
-                            <h:commandButton id="submit" value="Login" class="btn"
-                                             action="#{login.login()}" />
+                            <h:commandButton value="Login" class="btn" action="#{login.login()}" />
                         </p>
-                        <h:link outcome="register.xhtml">
-                            Register
-                        </h:link>>
+                        <p>
+                            <h:button value="Signup" class="btn-small" outcome="register.xhtml" />
+                        </p>
                     </div>
                 </div>
             </section>

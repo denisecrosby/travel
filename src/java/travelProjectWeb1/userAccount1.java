@@ -3,7 +3,7 @@ package travelProjectWeb1;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import static java.lang.System.out;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;

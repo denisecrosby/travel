@@ -9,86 +9,77 @@ and open the template in the editor.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <link href="css/login.css" rel="stylesheet" type="text/css"/>
         <style>
             @import url('http://fonts.googleapis.com/css?family=Lobster|Pacifico');
         </style>
-        
+        <link href="css/login.css" rel="stylesheet" type="text/css"/>
+
         <title>Login</title>
         <meta http-equiv="cache-control" content="no-cache" />
         <meta http-equiv="pragma" content="no-cache" />
         <meta http-equiv="refresh"/>
-       
+
     </h:head>
     <body class="main">
         <h:form enctype="multipart/form-data">
             <section class="intro">
                 <div class="inner">
-                <div class="content">
-            <div>
-                <p>User Id  
-                <h:inputText id="id" required ="true" 
-                             requiredMessage="The ID field cannot be empty"
-                        title="Please enter your ID"
-                        value="#{register.id}">
-                </h:inputText>
-                </p>
-                <p>password
-                    <h:inputSecret id="password" value="#{register.password}" 
-		 required="true" >
-		<f:validateRegex 
-                   pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{4,10})" />
-                 </h:inputSecret>
-                    <p>Photo:
-                        <h:inputFile value="#{register.path}"/>
-                    </p>
-                    </p>
-                <p>Select security questions
-                <h:selectOneMenu id="acc_question"  style="width:150px" 
-                                 value="#{register.ques}" >
-                    <div >
-                         <f:selectItem   itemValue="0" itemLabel="--Select---" />
-                    <f:selectItem   itemValue="1" itemLabel="What Is your favorite book?" /> 
-                    <f:selectItem   itemValue="2" itemLabel="What is the name of the road you grew up on?" /> 
-                    <f:selectItem   itemValue="3" itemLabel="What is your mother’s maiden name?" /> 
-                    <f:selectItem   itemValue="4" itemLabel="What was the name of your first/current/favorite pet?" /> 
-                    <f:selectItem   itemValue="5" itemLabel="What was the first company that you worked for?" /> 
-                    <f:selectItem   itemValue="6" itemLabel="Where did you meet your spouse?" />
-                    <f:selectItem   itemValue="7" itemLabel="Where did you go to high school/college?" />
-                    <f:selectItem   itemValue="8" itemLabel="What is your favorite food?" />
-                    <f:selectItem   itemValue="9" itemLabel="What city were you born in?" />
-                    <f:selectItem   itemValue="10" itemLabel="Where is your favorite place to vacation?" />
-                   </div>
-                </h:selectOneMenu>
-            </p>
-                <p>Your answer:
-                    <h:inputText id="acc_ans" value="#{register.answer}"/>
-                </p>
-                <p>select a tag
-                    <h:selectManyCheckbox  id="att_tags" value="#{register.tags}" required="true" requiredMessage="You should select atleast one tag">
-                    <div >
-                    <f:selectItem   itemValue="1" itemLabel="History" /> 
-                    <f:selectItem   itemValue="2" itemLabel="Shopping" /> 
-                    <f:selectItem   itemValue="3" itemLabel="Beach" /> 
-                    <f:selectItem   itemValue="4" itemLabel="Urban" /> 
-                    <f:selectItem   itemValue="5" itemLabel="Nature" /> 
-                    <f:selectItem   itemValue="6" itemLabel="Family" />
-                   </div>
-                    </h:selectManyCheckbox> 
-                </p> 
-                
-                <p>
-                    <h:commandButton  value="Submit" class="btn"
-                                     action="#{register.insertregister}"/>
-                </p>    
-            </div>
+                    <div class="content">
+                        <div>
+                            <p>User Id  
+                                <h:inputText id="id" required ="true" 
+                                             requiredMessage="The ID field cannot be empty"
+                                             title="Please enter your ID"
+                                             value="#{register.id}">
+                                </h:inputText>
+                            </p>
+                            <p>password
+                                <h:inputSecret id="password" value="#{register.password}" >
+                                    <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^]).{3,10})" />
+                                </h:inputSecret>
+                            </p>
+                            <p>Photo: <h:inputFile value="#{register.path}"/></p>
+                            <p>Select security questions
+                                <h:selectOneMenu id="acc_question"  style="width:150px" 
+                                                 value="#{register.ques}" >
+                                    <div >
+                                        <f:selectItem   itemValue="0" itemLabel="--Select---" />
+                                        <f:selectItem   itemValue="1" itemLabel="What Is your favorite book?" /> 
+                                        <f:selectItem   itemValue="2" itemLabel="What is the name of the road you grew up on?" /> 
+                                        <f:selectItem   itemValue="3" itemLabel="What is your mother’s maiden name?" /> 
+                                        <f:selectItem   itemValue="4" itemLabel="What was the name of your first/current/favorite pet?" /> 
+                                        <f:selectItem   itemValue="5" itemLabel="What was the first company that you worked for?" /> 
+                                        <f:selectItem   itemValue="6" itemLabel="Where did you meet your spouse?" />
+                                        <f:selectItem   itemValue="7" itemLabel="Where did you go to high school/college?" />
+                                        <f:selectItem   itemValue="8" itemLabel="What is your favorite food?" />
+                                        <f:selectItem   itemValue="9" itemLabel="What city were you born in?" />
+                                        <f:selectItem   itemValue="10" itemLabel="Where is your favorite place to vacation?" />
+                                    </div>
+                                </h:selectOneMenu>
+                            </p>
+                            <p>Your answer:
+                                <h:inputText id="acc_ans" value="#{register.answer}"/>
+                            </p>
+                            <p>select a tag
+                                <h:selectManyCheckbox  id="att_tags" value="#{register.tags}" required="true" requiredMessage="You should select atleast one tag">
+                                    <div >
+                                        <f:selectItem itemValue="1" itemLabel="History" /> 
+                                        <f:selectItem itemValue="2" itemLabel="Shopping" /> 
+                                        <f:selectItem itemValue="3" itemLabel="Beach" /> 
+                                        <f:selectItem itemValue="4" itemLabel="Urban" /> 
+                                        <f:selectItem itemValue="5" itemLabel="Nature" /> 
+                                        <f:selectItem itemValue="6" itemLabel="Family" />
+                                    </div>
+                                </h:selectManyCheckbox> 
+                            </p>
+                            <h:outputText style="color: black" rendered="#{register.successMessage ne null}" value="#{register.successMessage}" ></h:outputText>
+                            <h:outputText style="color: red" rendered="#{register.errorMessage ne null}" value="#{register.errorMessage}" ></h:outputText>
+                            <h:messages/>
+                            <h:commandButton value="Submit" class="btn" action="#{register.insertregister}"/>    
+                        </div>
+                    </div>
                 </div>
-                </div>
-                    </section>
-        </h:form><center>
-        <h:outputText style="color: black" rendered="#{register.successMessage ne null}" value="#{register.successMessage}" ></h:outputText>
-        <h:outputText style="color: red" rendered="#{register.errorMessage ne null}" value="#{register.errorMessage}" ></h:outputText>
-        </center>
-
+            </section>
+        </h:form>
     </body>
 </html>

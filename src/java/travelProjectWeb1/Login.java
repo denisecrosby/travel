@@ -1,7 +1,6 @@
 package travelProjectWeb1;
 
 import java.io.Serializable;
-import static java.lang.System.out;
 import java.sql.*;
 import java.util.Arrays;
 import java.util.List;
@@ -11,8 +10,7 @@ import javax.faces.bean.SessionScoped;
 
 /* 
     Authors    : raisa, denise
-*/
-
+ */
 @ManagedBean
 @SessionScoped
 //sessionScoped need to implement the interface Serializable
@@ -107,7 +105,7 @@ public class Login implements Serializable {
             e.printStackTrace();
             return ("internalError");
         } finally {
-            closeDatabase(rs,stat,conn);
+            closeDatabase(rs, stat, conn);
         }
     }
 
@@ -116,7 +114,7 @@ public class Login implements Serializable {
             //connect to the db - login id and password below
             return DriverManager.getConnection(URL, "antaor0966", "1637556");
         } catch (SQLException e) {
-            out.println("Database access failed!");
+
             e.printStackTrace();
         }
         return null;

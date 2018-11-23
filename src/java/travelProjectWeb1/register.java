@@ -5,21 +5,13 @@
  */
 package travelProjectWeb1;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.Part;
@@ -31,16 +23,16 @@ import static travelProjectWeb1.Login.openDatabase;
 @SessionScoped
 public class register {
 
-     String id;
-     String password;
-     byte[] photo;
-     int ques;
-     String answer;
-     public Part path;
-     FileInputStream imageInputStream = null;
-     String[] tags;
-     String successMessage;
-     String errorMessage;
+    String id;
+    String password;
+    byte[] photo;
+    int ques;
+    String answer;
+    public Part path;
+    FileInputStream imageInputStream = null;
+    String[] tags;
+    String successMessage;
+    String errorMessage;
 
     public String getSuccessMessage() {
         return successMessage;
@@ -57,8 +49,7 @@ public class register {
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
     }
-     
-     
+
     public String[] getTags() {
         return tags;
     }
@@ -95,8 +86,6 @@ public class register {
         return password;
     }
 
-    
-
     public String getAnswer() {
         return answer;
     }
@@ -108,7 +97,7 @@ public class register {
     public FileInputStream getImageInputStream() {
         return imageInputStream;
     }
-    
+
     public int getQues() {
         return ques;
     }
@@ -116,82 +105,44 @@ public class register {
     public void setQues(int ques) {
         this.ques = ques;
     }
-    
-    public register() 
-    {
-        
-    } 
-    public String insertregister()
-    {
-        String page="";
+
+    public register() {
+    }
+
+    public void insertregister() {
         Connection conn = null;
         Statement stat = null;
         ResultSet rs = null;
-        String URL= "jdbc:mysql://mis-sql.uhcl.edu/antaor0966";
         try {
-            System.out.println("id:"+ id);
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(register.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            conn = DriverManager.getConnection(URL, "antaor0966", "1637556");
-            // fire select querry with the Id value given from front end if you get any rows then declare error message as 'User name already found'
-             PreparedStatement ps3 = conn.prepareStatement(
-                    "SELECT * from account WHERE userName  = ?");
-             ps3.setString(1,id);
-             ResultSet rs1 = ps3.executeQuery();
-             if(rs1.next())
-             {
-                 errorMessage="User Name Already Exists";
-             }
-             else
-             {
-                System.out.println("connected ****************");
-                System.out.println("path"+ path);
+            conn = openDatabase();
+            PreparedStatement ps1 = conn.prepareStatement("select * from account where userName = ?");
+            ps1.setString(1, id);
+            if (ps1.executeQuery().next()) {
+                errorMessage = "User Name Already Exists";
+            } else {
                 InputStream input = path.getInputStream();
-                System.out.println("getName: "+path.getName());
-                PreparedStatement ps=conn.prepareStatement("insert into account values(?,?,?,?,?)");
-            
-            ps.setString(1, id);
-            ps.setString(2, password);
-            ps.setBinaryStream(3,input,3);
-            ps.setInt(4, ques); 
-            ps.setString(5, answer);
-            int a1 = ps.executeUpdate();
-           
-            for (String tag : tags) {
-                System.out.println("tag: "+ tag);     
-                PreparedStatement ps1=conn.prepareStatement("insert into acc_tag values(?,?)");
-                ps1.setString(1,id);
-                ps1.setInt(2,Integer.parseInt(tag));
-              ps1.executeUpdate();
+                PreparedStatement ps2 = conn.prepareStatement("insert into account values(?, ?, ?, ?, ?)");
+                ps2.setString(1, id);
+                ps2.setString(2, password);
+                ps2.setBinaryStream(3, input, 3);
+                ps2.setInt(4, ques);
+                ps2.setString(5, answer);
+                for (String tag : tags) {
+                    PreparedStatement ps3 = conn.prepareStatement("insert into acc_tag values(?, ?)");
+                    ps3.setString(1, id);
+                    ps3.setInt(2, Integer.parseInt(tag));
+                    ps3.executeUpdate();
+                }
+                if (ps2.executeUpdate() > 0) {
+                    successMessage = "Account created Successfully";
+                }
             }
-
-            System.out.println("successfully inserted");
-            if(a1 >0)
-            {
-                successMessage="Account created Successfully";
-            }
-             }
-            
-            
-            //final String db_url = "jdbc:mysql://mis-sql.uhcl.edu/antaor0966";
-            //conn = DriverManager.getConnection(db_url, "antaor0966", "1637556");
-            
         } catch (SQLException e) {
-            e.printStackTrace();
-        }  
-        catch (IOException ex) {
-             Logger.getLogger(register.class.getName()).log(Level.SEVERE, null, ex);
-         }finally {
+            errorMessage = "Internal error, please try again";
+        } catch (IOException e) {
+            errorMessage = "Missing image";
+        } finally {
             closeDatabase(rs, stat, conn);
         }
-        System.out.println("before returning");
-    return page;
     }
-    
-  
-    
 }
