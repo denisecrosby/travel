@@ -10,8 +10,7 @@ import static travelProjectWeb1.Login.openDatabase;
 
 /* 
     Author    : denise
-*/
-
+ */
 public class adminAccount extends userAccount1 {
 
     public adminAccount(String accountId, String password) {
@@ -43,12 +42,4 @@ public class adminAccount extends userAccount1 {
         return result;
 
     }
-    
-    @Override
-        public String returnToMain() {
-
-        return ("welcomeAdmin");
-
-    }
-
 }

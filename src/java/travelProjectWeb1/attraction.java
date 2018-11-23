@@ -2,7 +2,6 @@ package travelProjectWeb1;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
@@ -11,13 +10,11 @@ import java.util.logging.Logger;
 import javax.inject.Named;
 import javax.faces.bean.ManagedBean;
 import javax.servlet.http.Part;
-import static jdk.nashorn.internal.objects.NativeJava.type;
 import static travelProjectWeb1.Login.*;
 
 /* 
     Authors    : raisa, denise
-*/
-
+ */
 @Named(value = "attraction")
 @ManagedBean
 public class attraction {
@@ -29,7 +26,7 @@ public class attraction {
     public String state;
     public String favorite;
     public float avg;
-    public Part path=null;
+    public Part path = null;
     public byte[] image;
     public String[] tags;
     FileInputStream imageInputStream = null;
@@ -97,23 +94,22 @@ public class attraction {
     public void setState(String state) {
         this.state = state;
     }
-    
+
     public boolean isFavorite() {
         return this.favorite.equals("true");
     }
-    
-    public String favImg()
-    {
+
+    public String favImg() {
         return isFavorite() ? "/image/heart-full.png" : "/image/heart-empty.png";
     }
-    
-    public String getStar()
-    {
+
+    public String getStar() {
         return ("/image/stars/stars-" + Math.round(avg * 2) / 2.0 + ".png").replaceFirst("\\.", "_");
     }
-    
-    public attraction() {}
-    
+
+    public attraction() {
+    }
+
     public attraction(String id, String name, String description,
             String city, String state, String favorite, float avg) {
         this.id = id;
@@ -124,16 +120,15 @@ public class attraction {
         this.favorite = favorite;
         this.avg = avg;
     }
-    
+
     public attraction(String id, String name, String description,
-            String city, String state,String un,byte[] image) 
-    {
+            String city, String state, String un, byte[] image) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.city= city;
+        this.city = city;
         this.state = state;
-        this.image=image;
+        this.image = image;
     }
 
     //this constructor is used by the admin to view, approve, and reject attractions (they don't need favorites)
@@ -149,12 +144,7 @@ public class attraction {
 
     //this method is used by the admin to approve to reject attractions
     public void mark(String state) {
-        String mark;
-        if (state.equals("approve")) {
-            mark = "2";
-        } else {
-            mark = "3";
-        }
+        String mark = state.equals("approve") ? "2" : "3";
 
         Connection conn = openDatabase();
         Statement stat = null;
@@ -163,10 +153,8 @@ public class attraction {
 
             stat = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
-            rs = stat.executeQuery("select * from attractions "
-                    + "WHERE att_id = '" + this.id + "'");
+            rs = stat.executeQuery("select * from attractions WHERE att_id = '" + id + "'");
             while (rs.next()) {
-
                 rs.updateString("status", mark);
                 rs.updateRow();
             }
@@ -216,39 +204,33 @@ public class attraction {
         }
         return false;
     }
-        
+
     //method to create attraction
-     public void createAttraction(String userName) 
-    {
+    public void createAttraction(String userName) {
         Connection conn = openDatabase();
         Statement stat = null;
         ResultSet rs = null;
-        
-        int max=0;
-        int s=getStateID();
-        int c=getCityID();
+
+        int max = 0;
+        int s = getStateID();
+        int c = getCityID();
         try {
-            
-            stat = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE
-                    , ResultSet.CONCUR_UPDATABLE);
-            rs=stat.executeQuery("select max(att_ID) from attractions");
-            if(rs.next())
-            {
-                max=rs.getByte(1)+1;
+
+            stat = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+                     ResultSet.CONCUR_UPDATABLE);
+            rs = stat.executeQuery("select max(att_ID) from attractions");
+            if (rs.next()) {
+                max = rs.getByte(1) + 1;
             }
-            if(path==null)
-            {
-                imageInputStream = new FileInputStream(new File("C:\\Users\\raisa\\Downloads\\attractions-att_Img.jpg"));    
+            if (path == null) {
+                imageInputStream = new FileInputStream(new File("C:/Users/raisa/Downloads/attractions-att_Img.jpg"));
+            } else {
+                InputStream input = path.getInputStream();
+                String fileName = path.getSubmittedFileName();
+                imageInputStream = new FileInputStream(new File(fileName));
             }
-            else
-            {
-            InputStream input = path.getInputStream();
-            String fileName = path.getSubmittedFileName();
-            System.out.println("filename>>>>>>>>>>>>>>>>>>>>>>>>>>"+fileName);
-            imageInputStream = new FileInputStream(new File(fileName));
-            }
-            
-            PreparedStatement ps=conn.prepareStatement("insert into attractions values(?,?,?,?,?,?,?,?)");
+
+            PreparedStatement ps = conn.prepareStatement("insert into attractions values(?, ?, ?, ?, ?, ?, ?, ?)");
             ps.setInt(1, max);
             ps.setString(2, name);
             ps.setInt(3, s);
@@ -256,12 +238,11 @@ public class attraction {
             ps.setString(5, description);
             ps.setString(6, userName);
             ps.setInt(7, 1);
-            ps.setBinaryStream(8,imageInputStream);
+            ps.setBinaryStream(8, imageInputStream);
             int r = ps.executeUpdate();
-            
-            for(int i=0;i<tags.length;i++)
-            {
-                int a=stat.executeUpdate("insert into attraction_tag values('"+max+"','"+tags[i]+"')");
+
+            for (String tag : tags) {
+                stat.executeUpdate("insert into attraction_tag values('" + max + "','" + tag + "')");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -271,60 +252,53 @@ public class attraction {
             closeDatabase(rs, stat, conn);
         }
     }
-        
+
     //get state id
-     public  int getStateID()
-    {
-        int s=0;
+    public int getStateID() {
+        int s = 0;
         Connection conn = openDatabase();
         Statement stat = null;
         ResultSet rs = null;
-        
+
         try {
-            
+
             stat = conn.createStatement();
             rs = stat.executeQuery("select * from att_state");
-            while (rs.next()) 
-            {
-                if(rs.getString(2).equals(state))
-                {
-                    s=rs.getInt(1);
+            while (rs.next()) {
+                if (rs.getString(2).equals(state)) {
+                    s = rs.getInt(1);
                 }
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-                closeDatabase(rs, stat, conn);
+            closeDatabase(rs, stat, conn);
         }
         return s;
     }
-     
-     
-     //get city id
-     public  int getCityID()
-    {
-        int c=0;
+
+    //get city id
+    public int getCityID() {
+        int c = 0;
         Connection conn = openDatabase();
         Statement stat = null;
         ResultSet rs = null;
-        
+
         try {
-            
+
             stat = conn.createStatement();
             rs = stat.executeQuery("select * from att_city");
-            while (rs.next()) 
-            {
-                if(rs.getString(3).equals(city))
-                {
-                    c=rs.getInt(1);
+            while (rs.next()) {
+                if (rs.getString(3).equals(city)) {
+                    c = rs.getInt(1);
                 }
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-                closeDatabase(rs, stat, conn);
+            closeDatabase(rs, stat, conn);
         }
         return c;
     }

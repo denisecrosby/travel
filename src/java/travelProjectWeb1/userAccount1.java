@@ -37,7 +37,7 @@ public class userAccount1 implements Serializable {
     public void setSearchName(String searchName) {
         this.searchName = searchName;
     }
-   
+
     public String getSearchTag() {
         return searchTag;
     }
@@ -77,7 +77,7 @@ public class userAccount1 implements Serializable {
         Connection conn = openDatabase();
         try {
             stat = conn.createStatement();
-            
+
             rs = stat.executeQuery("Select att_id, att_name, description, cityName, stateName "
                     + ", (select truncate(coalesce(sum(score)/count(score),0),1) from att_score where att_ID = a.att_id) as avg  "
                     + ", (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + accountID + "') then 'true' else 'false' END) as favorite "
@@ -111,11 +111,4 @@ public class userAccount1 implements Serializable {
         this.accountID = accountId;
         this.password = password;
     }
-
-    public String returnToMain() {
-
-        return ("welcome");
-
-    }
-
 }
