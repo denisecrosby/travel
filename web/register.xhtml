@@ -28,13 +28,14 @@
                                              value="#{register.id}">
                                 </h:inputText>
                             </p>
-                            <p>password
+                            <p>Password
                                 <h:inputSecret id="password" value="#{register.password}" >
                                     <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^]).{3,10})" />
                                 </h:inputSecret>
+                                <p>Your password must have a capital letter, a number, and a special character.</p>
                             </p>
-                            <p>Photo: <h:inputFile value="#{register.path}" required="true" requiredMessage="There must be a photo"/></p>
-                            <p>Select security questions
+                            <p>Required Photo: <h:inputFile value="#{register.path}" required="true" requiredMessage="There must be a photo"/></p>
+                            <p>Select security question:
                                 <h:selectOneMenu id="acc_question"  style="width:150px" 
                                                  value="#{register.ques}" >
                                     <div >
@@ -55,7 +56,7 @@
                             <p>Your answer:
                                 <h:inputText id="acc_ans" value="#{register.answer}"/>
                             </p>
-                            <p>select a tag
+                            <p>Select tags
                                 <h:selectManyCheckbox  id="att_tags" value="#{register.tags}" required="true" requiredMessage="You should select atleast one tag">
                                     <div >
                                         <f:selectItem itemValue="1" itemLabel="History" /> 
