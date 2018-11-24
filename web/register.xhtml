@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
@@ -38,7 +33,7 @@ and open the template in the editor.
                                     <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^]).{3,10})" />
                                 </h:inputSecret>
                             </p>
-                            <p>Photo: <h:inputFile value="#{register.path}"/></p>
+                            <p>Photo: <h:inputFile value="#{register.path}" required="true" requiredMessage="There must be a photo"/></p>
                             <p>Select security questions
                                 <h:selectOneMenu id="acc_question"  style="width:150px" 
                                                  value="#{register.ques}" >
@@ -72,10 +67,12 @@ and open the template in the editor.
                                     </div>
                                 </h:selectManyCheckbox> 
                             </p>
-                            <h:outputText style="color: black" rendered="#{register.successMessage ne null}" value="#{register.successMessage}" ></h:outputText>
                             <h:outputText style="color: red" rendered="#{register.errorMessage ne null}" value="#{register.errorMessage}" ></h:outputText>
                             <h:messages/>
-                            <h:commandButton value="Submit" class="btn" action="#{register.insertregister}"/>    
+                            <h:commandButton value="Submit" class="btn" action="#{register.insertregister}"/>
+                            <h:link outcome="index.xhtml" rendered="#{register.success()}">
+                                Account creation successful, click to login
+                            </h:link>
                         </div>
                     </div>
                 </div>

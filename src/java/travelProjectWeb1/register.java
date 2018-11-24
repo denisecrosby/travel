@@ -31,15 +31,11 @@ public class register {
     public Part path;
     FileInputStream imageInputStream = null;
     String[] tags;
-    String successMessage;
+    boolean success = false;
     String errorMessage;
 
-    public String getSuccessMessage() {
-        return successMessage;
-    }
-
-    public void setSuccessMessage(String successMessage) {
-        this.successMessage = successMessage;
+    public boolean success() {
+        return success;
     }
 
     public String getErrorMessage() {
@@ -110,6 +106,7 @@ public class register {
     }
 
     public void insertregister() {
+        success = false;
         Connection conn = null;
         Statement stat = null;
         ResultSet rs = null;
@@ -134,7 +131,7 @@ public class register {
                     ps3.executeUpdate();
                 }
                 if (ps2.executeUpdate() > 0) {
-                    successMessage = "Account created Successfully";
+                    success = true;
                 }
             }
         } catch (SQLException e) {

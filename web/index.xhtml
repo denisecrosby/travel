@@ -6,12 +6,10 @@
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <link href="css/login.css" rel="stylesheet" type="text/css"/>
-
         <title>Login</title>
         <meta http-equiv="cache-control" content="no-cache" />
         <meta http-equiv="pragma" content="no-cache" />
         <meta http-equiv="refresh"/>
-
     </h:head>
     <h:body class="main">
         <h:form >
@@ -27,13 +25,11 @@
                                 <f:validateLength maximum="10" minimum="3" />
                             </h:inputText>
                         </p>
-
                         <p>
                             <h:inputSecret id="psw" required ="true" 
                                            requiredMessage="The password field cannot be empty"
                                            title="Please enter your psw" class="input2"
                                            value="#{login.password}"/>
-
                         </p>
                         <h:messages/>
                         <p>
