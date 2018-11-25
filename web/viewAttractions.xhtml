@@ -63,11 +63,11 @@
                                      disabled="#{att.isFavorite()}" image="#{att.favImg()}"/>
                 </h:column>
                 <h:column>
-                    <h:form id="form1">
-                        <h:inputText id="reviewtext" value="#{login.theLoginAccount.review}"/>  
-                        <h:commandButton id="addreview" value="add review" action="#{att.addReview(login.theLoginAccount.accountID, login.theLoginAccount.review)}"  >
-                                         <f:ajax execute="@form"/>
-                                         </h:commandButton>
+                    <h:form>
+                        <h:inputText value="#{login.theLoginAccount.review}"/>  
+                        <h:commandButton value="add review" action="#{att.addReview(login.theLoginAccount.accountID, login.theLoginAccount.review)}"  >
+                            <f:ajax execute="@form"/>
+                        </h:commandButton>
                     </h:form>
                 </h:column>
             </h:dataTable>

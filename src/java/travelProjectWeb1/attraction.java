@@ -300,10 +300,6 @@ public class attraction {
         try {
 
             stat = conn.createStatement();
-            rs = stat.executeQuery("select max(review_ID) from att_review");
-            while (rs.next()) {
-                max = rs.getInt(1) + 1;
-            }
             stat.executeUpdate("insert into att_review values('" + max + "','" + id + "','" + userName + "','" + review + "')");
 
         } catch (SQLException e) {
