@@ -30,6 +30,25 @@ public class attraction {
     public byte[] image;
     public String[] tags;
     FileInputStream imageInputStream = null;
+    userAccount1 att;
+    String review;
+
+    public userAccount1 getAtt() {
+        return att;
+    }
+
+    public void setAtt(userAccount1 att) {
+        this.att = att;
+    }
+
+    public String getReview() {
+        return review;
+    }
+
+    public void setReview(String review) {
+        this.review = review;
+    }
+    
 
     public String[] getTags() {
         return tags;
@@ -287,5 +306,35 @@ public class attraction {
             closeDatabase(rs, stat, conn);
         }
         return c;
+    }
+    
+    
+    public String viewAtt(){
+        att=new userAccount1(Integer.parseInt(this.getId()));
+        return "review.xhtml";
+    }
+    
+    
+    public void addReview(String userName,int att_id)
+    {
+        int max=0;
+        Connection conn = openDatabase();
+        Statement stat = null;
+        ResultSet rs = null;
+
+        try {
+
+            stat = conn.createStatement();
+            rs = stat.executeQuery("select max(review_ID) from att_review");
+            while (rs.next()) {
+                max = rs.getInt(1)+1;
+            }
+            int r=stat.executeUpdate("insert into att_review values('"+max+"','"+att_id+"','"+userName+"','"+review+"')");
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeDatabase(rs, stat, conn);
+        }
     }
 }

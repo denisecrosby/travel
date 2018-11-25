@@ -18,6 +18,7 @@ import static travelProjectWeb1.Login.*;
 public class userAccount1 implements Serializable {
 
     protected String accountID;
+    protected int att_Id;
     protected String password;
     protected String[] tags;
     protected String menu;
@@ -29,6 +30,14 @@ public class userAccount1 implements Serializable {
     protected String searchCity = "";
     protected String searchTag = "";
     protected String searchName = "Name";
+
+    public int getAtt_Id() {
+        return att_Id;
+    }
+
+    public void setAtt_Id(int att_Id) {
+        this.att_Id = att_Id;
+    }
 
     public String getSearchName() {
         return searchName;
@@ -152,5 +161,9 @@ public class userAccount1 implements Serializable {
     public userAccount1(String accountId, String password) {
         this.accountID = accountId;
         this.password = password;
+    }
+    
+    public userAccount1(int att_Id) {
+        this.att_Id = att_Id;
     }
 }

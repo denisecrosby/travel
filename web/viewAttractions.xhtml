@@ -70,7 +70,12 @@
                 <h:column>
                     <h:commandButton id="favbutton" action="#{att.addFavorite(login.theLoginAccount.accountID)}" 
                                      disabled="#{att.isFavorite()}" image="#{att.favImg()}"/>
-                </h:column>  
+                </h:column> 
+                
+                <h:column>
+                    <h:commandButton id="rev_button" value="add review" action="#{att.viewAtt()}" 
+                                     />
+                </h:column>
             </h:dataTable>
         </h:form>
     </body>
