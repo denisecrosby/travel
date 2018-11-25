@@ -19,6 +19,7 @@ import static travelProjectWeb1.Login.*;
 @ManagedBean
 public class attraction {
 
+    //attributes
     public String id;
     public String name;
     public String description;
@@ -30,25 +31,6 @@ public class attraction {
     public byte[] image;
     public String[] tags;
     FileInputStream imageInputStream = null;
-    userAccount1 att;
-    String review;
-
-    public userAccount1 getAtt() {
-        return att;
-    }
-
-    public void setAtt(userAccount1 att) {
-        this.att = att;
-    }
-
-    public String getReview() {
-        return review;
-    }
-
-    public void setReview(String review) {
-        this.review = review;
-    }
-    
 
     public String[] getTags() {
         return tags;
@@ -126,6 +108,7 @@ public class attraction {
         return ("/image/stars/stars-" + Math.round(avg * 2) / 2.0 + ".png").replaceFirst("\\.", "_");
     }
 
+    //constructors
     public attraction() {
     }
 
@@ -307,17 +290,9 @@ public class attraction {
         }
         return c;
     }
-    
-    
-    public String viewAtt(){
-        att=new userAccount1(Integer.parseInt(this.getId()));
-        return "review.xhtml";
-    }
-    
-    
-    public void addReview(String userName,int att_id)
-    {
-        int max=0;
+
+    public void addReview(String userName, String review) {
+        int max = 0;
         Connection conn = openDatabase();
         Statement stat = null;
         ResultSet rs = null;
@@ -327,10 +302,10 @@ public class attraction {
             stat = conn.createStatement();
             rs = stat.executeQuery("select max(review_ID) from att_review");
             while (rs.next()) {
-                max = rs.getInt(1)+1;
+                max = rs.getInt(1) + 1;
             }
-            int r=stat.executeUpdate("insert into att_review values('"+max+"','"+att_id+"','"+userName+"','"+review+"')");
-            
+            stat.executeUpdate("insert into att_review values('" + max + "','" + id + "','" + userName + "','" + review + "')");
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

@@ -6,8 +6,6 @@ import java.io.Serializable;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 import static travelProjectWeb1.Login.*;
 
 /* 
@@ -30,6 +28,15 @@ public class userAccount1 implements Serializable {
     protected String searchCity = "";
     protected String searchTag = "";
     protected String searchName = "Name";
+    protected String review;
+
+    public String getReview() {
+        return review;
+    }
+
+    public void setReview(String review) {
+        this.review = review;
+    }
 
     public int getAtt_Id() {
         return att_Id;
@@ -128,7 +135,7 @@ public class userAccount1 implements Serializable {
         Connection conn = openDatabase();
         try {
             stat = conn.createStatement();
-           
+
             rs = stat.executeQuery("select * from (Select a.att_id, att_name, description, cityName, stateName "
                     + ", (select truncate(coalesce(sum(score)/count(score),0),1) from att_score where att_ID = a.att_id) as avg  "
                     + ", (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + accountID + "') then 'true' else 'false' END) as favorite "
@@ -162,7 +169,7 @@ public class userAccount1 implements Serializable {
         this.accountID = accountId;
         this.password = password;
     }
-    
+
     public userAccount1(int att_Id) {
         this.att_Id = att_Id;
     }

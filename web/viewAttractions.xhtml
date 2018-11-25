@@ -34,7 +34,8 @@
             <h:inputText value="#{login.theLoginAccount.searchName}"/>
             <h:outputText value="&#160;" />
             <h:commandButton id="search" value="Search"  action="#{login.theLoginAccount.searchAttractions()}" />
-
+            <br/>
+            <p>To leave a review, enter the text here and press the add review button next to the attraction  <h:outputText value="&#160;" /> <h:inputText value="#{login.theLoginAccount.review}"/> </p>
             <hr />
             <h:dataTable id="att" styleClass="table" 
 
@@ -58,23 +59,16 @@
                 <h:column>  
                     <f:facet name = "header">Rating</f:facet>                          
                     <h:graphicImage  value="#{att.getStar()}"/>
-                </h:column>                  
-                <!--    <h:column> 
-                        <f:facet name = "header">Favorite</f:facet>                          
-                        <h:outputText styleClass="dataTableOutputText" id="attvalue5" value="#{att.favorite}"/>  
-                    </h:column>                  -->
-                <!--      <h:column>
-                               <h:commandButton id="favbutton" value="Add Favorite" action="#{att.addFavorite(login.theLoginAccount.accountID)}" 
-                               disabled="#{att.favorite(login.theLoginAccount.accountID)}" />
-                           </h:column>  -->
+                </h:column>
                 <h:column>
                     <h:commandButton id="favbutton" action="#{att.addFavorite(login.theLoginAccount.accountID)}" 
                                      disabled="#{att.isFavorite()}" image="#{att.favImg()}"/>
-                </h:column> 
-                
+                </h:column>
                 <h:column>
-                    <h:commandButton id="rev_button" value="add review" action="#{att.viewAtt()}" 
-                                     />
+                    <h:form>
+                    <!--    <h:inputText value="#{login.theLoginAccount.review}"/>  -->
+                        <h:commandButton value="add review" action="#{att.addReview(login.theLoginAccount.accountID, login.theLoginAccount.review)}"  />
+                    </h:form>
                 </h:column>
             </h:dataTable>
         </h:form>
