@@ -34,8 +34,6 @@
             <h:inputText value="#{login.theLoginAccount.searchName}"/>
             <h:outputText value="&#160;" />
             <h:commandButton id="search" value="Search"  action="#{login.theLoginAccount.searchAttractions()}" />
-            <br/>
-            <p>To leave a review, enter the text here and press the add review button next to the attraction  <h:outputText value="&#160;" /> <h:inputText value="#{login.theLoginAccount.review}"/> </p>
             <hr />
             <h:dataTable id="att" styleClass="table" 
 
@@ -65,9 +63,11 @@
                                      disabled="#{att.isFavorite()}" image="#{att.favImg()}"/>
                 </h:column>
                 <h:column>
-                    <h:form>
-                    <!--    <h:inputText value="#{login.theLoginAccount.review}"/>  -->
-                        <h:commandButton value="add review" action="#{att.addReview(login.theLoginAccount.accountID, login.theLoginAccount.review)}"  />
+                    <h:form id="form1">
+                        <h:inputText id="reviewtext" value="#{login.theLoginAccount.review}"/>  
+                        <h:commandButton id="addreview" value="add review" action="#{att.addReview(login.theLoginAccount.accountID, login.theLoginAccount.review)}"  >
+                                         <f:ajax execute="@form"/>
+                                         </h:commandButton>
                     </h:form>
                 </h:column>
             </h:dataTable>
