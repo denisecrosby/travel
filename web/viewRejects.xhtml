@@ -27,7 +27,8 @@
                 <li> <h:link value="Rejected Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewRejects.xhtml"/></li>  
                 <li><a href="index.xhtml">Logout</a></li>                  
             </ul>
-            <br/>                    
+            <br/>
+     
             <h:dataTable id="rejects" styleClass="table"
                          rows ="#{login.theLoginAccount.viewMarked('reject').size()}" 
                          value="#{login.theLoginAccount.viewMarked('reject')}" var="rej">

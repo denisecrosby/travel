@@ -11,6 +11,7 @@
 
     </head>
     <body>
+        <h:form>        
         <div><h1>Welcome to Travel Advisor, #{login.getTheLoginAccount().accountID}</h1></div>
 
         <ul>
@@ -24,5 +25,37 @@
             <li> <h:link value="Rejected Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewRejects.xhtml"/></li> 
             <li><a href="index.xhtml">Logout</a></li>            
         </ul>
+        
+         <br/>          
+          <div><h1>Here are a few attractions that you may like. Mark them as favorites by pressing the heart button.</h1></div>
+          <br/>
+          <h:dataTable id="att" styleClass="table" width="99%"  bgcolor="#e6e6ff" 
+                         value="#{login.theLoginAccount.youMayLike()}" var="att">
+                <h:column>  
+                    <f:facet name = "header">Name</f:facet>    
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue1" value="#{att.name}"/>  
+                </h:column>
+                <h:column>  
+                    <f:facet name = "header">Description</f:facet>  
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue2" value="#{att.description}"/>  
+                </h:column>  
+                <h:column>  
+                    <f:facet name = "header">City</f:facet>                      
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue3" value="#{att.city}"/>  
+                </h:column>  
+                <h:column>  
+                    <f:facet name = "header">State</f:facet>                          
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue4" value="#{att.state}"/>  
+                </h:column>  
+                <h:column>  
+                    <f:facet name = "header">Rating</f:facet>                          
+                    <h:graphicImage  value="#{att.getStar()}"/>
+                </h:column>                  
+                <h:column>
+                    <h:commandButton id="favbutton" action="#{att.addFavorite(login.theLoginAccount.accountID)}" 
+                                     disabled="#{att.isFavorite()}" image="#{att.favImg()}"/>
+                </h:column>  
+            </h:dataTable>
+        </h:form>
     </body>
 </html>
