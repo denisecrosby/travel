@@ -10,10 +10,12 @@ and open the template in the editor.
       xmlns:f="http://java.sun.com/jsf/core">
     <head>
         <title>Add State</title>
+        <link href="css/form.css" rel="stylesheet" type="text/css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
         <h:form>
+            <div class="content">
         <h1></h1>
         <p>Add State:
             <h:inputText required="true" requiredMessage="add state cann't be empty" value="#{attraction.new_state}"/>
@@ -22,8 +24,9 @@ and open the template in the editor.
             <h:inputText required="true" requiredMessage="add state cann't be empty" value="#{attraction.new_city}"/>
         </p>
         <p>
-            <h:commandButton id="submit" value="Submit" action="#{attraction.add_state()}"  />
+            <h:commandButton class="btn" id="submit" value="Submit" action="#{attraction.add_state()}"  />
         </p>
+            </div>
         </h:form>
     </body>
 </html>

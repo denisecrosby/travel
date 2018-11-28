@@ -9,17 +9,20 @@ and open the template in the editor.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <head>
+        <link href="css/form.css" rel="stylesheet" type="text/css"/>
         <title>Add City</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
         <h:form>
+            <div class="content">
         <p>Add City:
             <h:inputText required="true" requiredMessage="add city feild cann't be empty" value="#{attraction.new_city}"/>
         </p>
             <p>
-                <h:commandButton id="submit" value="Submit" action="#{attraction.add_city()}"  />
+                <h:commandButton class="btn" id="submit" value="Submit" action="#{attraction.add_city()}"  />
             </p>
+            </div>
         </h:form>
     </body>
 </html>
