@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <head>
+        <link href="css/view_attraction.css" rel="stylesheet" type="text/css"/>
+        <title>Attraction</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <h:form >
+            <div class="con">
+            <h:dataTable id="att_n" styleClass="tab" 
+
+                         value="#{login.theLoginAccount.viewa()}" var="att" >
+            <h:column class="att_name">
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue1" value="#{att.name}"/>  
+            </h:column>
+                <h:column >
+                    
+                    <h:commandButton id="favbutton" action="#{att.addFavorite(login.theLoginAccount.accountID)}" 
+                                     disabled="#{att.isFavorite()}" image="#{att.favImg()}"/>
+                </h:column>
+                
+            </h:dataTable>
+                
+            <h:dataTable id="att_d" styleClass="tab" 
+
+                         value="#{login.theLoginAccount.viewa()}" var="att">
+            <h:column>
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue2" value="#{att.description}"/>  
+            </h:column>
+            </h:dataTable>
+            <h:dataTable id="att_c" styleClass="tab" 
+
+                         value="#{login.theLoginAccount.viewa()}" var="att">
+                <h:column>
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue4" value="#{att.state}"/>  
+            </h:column>
+                <h:column>
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue3" value="#{att.city}"/>  
+            </h:column>
+            </h:dataTable>
+            
+            <h:dataTable id="att_star" styleClass="tab" 
+
+                         value="#{login.theLoginAccount.viewa()}" var="att">
+                <h:column>                            
+                    <h:graphicImage  value="#{att.getStar()}"/>
+                </h:column>
+            </h:dataTable>
+            
+            </div>
+        </h:form>
+    </body>
+</html>

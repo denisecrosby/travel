@@ -75,8 +75,7 @@
                 </h:column>
                 <h:column>
                     <h:form>
-                        <h:inputText value="#{login.theLoginAccount.review}"/>  
-                        <h:commandButton value="add review" action="#{att.addReview(login.theLoginAccount.accountID, login.theLoginAccount.review)}"  >
+                        <h:commandButton id="view_Att" action="#{att.view_Att()}"  value="View" >
                             <f:ajax execute="@form"/>
                         </h:commandButton>
                     </h:form>

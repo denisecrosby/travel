@@ -1,0 +1,17 @@
+tab{width:100%; border-collapse:collapse; table-layout:auto; vertical-align:top; margin-bottom:15px; }
+tab thead th{color:#FFFFFF; background-color:#666666; border:1px solid #CCCCCC; border-collapse:collapse; text-align:center; table-layout:auto; vertical-align:middle;}
+tab tbody td{vertical-align:top; border-collapse:collapse; }
+tab thead th, tab tbody td{padding:5px; border-collapse:collapse;}
+tab tbody tr.light{color:#666666; background-color:#F7F7F7;}
+tab tbody tr.dark{color:#666666; background-color:#E8E8E8;}
+.con
+{
+    margin-top: 10%;
+}
+
+.att_name
+{
+    margin-left: 40%;
+    font-style: italic;
+    font-size: -webkit-xxx-large;
+}
