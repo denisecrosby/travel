@@ -217,6 +217,14 @@ public class attraction {
         int s = getStateID();
         int c = getCityID();
         try {
+            stat = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE
+                    , ResultSet.CONCUR_UPDATABLE);
+            rs=stat.executeQuery("select max(att_ID) from attractions");
+            if(rs.next())
+            {
+                max=rs.getByte(1)+1;
+            }
+            
             imageInputStream = new FileInputStream(new File(path.getSubmittedFileName()));
 
             PreparedStatement ps = conn.prepareStatement("insert into attractions values(?, ?, ?, ?, ?, ?, ?, ?)");
