@@ -30,12 +30,12 @@ public class city
         ResultSet rs = null;
         try {
             stat = conn.createStatement();
-            rs = stat.executeQuery("select * from att_city");
+            rs = stat.executeQuery("select * from att_city where Add_Delete=true");
             while (rs.next()) 
             {
                 city.add(rs.getString(3));
             }
-            
+            city.add("Other");
             
         } catch (SQLException e) {
             e.printStackTrace();

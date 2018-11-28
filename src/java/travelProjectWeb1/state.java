@@ -37,11 +37,12 @@ public class state
         ResultSet rs = null;
         try {
             stat = conn.createStatement();
-            rs = stat.executeQuery("select * from att_state");
+            rs = stat.executeQuery("select * from att_state where Add_Delete=true");
             while (rs.next()) 
             {
                 state.add(rs.getString(2));
             }
+            state.add("Other");
         } catch (SQLException e) 
         {
             e.printStackTrace();

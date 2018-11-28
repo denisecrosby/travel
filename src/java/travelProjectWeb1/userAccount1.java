@@ -29,6 +29,15 @@ public class userAccount1 implements Serializable {
     protected String searchTag = "";
     protected String searchName = "Name";
     protected String review;
+    protected int att_id;
+
+    public int getAtt_id() {
+        return att_id;
+    }
+
+    public void setAtt_id(int att_id) {
+        this.att_id = att_id;
+    }
 
     public String getReview() {
         return review;
@@ -101,6 +110,32 @@ public class userAccount1 implements Serializable {
         }
         return result;
 
+    }
+    
+    public ArrayList<attraction> viewa(){
+        Connection conn = openDatabase();
+        Statement stat = null;
+        ResultSet rs = null;
+        ArrayList<attraction> result = new ArrayList<>();
+        try {
+
+            stat = conn.createStatement();
+            int a=getLogin().att_id;
+            rs = stat.executeQuery("Select att_id, att_name, description, cityName, stateName "
+                    + ", (select truncate(coalesce(sum(score)/count(score),0),1) from att_score where att_ID = a.att_id) as avg  "
+                    + ", (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + accountID + "') then 'true' else 'false' END) as favorite "
+                    + " from attractions a, status s, state, city c where a.att_id='"+a+"' and a.state_id = state.sNum and a.city_id = c.cNum "
+                    + " and s.statusNum = a.status  "
+                    + " and exists (select 1 from attraction_tag where att_ID = a.att_id ) order by 6 desc");
+            while (rs.next()) {
+                result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite"), rs.getFloat("avg")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeDatabase(rs, stat, conn);
+        }
+        return result;
     }
 
     public ArrayList<attraction> viewFavorites() {

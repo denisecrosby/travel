@@ -22,18 +22,29 @@ public class Login implements Serializable {
     public static final List<String> validTags = Arrays.asList("history", "shopping", "beach", "urban", "explorer", "nature", "family");
     private String id;
     private String password;
-    private userAccount1 theLoginAccount;
+    private static userAccount1 theLoginAccount;
     private state st;
     private city ct;
 
+    
     //get methods and set methods
     public String getId() {
         return id;
     }
-
+    
     public userAccount1 getTheLoginAccount() {
         return theLoginAccount;
     }
+
+    public static void setTheLoginAccount(userAccount1 theLoginAccount) {
+        Login.theLoginAccount = theLoginAccount;
+    }
+    
+    public static userAccount1 getLogin()
+    {
+        return theLoginAccount;
+    }
+    
 
     public String getPassword() {
         return password;
