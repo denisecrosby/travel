@@ -88,12 +88,12 @@ public class Login implements Serializable {
                 if (id.equals("admin")) {
                     this.theLoginAccount
                             = new adminAccount(id, password);
-                    return "welcomeAdmin";
                 } else {
                     this.theLoginAccount
                             = new userAccount1(id, password);
-                    return "welcome";
+
                 }
+                return "welcome";
             } else {
                 id = "";
                 password = "";

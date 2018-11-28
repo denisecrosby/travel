@@ -7,6 +7,7 @@
 
     <h:head>
         <link href="css/tables.css" rel="stylesheet" type="text/css"/>
+        <link href="css/menu.css" rel="stylesheet" type="text/css"/>            
         <title>View Favorites</title>
     </h:head>
     <body>
@@ -15,7 +16,17 @@
             <h1>Favorites:</h1>
 
             <hr />
-
+            <ul>
+                <li><a href="welcome.xhtml">Home</a></li>
+                <li><a href="createAttraction.xhtml">Create Attraction</a></li>
+                <li><a href="viewAttractions.xhtml">Search Attractions</a></li>
+                <li><a href="viewFavorites.xhtml">View Favorites</a></li>
+                <li><a href="youMayLike.xhtml">You May Like</a></li>
+                <li> <h:link value="Pending Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewPending.xhtml"/></li>
+                <li> <h:link value="Approved Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewApprovals.xhtml"/></li>    
+                <li> <h:link value="Rejected Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewRejects.xhtml"/></li>                     
+            </ul>
+            <br/>        
             <h:selectOneMenu id="search_city" style="width:150px" value="#{login.theLoginAccount.searchCity}">
                 <f:selectItem   itemValue=" " itemLabel="City" />
                 <f:selectItems value="#{login.ct.city}"/>

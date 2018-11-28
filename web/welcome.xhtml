@@ -6,71 +6,22 @@
       xmlns:f="http://java.sun.com/jsf/core">
     <head>
         <link href="css/login.css" rel="stylesheet" type="text/css"/>
+        <link href="css/menu.css" rel="stylesheet" type="text/css"/>   
         <title>Login OK</title>
-                <style>
-            ul {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
-                background-color: grey;
-            }
 
-            li {
-                float: left;
-            }
-
-            li a, .dropbtn {
-                display: inline-block;
-                color: white;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-            }
-
-            li a:hover, .dropdown:hover .dropbtn {
-                background-color: #4169e1;
-            }
-
-            li.dropdown {
-                display: inline-block;
-            }
-
-            .dropdown-content {
-                display: none;
-                position: absolute;
-                background-color: #f9f9f9;
-                min-width: 160px;
-                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-                z-index: 1;
-            }
-
-            .dropdown-content a {
-                color: black;
-                padding: 12px 16px;
-                text-decoration: none;
-                display: block;
-                text-align: left;
-            }
-
-            .dropdown-content a:hover {background-color: #f1f1f1}
-
-            .dropdown:hover .dropdown-content {
-                display: block;
-            }
-
-        </style>
     </head>
     <body>
-         <div><h1>Welcome to Travel Advisor, #{login.getTheLoginAccount().accountID}</h1></div>
-            
+        <div><h1>Welcome to Travel Advisor, #{login.getTheLoginAccount().accountID}</h1></div>
+
         <ul>
-  <li><a href="index.xhtml">Home</a></li>
-  <li><a href="createAttraction.xhtml">Create Attraction</a></li>
-  <li><a href="viewAttractions.xhtml">Search Attractions</a></li>
-  <li><a href="viewFavorites.xhtml">View Favorites</a></li>
-  <li><a href="youMayLike.xhtml">You May Like</a></li>
-  
-</ul>
+            <li><a href="welcome.xhtml">Home</a></li>
+            <li><a href="createAttraction.xhtml">Create Attraction</a></li>
+            <li><a href="viewAttractions.xhtml">Search Attractions</a></li>
+            <li><a href="viewFavorites.xhtml">View Favorites</a></li>
+            <li><a href="youMayLike.xhtml">You May Like</a></li>
+            <li> <h:link value="Pending Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewPending.xhtml"/></li>
+            <li> <h:link value="Approved Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewApprovals.xhtml"/></li>    
+            <li> <h:link value="Rejected Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewRejects.xhtml"/></li>                     
+        </ul>
     </body>
 </html>
