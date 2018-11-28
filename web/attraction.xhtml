@@ -10,17 +10,31 @@ and open the template in the editor.
       xmlns:f="http://java.sun.com/jsf/core">
     <head>
         <link href="css/view_attraction.css" rel="stylesheet" type="text/css"/>
+        
+        <link href="css/menu.css" rel="stylesheet" type="text/css"/> 
         <title>Attraction</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
         <h:form >
-            <div class="con">
-            <h:dataTable id="att_n" styleClass="tab" 
+            <ul>
+            <li><a href="welcome.xhtml">Home</a></li>
+            <li><a href="createAttraction.xhtml">Create Attraction</a></li>
+            <li><a href="viewAttractions.xhtml">Search Attractions</a></li>
+            <li><a href="viewFavorites.xhtml">View Favorites</a></li>
+            <li><a href="youMayLike.xhtml">You May Like</a></li>
+            <li> <h:link value="Pending Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewPending.xhtml"/></li>
+            <li> <h:link value="Approved Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewApprovals.xhtml"/></li>    
+            <li> <h:link value="Rejected Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewRejects.xhtml"/></li>                     
+        </ul>
+
+            <h:dataTable id="att_n" styleClass="table" 
 
                          value="#{login.theLoginAccount.viewa()}" var="att" >
-            <h:column class="att_name">
+            <h:column >
+                <div class="att_name">
                     <h:outputText styleClass="dataTableOutputText" id="attvalue1" value="#{att.name}"/>  
+                </div>
             </h:column>
                 <h:column >
                     
@@ -56,7 +70,29 @@ and open the template in the editor.
                 </h:column>
             </h:dataTable>
             
+
+            <div>
+                <p>
+                    <div class="title" style="align-content: center"> Review:</div>
+                    <h:dataTable id="tab_rev" styleClass="tab" 
+                                  value="#{login.theLoginAccount.viewReview()}" var="rew">
+                    <h:column>
+                        <h:outputText styleClass="dataTableOutputText" id="attvalue1" value="#{rew.userName}          "/>  
+                        <h:outputText styleClass="dataTableOutputText" id="attvalue2" value="#{rew.rev}"/>  
+                    </h:column>
+                    </h:dataTable>
+                   <div class="rev_div">
+                       
+                       <h:form id="form1">
+                           <h:inputTextarea value="#{review.rev}"/><br/>
+                           <h:commandButton class="btn" id="submit" value="Add Review" action="#{review.addReview(login.theLoginAccount.att_id,login.theLoginAccount.accountID)}" >
+                            <f:ajax execute="@form"/>
+                        </h:commandButton>
+                    </h:form>
+                   </div>
+                </p>
             </div>
+            
         </h:form>
     </body>
 </html>

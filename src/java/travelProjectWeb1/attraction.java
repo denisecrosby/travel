@@ -360,23 +360,7 @@ public class attraction {
         return c;
     }
 
-    public void addReview(String userName, String review) {
-        int max = 0;
-        Connection conn = openDatabase();
-        Statement stat = null;
-        ResultSet rs = null;
-
-        try {
-
-            stat = conn.createStatement();
-            stat.executeUpdate("insert into att_review values('" + max + "','" + id + "','" + userName + "','" + review + "')");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeDatabase(rs, stat, conn);
-        }
-    }
+    
     
     public String add_state()
    {

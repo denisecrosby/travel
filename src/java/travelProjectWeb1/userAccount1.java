@@ -162,6 +162,26 @@ public class userAccount1 implements Serializable {
         return result;
 
     }
+    
+   public ArrayList<Review> viewReview()
+    {
+         Statement stat = null;
+        ResultSet rs = null;
+        ArrayList<Review>result = new ArrayList<>();
+        Connection conn = openDatabase();
+        try {
+            stat = conn.createStatement();
+            rs = stat.executeQuery("select * from att_review where att_ID='"+getLogin().att_id+"'");
+            while(rs.next()){
+                result.add(new Review(rs.getString(3),rs.getString(4)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeDatabase(rs, stat, conn);
+        }
+        return result;
+    }
 
     public ArrayList<attraction> youMayLike() {
         Statement stat = null;

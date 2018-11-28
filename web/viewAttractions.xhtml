@@ -74,11 +74,7 @@
                                      disabled="#{att.isFavorite()}" image="#{att.favImg()}"/>
                 </h:column>
                 <h:column>
-                    <h:form>
-                        <h:commandButton id="view_Att" action="#{att.view_Att()}"  value="View" >
-                            <f:ajax execute="@form"/>
-                        </h:commandButton>
-                    </h:form>
+                        <h:commandButton id="view_Att" action="#{att.view_Att()}"  value="View" />
                 </h:column>
             </h:dataTable>
         </h:form>
