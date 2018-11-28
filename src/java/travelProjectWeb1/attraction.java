@@ -1,5 +1,6 @@
 package travelProjectWeb1;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -31,6 +32,7 @@ public class attraction {
     public byte[] image;
     public String[] tags;
     FileInputStream imageInputStream = null;
+    InputStream im = null;
 
     public String[] getTags() {
         return tags;
@@ -217,15 +219,25 @@ public class attraction {
         int s = getStateID();
         int c = getCityID();
         try {
-            stat = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE
-                    , ResultSet.CONCUR_UPDATABLE);
-            rs=stat.executeQuery("select max(att_ID) from attractions");
-            if(rs.next())
-            {
-                max=rs.getByte(1)+1;
+            stat = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            rs = stat.executeQuery("select max(att_ID) from attractions");
+            if (rs.next()) {
+                max = rs.getByte(1) + 1;
             }
-            
-            imageInputStream = new FileInputStream(new File(path.getSubmittedFileName()));
+
+            if (path == null) {
+                rs = stat.executeQuery("select * from default_img where name='attraction'");
+                while (rs.next()) {
+                    image = rs.getBytes(2);
+                    im = new ByteArrayInputStream(image);
+                }
+
+            } else {
+                InputStream input = path.getInputStream();
+                String fileName = path.getSubmittedFileName();
+                imageInputStream = new FileInputStream(new File(fileName));
+            }
 
             PreparedStatement ps = conn.prepareStatement("insert into attractions values(?, ?, ?, ?, ?, ?, ?, ?)");
             ps.setInt(1, max);
@@ -235,7 +247,12 @@ public class attraction {
             ps.setString(5, description);
             ps.setString(6, userName);
             ps.setInt(7, 1);
-            ps.setBinaryStream(8, imageInputStream);
+            if (path != null) {
+                ps.setBinaryStream(8, imageInputStream);
+            } else {
+                ps.setBinaryStream(8, im);
+            }
+            int r = ps.executeUpdate();
             ps.executeUpdate();
             for (String tag : tags) {
                 stat.executeUpdate("insert into attraction_tag values('" + max + "','" + tag + "')");
