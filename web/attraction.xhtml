@@ -134,7 +134,7 @@ and open the template in the editor.
                         
                         </h:dataTable>
                         <h:form id="form1">  
-                        <h:inputText value="#{question_Answers.ans}"/><br/>
+                            <h:inputText value="#{login.theLoginAccount.answer}"/><br/>
                         <h:commandButton class="btn" id="submit3" value="Add Answer" action="#{ques.add_Answer(login.theLoginAccount.accountID)}" >
                             <f:ajax execute="@form"/>
                             </h:commandButton>

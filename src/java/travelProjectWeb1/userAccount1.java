@@ -34,6 +34,15 @@ public class userAccount1 implements Serializable {
     protected String review;
     protected int att_id;
     private StreamedContent productImage;
+    protected String answer;
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
 
     
     public StreamedContent getProductImage() {

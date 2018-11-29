@@ -142,14 +142,15 @@ public class Question_Answers {
         try {
             
             s = c.createStatement();
-            if(!ans.equals(null)){
-                s.executeUpdate("insert into att_answer values('" + this.ques_id + "','"+ans+"',false,'" + un + "')");
+            if(!getLogin().answer.equals(null)){
+                s.executeUpdate("insert into att_answer values('" + this.ques_id + "','"+ getLogin().answer+"',false,'" + un + "')");
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeDatabase(r, s, c);
+            getLogin().answer = null;
         }
     }
     
