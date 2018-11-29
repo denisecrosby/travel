@@ -3,7 +3,8 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <head>
         <link href="css/login.css" rel="stylesheet" type="text/css"/>
         <link href="css/menu.css" rel="stylesheet" type="text/css"/>   
@@ -11,20 +12,25 @@
 
     </head>
     <body>
+        
         <h:form>        
+             
         <div><h1>Welcome to Travel Advisor, #{login.getTheLoginAccount().accountID}</h1></div>
-
+       
         <ul>
             <li><a href="welcome.xhtml">Home</a></li>
             <li><a href="createAttraction.xhtml">Create Attraction</a></li>
             <li><a href="viewAttractions.xhtml">Search Attractions</a></li>
             <li><a href="viewFavorites.xhtml">View Favorites</a></li>
+            <li><a href="topAttraction.xhtml">Top Attraction</a></li>
             <li> <h:link value="Pending Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewPending.xhtml"/></li>
             <li> <h:link value="Approved Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewApprovals.xhtml"/></li>    
             <li> <h:link value="Rejected Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewRejects.xhtml"/></li> 
+            
             <li><a href="index.xhtml">Logout</a></li>            
         </ul>
          <br/>
+         
           <h:dataTable id="att" styleClass="table" width="99%"  bgcolor="white" style="border-style: solid"
                          value="#{login.theLoginAccount.youMayLike()}" var="att">
                 <h:column>  
@@ -52,6 +58,7 @@
                                      disabled="#{att.isFavorite()}" image="#{att.favImg()}"/>
                 </h:column>  
             </h:dataTable>
+          
         </h:form>
     </body>
 </html>

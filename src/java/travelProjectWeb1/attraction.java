@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.inject.Named;
 import javax.faces.bean.ManagedBean;
 import javax.servlet.http.Part;
+import org.primefaces.model.StreamedContent;
 import static travelProjectWeb1.Login.*;
 
 /* 
@@ -35,7 +36,17 @@ public class attraction {
     InputStream im = null;
      public String new_state;
     public String new_city;
+    public StreamedContent productImage;
 
+    public StreamedContent getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(StreamedContent productImage) {
+        this.productImage = productImage;
+    }
+
+    
     public String getNew_state() {
         return new_state;
     }
@@ -132,6 +143,10 @@ public class attraction {
     public attraction() {
     }
 
+    public attraction(StreamedContent image)
+    {
+        this.productImage=image;
+    }
     public attraction(String id, String name, String description,
             String city, String state, String favorite, float avg) {
         this.id = id;
@@ -141,6 +156,17 @@ public class attraction {
         this.state = state;
         this.favorite = favorite;
         this.avg = avg;
+    }
+     public attraction(String id, String name, String description,
+            String city, String state, String favorite, float avg,StreamedContent image) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.city = city;
+        this.state = state;
+        this.favorite = favorite;
+        this.avg = avg;
+        this.productImage=image;
     }
 
     public attraction(String id, String name, String description,
@@ -306,6 +332,7 @@ public class attraction {
     {        getLogin().att_id=Integer.parseInt(id);
         int var = getLogin().att_id;
         userAccount1 u=new userAccount1(var);
+        
         return "attraction.xhtml";
         
     }
