@@ -27,7 +27,7 @@ and open the template in the editor.
             <li> <h:link value="Approved Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewApprovals.xhtml"/></li>    
             <li> <h:link value="Rejected Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewRejects.xhtml"/></li>                     
         </ul>
-
+            <div class="content">
             <h:dataTable id="att_n" styleClass="table" 
 
                          value="#{login.theLoginAccount.viewa()}" var="att" >
@@ -71,7 +71,7 @@ and open the template in the editor.
             </h:dataTable>
             
 
-            <div>
+                <div class="review">
                 <p>
                     <div class="title" style="align-content: center"> Review:</div>
                     <h:dataTable id="tab_rev" styleClass="tab" 
@@ -92,7 +92,10 @@ and open the template in the editor.
                    </div>
                 </p>
             </div>
-            
+                <div>
+                    
+                </div>
+        </div>
         </h:form>
     </body>
 </html>

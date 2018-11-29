@@ -27,28 +27,30 @@
         <h:form enctype="multipart/form-data" >
             <div class="content">
                 <div class="inner">
-                    <p>
+                    <p><span style="font:bold;color: red" >*</span>
                         Attraction Name  
                         <h:inputText id="att_name" required ="true" 
                                      requiredMessage="The ID field cannot be empty"
                                      title="Please enter your ID"
                                      value="#{attraction.name}">
                         </h:inputText>
+                        <h:message for="att_name" id="att_name_msg" style="color: red" > </h:message>
+ 
                     </p>
 
-                    <p>Select State
+                    <p><span style="font:bold;color: red" >*</span>Select State
                         <h:selectOneMenu id="att_state" required="true" style="width:150px" 
                                          value="#{attraction.state}" onchange="" >
                             <f:selectItems value="#{login.st.state}" />
                         </h:selectOneMenu>
 
                     </p>
-                    <p >Select City
+                    <p ><span style="font:bold;color: red" >*</span>Select City
                         <h:selectOneMenu id="att_city" required="true" style="width:150px" value="#{attraction.city}"   >
                             <f:selectItems  value="#{login.ct.city}"  />
                         </h:selectOneMenu>
                     </p>
-                    <p>Description: <br/> 
+                    <p><span style="font:bold;color: red" >*</span>Description: <br/> 
                         <h:inputTextarea class="txt-area" id="att_desc" required ="true" 
                                          requiredMessage=""
                                          title="describe"
@@ -59,7 +61,7 @@
 
                         <h:inputFile  id="att_img" value="#{attraction.path}"  maxlength="16177215"  />
                     </p>
-                    <p >Select the Tags from below
+                    <p ><span style="font:bold;color: red" >*</span>Select the Tags from below
                         <h:selectManyCheckbox   value="#{attraction.tags}">
                             <div >
                                 <f:selectItem itemValue="1" itemLabel="History" /> 
