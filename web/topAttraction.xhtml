@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <link href="css/login.css" rel="stylesheet" type="text/css"/>
+        <link href="css/menu.css" rel="stylesheet" type="text/css"/>   
+        <title>Login OK</title>
+
+    </head>
+    <body>
+        <h:form>
+         <br/>
+         
+          <h:dataTable id="att" styleClass="table" width="70%"  bgcolor="white" style="border-style: solid"
+                       value="#{topAttraction.attraction}" var="att" > 
+                <h:column>  
+                    <f:facet name = "header">
+                        <h:outputText value="Attraction Name"/>
+                    </f:facet>    
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue1" value="#{att.name}"/>  
+                </h:column>
+              <h:column>  
+                    <f:facet name = "header">City</f:facet>    
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue1" value="#{att.city}"/>  
+                </h:column>
+              <h:column>  
+                    <f:facet name = "header">State</f:facet>    
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue1" value="#{att.state}"/>  
+                </h:column>
+              <h:column>  
+                    <f:facet name = "header">Rating</f:facet>    
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue1" value="#{att.avg}"/>  
+                </h:column>
+               
+            </h:dataTable>
+          
+        </h:form>
+    </body>
+</html>

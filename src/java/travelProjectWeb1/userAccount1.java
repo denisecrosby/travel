@@ -1,11 +1,14 @@
 package travelProjectWeb1;
 
+import java.io.ByteArrayInputStream;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 
 import java.sql.*;
 import java.util.ArrayList;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import static travelProjectWeb1.Login.*;
 
 /* 
@@ -30,6 +33,17 @@ public class userAccount1 implements Serializable {
     protected String searchName = "Name";
     protected String review;
     protected int att_id;
+    private StreamedContent productImage;
+
+    
+    public StreamedContent getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(StreamedContent productImage) {
+        this.productImage = productImage;
+    }
+    
 
     public int getAtt_id() {
         return att_id;
@@ -103,6 +117,7 @@ public class userAccount1 implements Serializable {
             while (rs.next()) {
                 result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite"), rs.getFloat("avg")));
             }
+            
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -120,16 +135,45 @@ public class userAccount1 implements Serializable {
         try {
 
             stat = conn.createStatement();
+            byte[] image = null;
+            StreamedContent pImage=null;
             int a=getLogin().att_id;
-            rs = stat.executeQuery("Select att_id, att_name, description, cityName, stateName "
+            rs = stat.executeQuery("Select att_id, att_name, description, cityName, stateName"
                     + ", (select truncate(coalesce(sum(score)/count(score),0),1) from att_score where att_ID = a.att_id) as avg  "
                     + ", (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + accountID + "') then 'true' else 'false' END) as favorite "
                     + " from attractions a, status s, state, city c where a.att_id='"+a+"' and a.state_id = state.sNum and a.city_id = c.cNum "
                     + " and s.statusNum = a.status  "
                     + " and exists (select 1 from attraction_tag where att_ID = a.att_id ) order by 6 desc");
             while (rs.next()) {
+                
                 result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite"), rs.getFloat("avg")));
             }
+              this.productImage=null;
+            System.out.println("in get image");
+        
+             PreparedStatement stmt = null;
+        byte[] productImage = null;
+        try
+        { 
+            System.out.println("Id:"+a);
+            stmt = conn.prepareStatement("select * from attractions where att_id=?");
+            
+            stmt.setString(1,Integer.toString(a));
+            rs = stmt.executeQuery();
+ 
+		while (rs.next()) {
+                    
+			productImage = rs.getBytes("att_Img");
+                        
+		}
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+       
+        this.productImage= new DefaultStreamedContent(new ByteArrayInputStream(productImage));
+        new attraction(this.productImage);
+     
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -223,9 +267,11 @@ public class userAccount1 implements Serializable {
     public userAccount1(String accountId, String password) {
         this.accountID = accountId;
         this.password = password;
+        
     }
 
     public userAccount1(int att_Id) {
         this.att_Id = att_Id;
     }
+    
 }

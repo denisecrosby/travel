@@ -7,7 +7,8 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <link href="css/view_attraction.css" rel="stylesheet" type="text/css"/>
         
@@ -32,11 +33,13 @@ and open the template in the editor.
             <h:dataTable id="att_n" styleClass="table" 
 
                          value="#{login.theLoginAccount.viewa()}" var="att" >
+                
             <h:column >
                 <div class="att_name">
                     <h:outputText styleClass="dataTableOutputText" id="attvalue1" value="#{att.name}"/>  
                 </div>
             </h:column>
+                 
                 <h:column >
                     
                     <h:commandButton id="favbutton" action="#{att.addFavorite(login.theLoginAccount.accountID)}" 
@@ -44,6 +47,8 @@ and open the template in the editor.
                 </h:column>
                 
             </h:dataTable>
+                 <p:graphicImage value="#{login.theLoginAccount.productImage}" style="width: 40%"/>
+             
                 
             <h:dataTable id="att_d" styleClass="tab" 
 
@@ -52,6 +57,7 @@ and open the template in the editor.
                     <h:outputText styleClass="dataTableOutputText" id="attvalue2" value="#{att.description}"/>  
             </h:column>
             </h:dataTable>
+                
             <h:dataTable id="att_c" styleClass="tab" 
 
                          value="#{login.theLoginAccount.viewa()}" var="att">
@@ -62,12 +68,21 @@ and open the template in the editor.
                     <h:outputText styleClass="dataTableOutputText" id="attvalue3" value="#{att.city}"/>  
             </h:column>
             </h:dataTable>
-            
+             
             <h:dataTable id="att_star" styleClass="tab" 
 
                          value="#{login.theLoginAccount.viewa()}" var="att">
                 <h:column>                            
                     <h:graphicImage  value="#{att.getStar()}"/>
+                </h:column>
+               
+            </h:dataTable>
+                <h:dataTable id="att_image" styleClass="tab" 
+
+                         value="#{login.theLoginAccount.viewa()}" var="att">
+                    <h:outputText value="Krishna"/>
+                <h:column>
+                    <p:graphicImage value="#{att.productImage}" style="width: 40%"/>
                 </h:column>
             </h:dataTable>
             
