@@ -25,7 +25,6 @@ public class Login implements Serializable {
     private static userAccount1 theLoginAccount;
     private state st;
     private city ct;
-
     
     //get methods and set methods
     public String getId() {
