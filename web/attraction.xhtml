@@ -16,7 +16,7 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <h:form >
+        <h:form id="att_form" >
             <ul>
             <li><a href="welcome.xhtml">Home</a></li>
             <li><a href="createAttraction.xhtml">Create Attraction</a></li>
@@ -70,8 +70,18 @@ and open the template in the editor.
                     <h:graphicImage  value="#{att.getStar()}"/>
                 </h:column>
             </h:dataTable>
-            
-
+                <div>
+            <h:selectOneRadio id="att_scr" value="#{score.scr}" >
+                            <f:selectItem itemValue="1" itemLabel="1"/>
+                            <f:selectItem itemValue="2" itemLabel="2"/>
+                            <f:selectItem itemValue="3" itemLabel="3"/>
+                            <f:selectItem itemValue="4" itemLabel="4"/>
+                            <f:selectItem itemValue="5" itemLabel="5"/>
+              </h:selectOneRadio> 
+                    <h:commandButton id="scr_btn" value="Add Score" action="#{score.addScore(login.theLoginAccount.att_id, login.theLoginAccount.accountID)}"/>
+                    <br/>
+                <h:message for="att_scr" id="att_scr_msg" style="color: red" > </h:message>
+                </div>
                <div class="review">
                 <p>
                     <div class="title" style="font-size:medium;font-weight: bold"> Review:</div>
