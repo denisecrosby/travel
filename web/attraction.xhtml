@@ -72,9 +72,9 @@ and open the template in the editor.
             </h:dataTable>
             
 
-                <div class="review">
+               <div class="review">
                 <p>
-                    <div class="title" style="align-content: center"> Review:</div>
+                    <div class="title" style="font-size:medium;font-weight: bold"> Review:</div>
                     <h:dataTable id="tab_rev" styleClass="tab" 
                                   value="#{login.theLoginAccount.viewReview()}" var="rew">
                     <h:column>
@@ -84,18 +84,46 @@ and open the template in the editor.
                     </h:dataTable>
                    <div class="rev_div">
                        
-                       <h:form id="form1">
                            <h:inputTextarea value="#{review.rev}"/><br/>
                            <h:commandButton class="btn" id="submit" value="Add Review" action="#{review.addReview(login.theLoginAccount.att_id,login.theLoginAccount.accountID)}" >
-                            <f:ajax execute="@form"/>
+                            
                         </h:commandButton>
-                    </h:form>
+                    
                    </div>
                 </p>
             </div>
-                <div>
+                <div class="q_a">
+                    <div class="title" style="font-size:medium;font-weight: bold"> Questin and Answer</div>
+                    <h:dataTable id="tab_ques" styleClass="tab" 
+                                 value="#{question_Answers.view_Question()}" var="ques">
+                    <h:column>
+                        <h:outputText styleClass="dataTableOutputText" id="attvalue3" value="Q)"/>  
+                        <h:outputText styleClass="dataTableOutputText" id="attvalue4" value="#{ques.ques}"/>  
+                        <h:dataTable id="tab_ans" styleClass="tab" 
+                                     value="#{ques.view_Answer()}" var="answ">
+                            <h:column>
+                                <h:outputText styleClass="dataTableOutputText" id="attvalue5" value="A:      "/>  
+                                <h:outputText styleClass="dataTableOutputText" id="attvalue6" value="#{answ.ans}"/>  
+                            </h:column>
+                        
+                        </h:dataTable>
+                        <h:form id="form1">
+                        <h:inputText value="#{question_Answers.ans}"/><br/>
+                        <h:commandButton class="btn" id="submit3" value="Add Answer" action="#{ques.add_Answer(login.theLoginAccount.accountID)}" >
+                            <f:ajax execute="@form"/>
+                            </h:commandButton>
+                        </h:form>
+                    </h:column>
+                    </h:dataTable>
+                            <h:inputTextarea value="#{question_Answers.ques}"/><br/>
+                           <h:commandButton class="btn" id="submit3" value="Add Question" action="#{question_Answers.add_Question(login.theLoginAccount.att_id, login.theLoginAccount.accountID)}" >
+                            
+                        </h:commandButton>
                     
+
                 </div>
+                    
+                
         </div>
         </h:form>
     </body>

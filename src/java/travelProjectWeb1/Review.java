@@ -67,7 +67,10 @@ public class Review {
             {
                 max=rs.getInt(1)+1;
             }
-            stat.executeUpdate("insert into att_review values('" + max + "','" + att_id + "','" + un + "','" + rev + "')");
+            if(!rev.equals(null))
+            {
+                stat.executeUpdate("insert into att_review values('" + max + "','" + att_id + "','" + un + "','" + rev + "')");
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
