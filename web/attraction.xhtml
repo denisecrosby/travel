@@ -8,13 +8,13 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
-    <head>
+    <h:head>
         <link href="css/view_attraction.css" rel="stylesheet" type="text/css"/>
         
         <link href="css/menu.css" rel="stylesheet" type="text/css"/> 
         <title>Attraction</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
+    </h:head>
     <body>
         <h:form >
             <ul>
@@ -93,12 +93,13 @@ and open the template in the editor.
                 </p>
             </div>
                 <div class="q_a">
-                    <div class="title" style="font-size:medium;font-weight: bold"> Questin and Answer</div>
+                    <div class="title" style="font-size:medium;font-weight: bold"> Question and Answer</div>
                     <h:dataTable id="tab_ques" styleClass="tab" 
                                  value="#{question_Answers.view_Question()}" var="ques">
                     <h:column>
                         <h:outputText styleClass="dataTableOutputText" id="attvalue3" value="Q)"/>  
                         <h:outputText styleClass="dataTableOutputText" id="attvalue4" value="#{ques.ques}"/>  
+                      
                         <h:dataTable id="tab_ans" styleClass="tab" 
                                      value="#{ques.view_Answer()}" var="answ">
                             <h:column>
@@ -107,7 +108,7 @@ and open the template in the editor.
                             </h:column>
                         
                         </h:dataTable>
-                        <h:form id="form1">
+                        <h:form id="form1">  
                         <h:inputText value="#{question_Answers.ans}"/><br/>
                         <h:commandButton class="btn" id="submit3" value="Add Answer" action="#{ques.add_Answer(login.theLoginAccount.accountID)}" >
                             <f:ajax execute="@form"/>
