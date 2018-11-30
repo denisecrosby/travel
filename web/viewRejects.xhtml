@@ -4,17 +4,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
-
     <h:head>
         <link href="css/tables.css" rel="stylesheet" type="text/css"/>
         <link href="css/menu.css" rel="stylesheet" type="text/css"/>            
         <title>Show Rejected Attractions</title>
     </h:head>
-    <body>
+    <h:body>
         <h:form>
-
             <h1>Rejected Attractions:</h1>
-
             <hr />
             <ul>
                 <li><a href="welcome.xhtml">Home</a></li>
@@ -28,7 +25,6 @@
                 <li><a href="index.xhtml">Logout</a></li>                  
             </ul>
             <br/>
-
             <h:dataTable id="rejects" styleClass="table"
                          rows ="#{login.theLoginAccount.viewMarked('reject').size()}" 
                          value="#{login.theLoginAccount.viewMarked('reject')}" var="rej">
@@ -51,14 +47,11 @@
                     <f:facet name = "header">State</f:facet>                     
                     <h:outputText styleClass="dataTableOutputText" 
                                   id="rejectvalue4" value="#{rej.state}"/>  
-                </h:column>  
+                </h:column>
+                <h:column>
+                    <h:commandButton id="view_Att" action="#{rej.view_Att()}"  value="View" />
+                </h:column>                
             </h:dataTable>  
-
-            <br></br>
-            <br></br>
-            <br></br>
-            <h:commandButton id="return" value="Return" immediate="true"
-                             action="welcomeAdmin.xhtml" />
         </h:form>
-    </body>
+    </h:body>
 </html>
