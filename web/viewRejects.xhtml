@@ -26,7 +26,6 @@
             </ul>
             <br/>
             <h:dataTable id="rejects" styleClass="table"
-                         rows ="#{login.theLoginAccount.viewMarked('reject').size()}" 
                          value="#{login.theLoginAccount.viewMarked('reject')}" var="rej">
                 <h:column>  
                     <f:facet name = "header">Name</f:facet>                     
