@@ -121,6 +121,7 @@ and open the template in the editor.
                     <h:dataTable id="tab_ques" styleClass="tab" 
                                  value="#{question_Answers.view_Question()}" var="ques">
                         <h:column>
+                            <h:form id="form1">                             
                             <h:outputText styleClass="dataTableOutputText" id="attvalue3" value="Q)"/>  
                             <h:outputText styleClass="dataTableOutputText" id="attvalue4" value="#{ques.ques}"/>  
 
@@ -132,16 +133,16 @@ and open the template in the editor.
                                 </h:column>
 
                             </h:dataTable>
-                            <h:form id="form1">  
+ 
                                 <h:inputText value="#{login.theLoginAccount.answer}"/><br/>
                                 <h:commandButton class="btn" id="submit3" value="Add Answer" action="#{ques.add_Answer(login.theLoginAccount.accountID)}" >
-                                    <f:ajax execute="@form"/>
+                            <!--        <f:ajax execute="@form" render="attvalue6"/>  -->
                                 </h:commandButton>
                             </h:form>
                         </h:column>
                     </h:dataTable>
                     <h:inputTextarea value="#{question_Answers.ques}"/><br/>
-                    <h:commandButton class="btn" id="submit3" value="Add Question" action="#{question_Answers.add_Question(login.theLoginAccount.att_id, login.theLoginAccount.accountID)}" >
+                    <h:commandButton class="btn" id="submit4" value="Add Question" action="#{question_Answers.add_Question(login.theLoginAccount.att_id, login.theLoginAccount.accountID)}" >
 
                     </h:commandButton>
 
