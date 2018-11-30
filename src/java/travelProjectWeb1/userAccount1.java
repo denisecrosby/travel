@@ -44,7 +44,6 @@ public class userAccount1 implements Serializable {
         this.answer = answer;
     }
 
-    
     public StreamedContent getProductImage() {
         return productImage;
     }
@@ -52,7 +51,6 @@ public class userAccount1 implements Serializable {
     public void setProductImage(StreamedContent productImage) {
         this.productImage = productImage;
     }
-    
 
     public int getAtt_id() {
         return att_id;
@@ -111,10 +109,10 @@ public class userAccount1 implements Serializable {
     }
 
     public ArrayList<attraction> viewAttractions() {
+        Connection conn = openDatabase();
         Statement stat = null;
         ResultSet rs = null;
         ArrayList<attraction> result = new ArrayList<>();
-        Connection conn = openDatabase();
         try {
             stat = conn.createStatement();
             rs = stat.executeQuery("Select att_id, att_name, description, cityName, stateName "
@@ -126,17 +124,43 @@ public class userAccount1 implements Serializable {
             while (rs.next()) {
                 result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite"), rs.getFloat("avg")));
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeDatabase(rs, stat, conn);
         }
         return result;
+    }
+
+    public ArrayList<attraction> viewTopAttractions() {
+           Connection conn = openDatabase();
+        Statement stat = null;
+        ResultSet rs = null;
+        ArrayList<attraction> result = new ArrayList<>();
+        try {
+            stat = conn.createStatement();
+            rs = stat.executeQuery("select * from (Select att_id, att_name, description, cityName, stateName "
+                    + ", (select truncate(coalesce(sum(score)/count(score),0),1) from att_score where att_ID = a.att_id) as avg  "
+                    + ", (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + accountID + "') then 'true' else 'false' END) as favorite "
+                    + " from attractions a, status s, state, city c where a.state_id = state.sNum and a.city_id = c.cNum "
+                    + " and s.statusNum = a.status and s.status = 'approved')a "
+                    + " where avg>4"
+                    + " order by 6 desc");
+            while (rs.next()) {
+                result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite"), rs.getFloat("avg")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeDatabase(rs, stat, conn);
+        }
+        return result;     
 
     }
-    
-    public ArrayList<attraction> viewa(){
+
+    public ArrayList<attraction> viewa() {
         Connection conn = openDatabase();
         Statement stat = null;
         ResultSet rs = null;
@@ -145,44 +169,42 @@ public class userAccount1 implements Serializable {
 
             stat = conn.createStatement();
             byte[] image = null;
-            StreamedContent pImage=null;
-            int a=getLogin().att_id;
+            StreamedContent pImage = null;
+            int a = getLogin().att_id;
             rs = stat.executeQuery("Select att_id, att_name, description, cityName, stateName"
                     + ", (select truncate(coalesce(sum(score)/count(score),0),1) from att_score where att_ID = a.att_id) as avg  "
                     + ", (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + accountID + "') then 'true' else 'false' END) as favorite "
-                    + " from attractions a, status s, state, city c where a.att_id='"+a+"' and a.state_id = state.sNum and a.city_id = c.cNum "
+                    + " from attractions a, status s, state, city c where a.att_id='" + a + "' and a.state_id = state.sNum and a.city_id = c.cNum "
                     + " and s.statusNum = a.status  "
                     + " and exists (select 1 from attraction_tag where att_ID = a.att_id ) order by 6 desc");
             while (rs.next()) {
-                
+
                 result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite"), rs.getFloat("avg")));
             }
-              this.productImage=null;
+            this.productImage = null;
             System.out.println("in get image");
-        
-             PreparedStatement stmt = null;
-        byte[] productImage = null;
-        try
-        { 
-            System.out.println("Id:"+a);
-            stmt = conn.prepareStatement("select * from attractions where att_id=?");
-            
-            stmt.setString(1,Integer.toString(a));
-            rs = stmt.executeQuery();
- 
-		while (rs.next()) {
-                    
-			productImage = rs.getBytes("att_Img");
-                        
-		}
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-       
-        this.productImage= new DefaultStreamedContent(new ByteArrayInputStream(productImage));
-        new attraction(this.productImage);
-     
+
+            PreparedStatement stmt = null;
+            byte[] productImage = null;
+            try {
+                System.out.println("Id:" + a);
+                stmt = conn.prepareStatement("select * from attractions where att_id=?");
+
+                stmt.setString(1, Integer.toString(a));
+                rs = stmt.executeQuery();
+
+                while (rs.next()) {
+
+                    productImage = rs.getBytes("att_Img");
+
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            this.productImage = new DefaultStreamedContent(new ByteArrayInputStream(productImage));
+            new attraction(this.productImage);
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -215,18 +237,17 @@ public class userAccount1 implements Serializable {
         return result;
 
     }
-    
-   public ArrayList<Review> viewReview()
-    {
-         Statement stat = null;
+
+    public ArrayList<Review> viewReview() {
+        Statement stat = null;
         ResultSet rs = null;
-        ArrayList<Review>result = new ArrayList<>();
+        ArrayList<Review> result = new ArrayList<>();
         Connection conn = openDatabase();
         try {
             stat = conn.createStatement();
-            rs = stat.executeQuery("select * from att_review where att_ID='"+getLogin().att_id+"'");
-            while(rs.next()){
-                result.add(new Review(rs.getString(3),rs.getString(4)));
+            rs = stat.executeQuery("select * from att_review where att_ID='" + getLogin().att_id + "'");
+            while (rs.next()) {
+                result.add(new Review(rs.getString(3), rs.getString(4)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -263,7 +284,7 @@ public class userAccount1 implements Serializable {
 
     }
 
-    //this method is empty - a postback of the page causes the viewAttractions method to run and search with the specified city
+    //the searchAttractions is empty - a postback of the page causes the viewAttractions method to run and search with the specified city
     //this could be done better using javascript/refresh only part of the page
     public void searchAttractions() {
 
@@ -276,11 +297,9 @@ public class userAccount1 implements Serializable {
     public userAccount1(String accountId, String password) {
         this.accountID = accountId;
         this.password = password;
-        
     }
 
     public userAccount1(int att_Id) {
         this.att_Id = att_Id;
     }
-    
 }

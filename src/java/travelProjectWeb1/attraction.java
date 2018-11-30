@@ -34,7 +34,7 @@ public class attraction {
     public String[] tags;
     FileInputStream imageInputStream = null;
     InputStream im = null;
-     public String new_state;
+    public String new_state;
     public String new_city;
     public StreamedContent productImage;
 
@@ -46,7 +46,6 @@ public class attraction {
         this.productImage = productImage;
     }
 
-    
     public String getNew_state() {
         return new_state;
     }
@@ -143,10 +142,10 @@ public class attraction {
     public attraction() {
     }
 
-    public attraction(StreamedContent image)
-    {
-        this.productImage=image;
+    public attraction(StreamedContent image) {
+        this.productImage = image;
     }
+
     public attraction(String id, String name, String description,
             String city, String state, String favorite, float avg) {
         this.id = id;
@@ -157,8 +156,9 @@ public class attraction {
         this.favorite = favorite;
         this.avg = avg;
     }
-     public attraction(String id, String name, String description,
-            String city, String state, String favorite, float avg,StreamedContent image) {
+
+    public attraction(String id, String name, String description,
+            String city, String state, String favorite, float avg, StreamedContent image) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -166,7 +166,7 @@ public class attraction {
         this.state = state;
         this.favorite = favorite;
         this.avg = avg;
-        this.productImage=image;
+        this.productImage = image;
     }
 
     public attraction(String id, String name, String description,
@@ -187,7 +187,6 @@ public class attraction {
         this.description = description;
         this.city = city;
         this.state = state;
-
     }
 
     //this method is used by the admin to approve to reject attractions
@@ -258,15 +257,12 @@ public class attraction {
         Connection conn = openDatabase();
         Statement stat = null;
         ResultSet rs = null;
-        boolean s_c=false;
-        boolean ct=false;
-        if(state.equals("Other"))
-        {
-            s_c=true;
-        }
-        else if(city.equals("Other"))
-        {
-            ct=true;
+        boolean s_c = false;
+        boolean ct = false;
+        if (state.equals("Other")) {
+            s_c = true;
+        } else if (city.equals("Other")) {
+            ct = true;
         }
         int max = 0;
         int s = getStateID();
@@ -306,16 +302,13 @@ public class attraction {
                 ps.setBinaryStream(8, im);
             }
             int r = ps.executeUpdate();
-            
+
             for (String tag : tags) {
                 stat.executeUpdate("insert into attraction_tag values('" + max + "','" + tag + "')");
             }
-            if(s_c==true)
-            {
+            if (s_c == true) {
                 return "add_state.xhtml";
-            }
-            else if(ct==true)
-            {
+            } else if (ct == true) {
                 return "add_city.xhtml";
             }
         } catch (SQLException e) {
@@ -327,14 +320,12 @@ public class attraction {
         }
         return "att_successful";
     }
-    
-    public String view_Att()
-    {        getLogin().att_id=Integer.parseInt(id);
+
+    public String view_Att() {
+        getLogin().att_id = Integer.parseInt(id);
         int var = getLogin().att_id;
-        userAccount1 u=new userAccount1(var);
-        
+        userAccount1 u = new userAccount1(var);
         return "attraction.xhtml";
-        
     }
 
     //get state id
@@ -343,9 +334,7 @@ public class attraction {
         Connection conn = openDatabase();
         Statement stat = null;
         ResultSet rs = null;
-
         try {
-
             stat = conn.createStatement();
             rs = stat.executeQuery("select * from att_state");
             while (rs.next()) {
@@ -353,7 +342,6 @@ public class attraction {
                     s = rs.getInt(1);
                 }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -368,9 +356,7 @@ public class attraction {
         Connection conn = openDatabase();
         Statement stat = null;
         ResultSet rs = null;
-
         try {
-
             stat = conn.createStatement();
             rs = stat.executeQuery("select * from att_city");
             while (rs.next()) {
@@ -378,7 +364,6 @@ public class attraction {
                     c = rs.getInt(1);
                 }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -387,32 +372,27 @@ public class attraction {
         return c;
     }
 
-    
-    
-    public String add_state()
-   {
-       int max_s = 0;
-       int max_c = 0;
-       int max_a = 0;
+    public String add_state() {
+        int max_s = 0;
+        int max_c = 0;
+        int max_a = 0;
         Connection conn = openDatabase();
         Statement stat = null;
         ResultSet rs = null;
-
         try {
-
             stat = conn.createStatement();
             rs = stat.executeQuery("select max(state_ID) from att_state");
             while (rs.next()) {
                 max_s = rs.getInt(1) + 1;
             }
-            stat.executeUpdate("insert into att_state values('" + max_s + "','"+new_state+"',false)");
+            stat.executeUpdate("insert into att_state values('" + max_s + "','" + new_state + "',false)");
             stat.close();
             stat = conn.createStatement();
             rs = stat.executeQuery("select max(city_ID) from att_city");
             while (rs.next()) {
                 max_c = rs.getInt(1) + 1;
             }
-            stat.executeUpdate("insert into att_city values('" + max_c + "','"+max_s+"','"+new_city+"',false)");
+            stat.executeUpdate("insert into att_city values('" + max_c + "','" + max_s + "','" + new_city + "',false)");
             stat.close();
             stat = conn.createStatement();
             rs = stat.executeQuery("select max(att_ID) from attractions");
@@ -421,26 +401,23 @@ public class attraction {
             }
             stat.close();
             stat = conn.createStatement();
-            stat.executeUpdate("UPDATE `attractions` SET `state_ID`='"+max_s+"',`city_ID`='"+max_c+"' WHERE att_ID='"+max_a+"'");
+            stat.executeUpdate("UPDATE `attractions` SET `state_ID`='" + max_s + "',`city_ID`='" + max_c + "' WHERE att_ID='" + max_a + "'");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeDatabase(rs, stat, conn);
         }
         return "att_successful.xhtml";
-   }
-   
-   public String add_city()
-   {
-       int s = 0;
-       int max_c = 0;
-       int max_a = 0;
+    }
+
+    public String add_city() {
+        int s = 0;
+        int max_c = 0;
+        int max_a = 0;
         Connection conn = openDatabase();
         Statement stat = null;
         ResultSet rs = null;
-
         try {
-
             stat = conn.createStatement();
             rs = stat.executeQuery("select max(att_ID) from attractions");
             while (rs.next()) {
@@ -448,7 +425,7 @@ public class attraction {
             }
             stat.close();
             stat = conn.createStatement();
-            rs = stat.executeQuery("select state_ID from attractions where att_ID='"+max_a+"'");
+            rs = stat.executeQuery("select state_ID from attractions where att_ID='" + max_a + "'");
             while (rs.next()) {
                 s = rs.getInt(1);
             }
@@ -458,16 +435,16 @@ public class attraction {
             while (rs.next()) {
                 max_c = rs.getInt(1) + 1;
             }
-            stat.executeUpdate("insert into att_city values('" + max_c + "','"+s+"','"+new_city+"',false)");
+            stat.executeUpdate("insert into att_city values('" + max_c + "','" + s + "','" + new_city + "',false)");
             stat.close();
             stat = conn.createStatement();
-            
-            stat.executeUpdate("UPDATE `attractions` SET `city_ID`='"+max_c+"' WHERE att_ID='"+max_a+"'");
+
+            stat.executeUpdate("UPDATE `attractions` SET `city_ID`='" + max_c + "' WHERE att_ID='" + max_a + "'");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeDatabase(rs, stat, conn);
         }
         return "att_successful.xhtml";
-   }
+    }
 }

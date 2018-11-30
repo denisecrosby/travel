@@ -5,18 +5,15 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-    <head>
+    <h:head>
         <link href="css/menu.css" rel="stylesheet" type="text/css"/>   
         <link href="css/tables.css" rel="stylesheet" type="text/css"/>
         <title>Login OK</title>
-
-    </head>
-    <body>
+    </h:head>
+    <h:body>
         <h:form>
             <br/>
-
             <h1>Top Rated Attractions:</h1>
-
             <hr />
             <ul>
                 <li><a href="welcome.xhtml">Home</a></li>
@@ -31,7 +28,7 @@
             </ul>
             <br/>    
             <h:dataTable id="att" styleClass="table" width="99%"  bgcolor="white" style="border-style: solid"
-                         value="#{topAttraction.attraction}" var="att" > 
+                         value="#{login.theLoginAccount.viewTopAttractions()}" var="att" > 
                 <h:column>  
                     <f:facet name = "header">
                         <h:outputText value="Name"/>
@@ -56,9 +53,14 @@
                  <!--   <h:outputText styleClass="dataTableOutputText" id="attvalue5" value="#{att.avg}"/>  -->
                     <h:graphicImage  value="#{att.getStar()}"/>
                 </h:column>
-
+                <h:column>
+                    <h:commandButton id="favbutton" action="#{att.addFavorite(login.theLoginAccount.accountID)}" 
+                                     disabled="#{att.isFavorite()}" image="#{att.favImg()}"/>
+                </h:column>  
+                <h:column>
+                    <h:commandButton id="view_Att" action="#{att.view_Att()}"  value="View" />
+                </h:column>                 
             </h:dataTable>
-
         </h:form>
-    </body>
+    </h:body>
 </html>
