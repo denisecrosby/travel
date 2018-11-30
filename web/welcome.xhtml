@@ -5,11 +5,12 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-    <head>
-        <link href="css/login.css" rel="stylesheet" type="text/css"/>
+    <h:head>
+        <link href="css/tables.css" rel="stylesheet" type="text/css"/>        
         <link href="css/menu.css" rel="stylesheet" type="text/css"/>   
+        <link href="css/background.css" rel="stylesheet" type="text/css"/>       
         <title>Login OK</title>
-    </head>
+    </h:head>
     <h:body>
         <h:form>        
             <div><h1>Welcome to Travel Advisor, #{login.getTheLoginAccount().accountID}</h1></div>
@@ -28,14 +29,14 @@
                 <li><a href="index.xhtml">Logout</a></li>            
             </ul>
             <br/>
-            <h:dataTable id="att" styleClass="table" width="99%"  bgcolor="white" style="border-style: solid"
+            <h:dataTable id="att" styleClass="table" bgcolor="white" style="border-style: solid"
                          value="#{login.theLoginAccount.youMayLike()}" var="att">
                 <h:column>  
                     <f:facet name = "header">Name</f:facet>    
                     <h:outputText styleClass="dataTableOutputText" id="attvalue1" value="#{att.name}"/>  
                 </h:column>
                 <h:column>  
-                    <f:facet name = "header">Here are a few attractions that you may like.</f:facet>  
+                    <f:facet name = "header">Here are a few attractions that you may like:</f:facet>  
                     <h:outputText styleClass="dataTableOutputText" id="attvalue2" value="#{att.description}"/>  
                 </h:column>  
                 <h:column>  
@@ -54,6 +55,9 @@
                     <h:commandButton id="favbutton" action="#{att.addFavorite(login.theLoginAccount.accountID)}" 
                                      disabled="#{att.isFavorite()}" image="#{att.favImg()}"/>
                 </h:column>  
+                <h:column>
+                    <h:commandButton id="view_Att" action="#{att.view_Att()}"  value="View" />
+                </h:column>                
             </h:dataTable>
         </h:form>
     </h:body>

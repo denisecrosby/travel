@@ -1,0 +1,42 @@
+
+body
+{
+    width: 99%;
+    height:100px;
+    background: url("../image/parda.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: table;
+    top: 0;
+
+}
+.inner
+{
+    display: table-cell;
+    vertical-align: middle;
+    width: 99%;
+
+}
+
+.content
+{
+    width: 26vw;
+    height: 48vh;
+    background: rgba(255,255,255,0.39);
+    margin-left: 130%;
+    margin-top: 50%;
+    border-radius: 5%;
+    display: table;
+}
+
+.photo
+{
+    display: table-cell;
+    width: 42%;
+    height: 37%;
+    margin: auto;
+    border: 2px solid #726B6B;
+    border-radius: 100%;
+}
+
+
