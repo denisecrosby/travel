@@ -7,14 +7,13 @@
 
     <h:head>
         <link href="css/tables.css" rel="stylesheet" type="text/css"/>
-        <link href="css/menu.css" rel="stylesheet" type="text/css"/>            
+        <link href="css/menu.css" rel="stylesheet" type="text/css"/> 
+        <link href="css/background2.css" rel="stylesheet" type="text/css"/>          
         <title>View Favorites</title>
     </h:head>
-    <body>
+    <h:body>
         <h:form>
-
             <h1>Favorites:</h1>
-
             <hr />
             <ul>
                 <li><a href="welcome.xhtml">Home</a></li>
@@ -46,10 +45,8 @@
             <h:inputText title="temp" value="#{login.theLoginAccount.searchName}"/>
             <h:outputText value="&#160;" />
             <h:commandButton id="search" value="Search"  action="#{login.theLoginAccount.searchAttractions()}" />
-
             <hr />
-            <h:dataTable id="att" styleClass="table" 
-
+            <h:dataTable id="att" styleClass="table" bgcolor="white" style="border-style: solid"
                          value="#{login.theLoginAccount.viewFavorites()}" var="att">
                 <h:column>  
                     <f:facet name = "header">Name</f:facet>    
@@ -71,19 +68,14 @@
                     <f:facet name = "header">Rating</f:facet>                          
                     <h:graphicImage  value="#{att.getStar()}"/>
                 </h:column>                  
-                <!--    <h:column> 
-                        <f:facet name = "header">Favorite</f:facet>                          
-                        <h:outputText styleClass="dataTableOutputText" id="attvalue5" value="#{att.favorite}"/>  
-                    </h:column>                  -->
-                <!--      <h:column>
-                               <h:commandButton id="favbutton" value="Add Favorite" action="#{att.addFavorite(login.theLoginAccount.accountID)}" 
-                               disabled="#{att.favorite(login.theLoginAccount.accountID)}" />
-                           </h:column>  -->
                 <h:column>
                     <h:commandButton id="favbutton" action="#{att.addFavorite(login.theLoginAccount.accountID)}" 
                                      disabled="#{att.isFavorite()}" image="#{att.favImg()}"/>
                 </h:column>  
+                <h:column>
+                    <h:commandButton id="view_Att" action="#{att.view_Att()}"  value="View" />
+                </h:column>                   
             </h:dataTable>
         </h:form>
-    </body>
+    </h:body>
 </html>
