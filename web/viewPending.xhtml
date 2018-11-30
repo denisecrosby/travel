@@ -9,11 +9,9 @@
         <link href="css/menu.css" rel="stylesheet" type="text/css"/>            
         <title>Show Pending Attractions</title>
     </h:head>
-    <body>
+    <h:body>
         <h:form>
-
             <h1>Pending Attractions:</h1>
-
             <hr />
             <ul>
                 <li><a href="welcome.xhtml">Home</a></li>
@@ -47,17 +45,14 @@
                     <h:outputText styleClass="dataTableOutputText" id="pendvalue4" value="#{pend.state}"/>  
                 </h:column>  
                 <h:column>
+                    <h:commandButton id="view_Att" action="#{pend.view_Att()}"  value="View" />
+                </h:column>                  
+                <h:column>
                     <h:commandButton value="Approve" action="#{pend.mark('approve')}" />
                     <h:outputText value="&#160;" />
-                    <h:commandButton value="Reject"  action="#{pend.mark('reject')}" />        
+                    <h:commandButton value="&#160;Reject&#160;&#160;"  action="#{pend.mark('reject')}" />        
                 </h:column>
             </h:dataTable>  
-
-            <br></br>
-            <br></br>
-            <br></br>
-            <h:commandButton id="return" value="Return" immediate="true"
-                             action="welcomeAdmin.xhtml" />
         </h:form>
-    </body>
+    </h:body>
 </html>
