@@ -323,6 +323,7 @@ public class attraction {
 
     public String view_Att() {
         getLogin().att_id = Integer.parseInt(id);
+        getLogin().currentAtt = this;
         int var = getLogin().att_id;
         userAccount1 u = new userAccount1(var);
         return "attraction.xhtml";

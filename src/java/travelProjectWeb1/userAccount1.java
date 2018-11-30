@@ -33,9 +33,20 @@ public class userAccount1 implements Serializable {
     protected String searchName = "Name";
     protected String review;
     protected int att_id;
+    protected attraction currentAtt;
     private StreamedContent productImage;
     protected String answer;
 
+    public attraction getCurrentAtt() {
+        return currentAtt;
+    }
+
+    public void setCurrentAtt(attraction currentAtt) {
+        this.currentAtt = currentAtt;
+    }
+
+    
+    
     public String getAnswer() {
         return answer;
     }
@@ -134,7 +145,7 @@ public class userAccount1 implements Serializable {
     }
 
     public ArrayList<attraction> viewTopAttractions() {
-           Connection conn = openDatabase();
+        Connection conn = openDatabase();
         Statement stat = null;
         ResultSet rs = null;
         ArrayList<attraction> result = new ArrayList<>();
@@ -156,7 +167,7 @@ public class userAccount1 implements Serializable {
         } finally {
             closeDatabase(rs, stat, conn);
         }
-        return result;     
+        return result;
 
     }
 

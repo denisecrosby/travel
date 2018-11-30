@@ -116,7 +116,6 @@ public class Login implements Serializable {
         try {
             return DriverManager.getConnection(URL, "antaor0966", "1637556");
         } catch (SQLException e) {
-
             e.printStackTrace();
         }
         return null;
