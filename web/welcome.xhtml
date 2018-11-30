@@ -9,29 +9,26 @@
         <link href="css/login.css" rel="stylesheet" type="text/css"/>
         <link href="css/menu.css" rel="stylesheet" type="text/css"/>   
         <title>Login OK</title>
-
     </head>
-    <body>
-        
+    <h:body>
         <h:form>        
-             
-        <div><h1>Welcome to Travel Advisor, #{login.getTheLoginAccount().accountID}</h1></div>
-       
-        <ul>
-            <li><a href="welcome.xhtml">Home</a></li>
-            <li><a href="createAttraction.xhtml">Create Attraction</a></li>
-            <li><a href="viewAttractions.xhtml">Search Attractions</a></li>
-            <li><a href="viewFavorites.xhtml">View Favorites</a></li>
-            <li><a href="topAttraction.xhtml">Top Attractions</a></li>
-            <li> <h:link value="Pending Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewPending.xhtml"/></li>
-            <li> <h:link value="Approved Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewApprovals.xhtml"/></li>    
-            <li> <h:link value="Rejected Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewRejects.xhtml"/></li> 
-            
-            <li><a href="index.xhtml">Logout</a></li>            
-        </ul>
-         <br/>
-         
-          <h:dataTable id="att" styleClass="table" width="99%"  bgcolor="white" style="border-style: solid"
+            <div><h1>Welcome to Travel Advisor, #{login.getTheLoginAccount().accountID}</h1></div>
+            <ul>
+                <li><a href="welcome.xhtml">Home</a></li>
+                <li><a href="createAttraction.xhtml">Create Attraction</a></li>
+                <li><a href="viewAttractions.xhtml">Search Attractions</a></li>
+                <li><a href="viewFavorites.xhtml">View Favorites</a></li>
+                <li><a href="topAttraction.xhtml">Top Attractions</a></li>
+                <li> <h:link value="Pending Attractions" 
+                             rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewPending.xhtml"/></li>
+                <li> <h:link value="Approved Attractions" 
+                             rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewApprovals.xhtml"/></li>    
+                <li> <h:link value="Rejected Attractions" 
+                             rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewRejects.xhtml"/></li> 
+                <li><a href="index.xhtml">Logout</a></li>            
+            </ul>
+            <br/>
+            <h:dataTable id="att" styleClass="table" width="99%"  bgcolor="white" style="border-style: solid"
                          value="#{login.theLoginAccount.youMayLike()}" var="att">
                 <h:column>  
                     <f:facet name = "header">Name</f:facet>    
@@ -58,7 +55,6 @@
                                      disabled="#{att.isFavorite()}" image="#{att.favImg()}"/>
                 </h:column>  
             </h:dataTable>
-          
         </h:form>
-    </body>
+    </h:body>
 </html>
