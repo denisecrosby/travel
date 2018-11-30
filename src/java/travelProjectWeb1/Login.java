@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.sql.*;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.primefaces.model.DefaultStreamedContent;
@@ -18,7 +17,6 @@ import org.primefaces.model.StreamedContent;
 public class Login implements Serializable {
 
     //attributes
-    public static final Scanner keyboard = new Scanner(System.in);
     public static final String URL = "jdbc:mysql://mis-sql.uhcl.edu/antaor0966";
     public static final List<String> validTags = Arrays.asList("history", "shopping", "beach", "urban", "explorer", "nature", "family");
     private String id;
