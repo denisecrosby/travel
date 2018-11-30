@@ -8,36 +8,58 @@
     <head>
         <link href="css/login.css" rel="stylesheet" type="text/css"/>
         <link href="css/menu.css" rel="stylesheet" type="text/css"/>   
+        <link href="css/tables.css" rel="stylesheet" type="text/css"/>
         <title>Login OK</title>
 
     </head>
     <body>
         <h:form>
-         <br/>
-         
-          <h:dataTable id="att" styleClass="table" width="70%"  bgcolor="white" style="border-style: solid"
-                       value="#{topAttraction.attraction}" var="att" > 
+            <br/>
+
+            <h1>Top Rated Attractions:</h1>
+
+            <hr />
+            <ul>
+                <li><a href="welcome.xhtml">Home</a></li>
+                <li><a href="createAttraction.xhtml">Create Attraction</a></li>
+                <li><a href="viewAttractions.xhtml">Search Attractions</a></li>
+                <li><a href="viewFavorites.xhtml">View Favorites</a></li>
+                <li><a href="topAttraction.xhtml">Top Attractions</a></li>   
+                <li> <h:link value="Pending Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewPending.xhtml"/></li>
+                <li> <h:link value="Approved Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewApprovals.xhtml"/></li>    
+                <li> <h:link value="Rejected Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewRejects.xhtml"/></li>   
+                <li><a href="index.xhtml">Logout</a></li>                  
+            </ul>
+            <br/>    
+            <h:dataTable id="att" styleClass="table" width="99%"  bgcolor="white" style="border-style: solid"
+                         value="#{topAttraction.attraction}" var="att" > 
                 <h:column>  
                     <f:facet name = "header">
-                        <h:outputText value="Attraction Name"/>
+                        <h:outputText value="Name"/>
                     </f:facet>    
                     <h:outputText styleClass="dataTableOutputText" id="attvalue1" value="#{att.name}"/>  
                 </h:column>
-              <h:column>  
+                <h:column>  
+                    <f:facet name = "header">Description</f:facet>                     
+                    <h:outputText styleClass="dataTableOutputText" 
+                                  id="attvalue2" value="#{att.description}"/>  
+                </h:column>                  
+                <h:column>  
                     <f:facet name = "header">City</f:facet>    
-                    <h:outputText styleClass="dataTableOutputText" id="attvalue1" value="#{att.city}"/>  
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue3" value="#{att.city}"/>  
                 </h:column>
-              <h:column>  
+                <h:column>  
                     <f:facet name = "header">State</f:facet>    
-                    <h:outputText styleClass="dataTableOutputText" id="attvalue1" value="#{att.state}"/>  
+                    <h:outputText styleClass="dataTableOutputText" id="attvalue4" value="#{att.state}"/>  
                 </h:column>
-              <h:column>  
+                <h:column>  
                     <f:facet name = "header">Rating</f:facet>    
-                    <h:outputText styleClass="dataTableOutputText" id="attvalue1" value="#{att.avg}"/>  
+                 <!--   <h:outputText styleClass="dataTableOutputText" id="attvalue5" value="#{att.avg}"/>  -->
+                    <h:graphicImage  value="#{att.getStar()}"/>
                 </h:column>
-               
+
             </h:dataTable>
-          
+
         </h:form>
     </body>
 </html>

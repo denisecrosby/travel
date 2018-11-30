@@ -17,7 +17,7 @@
             <li><a href="createAttraction.xhtml">Create Attraction</a></li>
             <li><a href="viewAttractions.xhtml">Search Attractions</a></li>
             <li><a href="viewFavorites.xhtml">View Favorites</a></li>
-            
+            <li><a href="topAttraction.xhtml">Top Attractions</a></li>
             <li> <h:link value="Pending Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewPending.xhtml"/></li>
             <li> <h:link value="Approved Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewApprovals.xhtml"/></li>    
             <li> <h:link value="Rejected Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewRejects.xhtml"/></li>   
@@ -36,7 +36,7 @@
                                      value="#{attraction.name}">
                         </h:inputText>
                         <h:message for="att_name" id="att_name_msg" style="color: red" > </h:message>
- 
+
                     </p>
 
                     <p><span style="font:bold;color: red" >*</span>Select State
