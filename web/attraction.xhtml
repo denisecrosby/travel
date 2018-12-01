@@ -35,7 +35,7 @@ and open the template in the editor.
 
                     <h:column >
                         <div class="att_name">
-                            <h:outputText styleClass="dataTableOutputText" id="attvalue1" value="#{att.name}"/>  
+                            <h1> <h:outputText styleClass="dataTableOutputText" id="attvalue1" value="#{att.title()}"/>  </h1> 
                         </div>
                     </h:column>
 
@@ -54,17 +54,6 @@ and open the template in the editor.
                              value="#{login.theLoginAccount.viewa()}" var="att">
                     <h:column>
                         <h:outputText styleClass="dataTableOutputText" id="attvalue2" value="#{att.description}"/>  
-                    </h:column>
-                </h:dataTable>
-
-                <h:dataTable id="att_c" styleClass="tab" 
-
-                             value="#{login.theLoginAccount.viewa()}" var="att">
-                    <h:column>
-                        <h:outputText styleClass="dataTableOutputText" id="attvalue4" value="#{att.state}"/>  
-                    </h:column>
-                    <h:column>
-                        <h:outputText styleClass="dataTableOutputText" id="attvalue3" value="#{att.city}"/>  
                     </h:column>
                 </h:dataTable>
 

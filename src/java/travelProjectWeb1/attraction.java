@@ -212,6 +212,10 @@ public class attraction {
         }
     }
 
+    public String title() {
+        return String.format("%s, %s %s", name, city, state);
+    }
+
     public void addFavorite(String userID) {
         Connection conn = openDatabase();
         Statement stat = null;
