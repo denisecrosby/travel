@@ -25,7 +25,9 @@
                                 <h:inputText id="id" required ="true" 
                                              requiredMessage="The ID field cannot be empty"
                                              title="Please enter your ID"
-                                             value="#{register.id}">
+                                             value="#{register.id}"
+                                             validatorMessage="The ID must be between 3 and 10 characters">
+                                    <f:validateLength maximum="10" minimum="3" />                                    
                                 </h:inputText>
                             </p>
                             <p><h:outputText value="&#160;"/>Password
