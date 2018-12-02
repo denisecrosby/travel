@@ -31,22 +31,9 @@ and open the template in the editor.
                 <li style="float:right"><a href="notification.xhtml">Notification</a></li>
             </ul>
             <div class="content">
-                <h:dataTable id="att_n" styleClass="table" 
-
-                             value="#{login.theLoginAccount.viewa()}" var="att" >
-
-                    <h:column >
-                        <div class="att_name">
-                            <h1> <h:outputText styleClass="dataTableOutputText" id="attvalue1" value="#{att.title()}"/>  </h1> 
-                        </div>
-                    </h:column>
-
-                    <h:column >
-
-                        <h:commandButton id="favbutton" action="#{att.addFavorite(login.theLoginAccount.accountID)}" 
-                                         disabled="#{att.isFavorite()}" image="#{att.favImg()}"/>
-                    </h:column>
-
+                <h:dataTable styleClass="table" value="#{login.theLoginAccount.viewa()}" var="att" >
+                    <h:column><div class="att_name"><h1><h:outputText styleClass="dataTableOutputText" value="#{att.title()}"/></h1></div></h:column>
+                    <h:column><h:commandButton action="#{att.addFavorite(login.theLoginAccount.accountID)}" disabled="#{att.isFavorite()}" image="#{att.favImg()}"/></h:column>
                 </h:dataTable>
                 <p:graphicImage value="#{login.theLoginAccount.productImage}" style="width: 40%"/>
 
@@ -70,7 +57,6 @@ and open the template in the editor.
                 <h:dataTable id="att_image" styleClass="tab" 
 
                              value="#{login.theLoginAccount.viewa()}" var="att">
-                    <h:outputText value="Krishna"/>
                     <h:column>
                         <p:graphicImage value="#{att.productImage}" style="width: 40%"/>
                     </h:column>
@@ -89,7 +75,7 @@ and open the template in the editor.
                 </div>
                 <div class="review">
                     <p>
-                        <div class="title" style="font-size:medium;font-weight: bold"> Review:</div>
+                        <h1><center><i>Reviews:</i></center></h1>
                         <h:dataTable id="tab_rev" styleClass="tab" 
                                      value="#{login.theLoginAccount.viewReview()}" var="rew">
                             <h:column>
@@ -108,39 +94,34 @@ and open the template in the editor.
                     </p>
                 </div>
                 <div class="q_a">
-                    <div class="title" style="font-size:medium;font-weight: bold"> Question and Answer</div>
+                    <h1><center><i>Questions and Answers:</i></center></h1>
                     <h:dataTable id="tab_ques" styleClass="tab" 
                                  value="#{question_Answers.view_Question()}" var="ques">
                         <h:column>
                             <h:form id="form1">                             
-                            <h:outputText styleClass="dataTableOutputText" id="attvalue3" value="Q)"/>  
-                            <h:outputText styleClass="dataTableOutputText" id="attvalue4" value="#{ques.ques}"/>  
+                                <h:outputText styleClass="dataTableOutputText" id="attvalue3" value="Q)"/>  
+                                <h:outputText styleClass="dataTableOutputText" id="attvalue4" value="#{ques.ques}"/>  
 
-                            <h:dataTable id="tab_ans" styleClass="tab" 
-                                         value="#{ques.view_Answer()}" var="answ">
-                                <h:column>
-                                    <h:outputText styleClass="dataTableOutputText" id="attvalue5" value="A:      "/>  
-                                    <h:outputText styleClass="dataTableOutputText" id="attvalue6" value="#{answ.ans}"/>  
-                                </h:column>
+                                <h:dataTable id="tab_ans" styleClass="tab" 
+                                             value="#{ques.view_Answer()}" var="answ">
+                                    <h:column>
+                                        <h:outputText styleClass="dataTableOutputText" id="attvalue5" value="A:      "/>  
+                                        <h:outputText styleClass="dataTableOutputText" id="attvalue6" value="#{answ.ans}"/>  
+                                    </h:column>
 
-                            </h:dataTable>
- 
+                                </h:dataTable>
+
                                 <h:inputText value="#{login.theLoginAccount.answer}"/><br/>
                                 <h:commandButton class="btn" id="submit3" value="Add Answer" action="#{ques.add_Answer(login.theLoginAccount.accountID)}" >
-                            <!--        <f:ajax execute="@form" render="attvalue6"/>  -->
+                                    <!--        <f:ajax execute="@form" render="attvalue6"/>  -->
                                 </h:commandButton>
                             </h:form>
                         </h:column>
                     </h:dataTable>
                     <h:inputTextarea value="#{question_Answers.ques}"/><br/>
                     <h:commandButton class="btn" id="submit4" value="Add Question" action="#{question_Answers.add_Question(login.theLoginAccount.att_id, login.theLoginAccount.accountID)}" >
-
                     </h:commandButton>
-
-
                 </div>
-
-
             </div>
         </h:form>
     </body>
