@@ -26,18 +26,19 @@
                 <li style="float:right"><a href="index.xhtml">Logout</a></li>
                 <li style="float:right"><a href="notification.xhtml">Notification</a></li>
             </ul>
+            
             <div class="content">
                 <h:dataTable styleClass="table" value="#{login.theLoginAccount.viewa()}" var="att" >
-                    <h:column><div class="att_name"><h1><h:outputText styleClass="dataTableOutputText" value="#{att.title()}"/></h1></div></h:column>
-                    <h:column><h:commandButton action="#{att.addFavorite(login.theLoginAccount.accountID)}" disabled="#{att.isFavorite()}" image="#{att.favImg()}"/></h:column>
+                    <h:column><div class="att_name"><h1><h:outputText styleClass="dataTableOutputText" value="#{att.title()}&#160;"/><h:commandButton action="#{att.addFavorite(login.theLoginAccount.accountID)}" disabled="#{att.isFavorite()}" image="#{att.favImg()}"/></h1></div></h:column>
+
                 </h:dataTable>
+                <hr/>
                 <h:dataTable styleClass="tab" columnClasses="first,second" value="#{login.theLoginAccount.viewa()}" var="att">
                     <h:column><p:graphicImage value="#{login.theLoginAccount.productImage}" style="width: 100%"/></h:column>
-                    <h:column><br/><br/><h:outputText style="font-size: 25px" value="#{att.description}"/></h:column>
-                </h:dataTable>
-
-                <h:dataTable styleClass="tab" value="#{login.theLoginAccount.viewa()}" var="att">
-                    <h:column><h:graphicImage  value="#{att.getStar()}"/></h:column>
+                    <h:column><br/>
+                        <h:graphicImage  value="#{att.getStar()}"/><br/>
+                        <h:outputText style="font-size: 25px" value="#{att.description}"/></h:column>
+                    
                 </h:dataTable>
 
                 <div>
@@ -57,7 +58,8 @@
                 
                 <div class="review">
                     <p>
-                        <h1><center><i>Reviews:</i></center></h1>
+                        <h1><center><i>Reviews</i></center></h1>
+                        <hr/>
                         <h:dataTable id="tab_rev" styleClass="tab" value="#{login.theLoginAccount.viewReview()}" var="rew">
                             <h:column>
  
@@ -75,7 +77,8 @@
                 <!--**************QUESTIONS AND ANSWER SECTION**************-->
                 
                 <div class="q_a">
-                    <h1><center><i>Questions and Answers:</i></center></h1>
+                    <h1><center><i>Questions and Answers</i></center></h1>
+                    <hr/>
                     <h:dataTable styleClass="tab" value="#{question_Answers.view_Question()}" var="ques">
                         <h:column>
                             <h:form id="form1">                             
