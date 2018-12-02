@@ -26,8 +26,10 @@
                                              requiredMessage="The ID field cannot be empty"
                                              title="Please enter your ID"
                                              value="#{register.id}"
-                                             validatorMessage="The ID must be between 3 and 10 characters">
-                                    <f:validateLength maximum="10" minimum="3" />                                    
+                                             validatorMessage="ID must be between 3 and 10 characters with at least 1 letter and 1 digit">
+                                    <f:validateLength maximum="10" minimum="3" />   
+                                    <f:validateRegex pattern=".*[0-9].*"/>    
+                                    <f:validateRegex pattern=".*[a-zA-Z].*"/>                                      
                                 </h:inputText>
                             </p>
                             <p><h:outputText value="&#160;"/>Password
