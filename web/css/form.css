@@ -62,3 +62,13 @@ body
     background-color: #5bd7d7;
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19)
 }
+
+.noti_btn
+{
+    background-color: #E8E8E8;
+}
+
+.noti_btn:hover
+{
+    background-color: #5bd7d7;
+}

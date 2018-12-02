@@ -26,7 +26,8 @@
                              rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewApprovals.xhtml"/></li>    
                 <li> <h:link value="Rejected Attractions" 
                              rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewRejects.xhtml"/></li> 
-                <li><a href="index.xhtml">Logout</a></li>            
+                <li style="float:right"><a href="index.xhtml">Logout</a></li>
+                <li style="float:right"><a href="notification.xhtml">Notification</a></li>            
             </ul>
             <br/>
             <h:dataTable id="att" styleClass="table" bgcolor="white" style="border-style: solid"
