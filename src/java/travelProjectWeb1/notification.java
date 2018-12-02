@@ -5,17 +5,12 @@
  */
 package travelProjectWeb1;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
-import static travelProjectWeb1.Login.closeDatabase;
-import static travelProjectWeb1.Login.openDatabase;
-import static travelProjectWeb1.Login.getLogin;
+import static travelProjectWeb1.Login.*;
 
 /**
  *
@@ -97,8 +92,6 @@ public class notification {
     public void setA_userName(String a_userName) {
         this.a_userName = a_userName;
     }
-    
-    
     
     public notification() {
     }

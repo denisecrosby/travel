@@ -75,7 +75,6 @@ public class Login implements Serializable {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (Exception e) {
             e.printStackTrace();
-            //return to internalError.xhtml
             return ("internalError");
         }
 

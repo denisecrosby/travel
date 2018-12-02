@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-
 import java.sql.*;
 import java.util.ArrayList;
 import org.primefaces.model.DefaultStreamedContent;
@@ -36,6 +35,15 @@ public class userAccount1 implements Serializable {
     protected attraction currentAtt;
     private StreamedContent productImage;
     protected String answer;
+    protected notification notify;
+
+    public notification getNotify() {
+        return notify;
+    }
+
+    public void setNotify(notification notify) {
+        this.notify = notify;
+    }
 
     public attraction getCurrentAtt() {
         return currentAtt;
@@ -45,8 +53,6 @@ public class userAccount1 implements Serializable {
         this.currentAtt = currentAtt;
     }
 
-    
-    
     public String getAnswer() {
         return answer;
     }
@@ -135,7 +141,6 @@ public class userAccount1 implements Serializable {
             while (rs.next()) {
                 result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite"), rs.getFloat("avg")));
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -161,14 +166,12 @@ public class userAccount1 implements Serializable {
             while (rs.next()) {
                 result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite"), rs.getFloat("avg")));
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeDatabase(rs, stat, conn);
         }
         return result;
-
     }
 
     public ArrayList<attraction> viewa() {
@@ -177,7 +180,6 @@ public class userAccount1 implements Serializable {
         ResultSet rs = null;
         ArrayList<attraction> result = new ArrayList<>();
         try {
-
             stat = conn.createStatement();
             byte[] image = null;
             StreamedContent pImage = null;
@@ -187,7 +189,6 @@ public class userAccount1 implements Serializable {
                     + ", (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + accountID + "') then 'true' else 'false' END) as favorite "
                     + " from attractions a, state, city c where a.att_id='" + a + "' and a.state_id = state.sNum and a.city_id = c.cNum ");
             while (rs.next()) {
-
                 result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite"), rs.getFloat("avg")));
             }
             this.productImage = null;
@@ -203,14 +204,11 @@ public class userAccount1 implements Serializable {
                 rs = stmt.executeQuery();
 
                 while (rs.next()) {
-
                     productImage = rs.getBytes("att_Img");
-
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
             this.productImage = new DefaultStreamedContent(new ByteArrayInputStream(productImage));
             new attraction(this.productImage);
 
@@ -244,7 +242,6 @@ public class userAccount1 implements Serializable {
             closeDatabase(rs, stat, conn);
         }
         return result;
-
     }
 
     public ArrayList<Review> viewReview() {
@@ -273,7 +270,6 @@ public class userAccount1 implements Serializable {
         Connection conn = openDatabase();
         try {
             stat = conn.createStatement();
-
             rs = stat.executeQuery("select * from (Select a.att_id, att_name, description, cityName, stateName "
                     + ", (select truncate(coalesce(sum(score)/count(score),0),1) from att_score where att_ID = a.att_id) as avg  "
                     + ", (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + accountID + "') then 'true' else 'false' END) as favorite "
@@ -290,13 +286,11 @@ public class userAccount1 implements Serializable {
             closeDatabase(rs, stat, conn);
         }
         return result;
-
     }
 
     //the searchAttractions is empty - a postback of the page causes the viewAttractions method to run and search with the specified city
     //this could be done better using javascript/refresh only part of the page
     public void searchAttractions() {
-
     }
 
     public boolean isAdmin() {
@@ -306,6 +300,7 @@ public class userAccount1 implements Serializable {
     public userAccount1(String accountId, String password) {
         this.accountID = accountId;
         this.password = password;
+        this.notify = new notification();
     }
 
     public userAccount1(int att_Id) {
