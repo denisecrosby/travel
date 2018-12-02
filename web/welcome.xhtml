@@ -8,7 +8,9 @@
     <h:head>
         <link href="css/tables.css" rel="stylesheet" type="text/css"/>        
         <link href="css/menu.css" rel="stylesheet" type="text/css"/>   
-        <link href="css/background.css" rel="stylesheet" type="text/css"/>       
+        <link href="css/background.css" rel="stylesheet" type="text/css"/>  
+        <link href="css/notification.css" rel="stylesheet" type="text/css"/>  
+        
         <title>Login OK</title>
     </h:head>
     <h:body>
@@ -27,7 +29,7 @@
                 <li> <h:link value="Rejected Attractions" 
                              rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewRejects.xhtml"/></li> 
                 <li style="float:right"><a href="index.xhtml">Logout</a></li>
-                <li style="float:right"><a href="notification.xhtml">Notification</a></li>            
+                <li class="notification" style="float:right"><a href="notification.xhtml">Notification <span class="badge">5</span></a></li>            
             </ul>
             <br/>
             <h:dataTable id="att" styleClass="table" bgcolor="white" style="border-style: solid"

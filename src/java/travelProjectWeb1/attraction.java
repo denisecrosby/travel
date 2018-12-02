@@ -8,8 +8,10 @@ import java.io.InputStream;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.Part;
 import org.primefaces.model.StreamedContent;
 import static travelProjectWeb1.Login.*;
@@ -263,6 +265,7 @@ public class attraction {
         ResultSet rs = null;
         boolean s_c = false;
         boolean ct = false;
+        boolean exist = false;
         if (state.equals("Other")) {
             s_c = true;
         } else if (city.equals("Other")) {
@@ -274,7 +277,19 @@ public class attraction {
         try {
             stat = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
-            rs = stat.executeQuery("select max(att_ID) from attractions");
+            rs=stat.executeQuery("select * from attractions where att_Name='"+name+"'");
+            if(rs.next())
+            {
+                exist=true;
+            }
+            if(exist==true){
+                FacesMessage message = new FacesMessage("Attracttion name already exist");
+                FacesContext.getCurrentInstance().addMessage("a_form:att_name", message);
+                return "creacteAttraction.xhtml";
+            }
+            else
+            {
+               rs = stat.executeQuery("select max(att_ID) from attractions");
             if (rs.next()) {
                 max = rs.getByte(1) + 1;
             }
@@ -314,7 +329,9 @@ public class attraction {
                 return "add_state.xhtml";
             } else if (ct == true) {
                 return "add_city.xhtml";
+            } 
             }
+            
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException ex) {

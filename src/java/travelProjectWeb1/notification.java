@@ -134,7 +134,7 @@ public class notification {
             {
                 result.add(new notification(rs.getString(1), rs.getString(2),rs.getString(3),rs.getInt(4)));
             }
-            rs=stat.executeQuery("SELECT `att_Name` FROM `attractions` WHERE `userName`='"+getLogin().accountID+"' and `status`=2 and `seen`=false");
+            
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -181,7 +181,7 @@ public class notification {
             rs=stat.executeQuery("SELECT count(*) FROM `attractions` WHERE `status`=1");
             while (rs.next()) 
             {
-                result.add(new notification(rs.getInt(1)));;
+                result.add(new notification(rs.getInt(1)));
             }
             
          
@@ -194,28 +194,7 @@ public class notification {
         
     }
     
-    public int getcnt()
-    {
-        int cnt=0;
-        Connection conn = openDatabase();
-        Statement stat = null;
-        ResultSet rs = null;
-        try {
-            stat = conn.createStatement();
-            rs = stat.executeQuery("select q.`ques`,a.`ans`,a.`userName` from `att_question` q,`att_answer` a where q.`q_ID`=a.`q_ID` and a.`userName`!=q.`userName` and q.`userName`='"+getLogin().accountID+"' and `Q_A`=false");
-            while (rs.next()) 
-            {
-                cnt+=1;
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeDatabase(rs, stat, conn);
-        }
-        return cnt; 
-        
-    }
+   
     
     public String view_Att_Ans(int id) {
         int q=0;
@@ -262,6 +241,39 @@ public class notification {
             closeDatabase(rs, stat, conn);
         }
         return "attraction.xhtml";
+    }
+    
+    public int getcnt()
+    {
+        int cnt=0;
+        Connection conn = openDatabase();
+        Statement stat = null;
+        ResultSet rs = null;
+        try {
+            stat = conn.createStatement();
+            rs = stat.executeQuery("select q.`ques`,a.`ans`,a.`userName`,q.att_ID from `att_question` q,`att_answer` a where q.`q_ID`=a.`q_ID` and a.`userName`!=q.`userName` and q.`userName`='"+getLogin().accountID+"' and `Q_A`=false");
+            while (rs.next()) 
+            {
+                cnt++;
+            }
+            rs=stat.executeQuery("SELECT `att_ID`, `att_Name` FROM `attractions` WHERE `userName`='"+getLogin().accountID+"' and `status`=2 and `seen`=false");
+            while (rs.next()) 
+            {
+                cnt++;
+            }
+            rs=stat.executeQuery("SELECT count(*) FROM `attractions` WHERE `status`=1");
+            while (rs.next()) 
+            {
+                cnt++;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeDatabase(rs, stat, conn);
+        }
+        return cnt; 
+        
     }
     
 }
