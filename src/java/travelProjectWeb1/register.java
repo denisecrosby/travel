@@ -1,38 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package travelProjectWeb1;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.servlet.http.Part;
-import static travelProjectWeb1.Login.closeDatabase;
-import static travelProjectWeb1.Login.openDatabase;
+import static travelProjectWeb1.Login.*;
 
 @Named(value = "register")
-@ManagedBean
-@SessionScoped
+@RequestScoped
 public class register {
 
-    String id;
-    String password;
-    byte[] photo;
-    int ques;
-    String answer;
-    public Part path;
-    FileInputStream imageInputStream = null;
-    String[] tags;
-    boolean success = false;
-    String errorMessage;
+    private String id;
+    private String password;
+    private int ques;
+    private String answer;
+    private  Part path;
+    private FileInputStream imageInputStream = null;
+    private String[] tags;
+    private boolean success = false;
+    private String errorMessage;
 
     public boolean success() {
         return success;
@@ -106,12 +95,19 @@ public class register {
     }
 
     public void insertregister() {
+        
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (Exception e) {
+            e.printStackTrace();
+            //return to internalError.xhtml
+        }
+        
         success = false;
-        Connection conn = null;
+        Connection conn = openDatabase();
         Statement stat = null;
         ResultSet rs = null;
         try {
-            conn = openDatabase();
             PreparedStatement ps1 = conn.prepareStatement("select * from account where userName = ?");
             ps1.setString(1, id);
             if (ps1.executeQuery().next()) {

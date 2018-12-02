@@ -1,30 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package travelProjectWeb1;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import javax.inject.Named;
 import javax.faces.bean.ManagedBean;
-import static travelProjectWeb1.Login.closeDatabase;
-import static travelProjectWeb1.Login.getLogin;
-import static travelProjectWeb1.Login.openDatabase;
+import static travelProjectWeb1.Login.*;
 
 /**
- *
  * @author raisa
  */
 @Named(value = "review")
 @ManagedBean
 public class Review {
-    String userName;
-    String rev;
+    private String userName;
+    private String rev;
 
     public String getUserName() {
         return userName;
@@ -76,6 +65,7 @@ public class Review {
             e.printStackTrace();
         } finally {
             closeDatabase(rs, stat, conn);
+            this.rev = null;
         }
     }
     

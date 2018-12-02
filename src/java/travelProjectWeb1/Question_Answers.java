@@ -1,34 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package travelProjectWeb1;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import javax.inject.Named;
 import javax.faces.bean.ManagedBean;
-import static travelProjectWeb1.Login.closeDatabase;
-import static travelProjectWeb1.Login.getLogin;
-import static travelProjectWeb1.Login.openDatabase;
+import static travelProjectWeb1.Login.*;
 
 /**
- *
  * @author raisa
  */
 @Named(value = "question_Answers")
 @ManagedBean
 public class Question_Answers {
 
-    String userName_Q;
-    String userName_A;
-    String ques;
-    String ans;
-    int ques_id;
+    private String userName_Q;
+    private String userName_A;
+    private String ques;
+    private String ans;
+    private int ques_id;
 
     public String getUserName_Q() {
         return userName_Q;
@@ -69,8 +58,7 @@ public class Question_Answers {
     public void setQues_id(int ques_id) {
         this.ques_id = ques_id;
     }
-    
-    
+        
     public Question_Answers() {
     }
     
@@ -93,7 +81,6 @@ public class Question_Answers {
         ResultSet rs = null;
 
         try {
-            
             stat = conn.createStatement();
             rs=stat.executeQuery("select max(q_ID) from att_question");
             while(rs.next())
@@ -108,15 +95,16 @@ public class Question_Answers {
             e.printStackTrace();
         } finally {
             closeDatabase(rs, stat, conn);
+            this.ques = null;
         }
     }
     
     public ArrayList<Question_Answers> view_Question()
     {
+        Connection conn = openDatabase();
         Statement stat = null;
         ResultSet rs = null;
         ArrayList<Question_Answers> result = new ArrayList<>();
-        Connection conn = openDatabase();
         try {
             stat = conn.createStatement();
             rs = stat.executeQuery("select * from att_question where att_ID='"+getLogin().att_id+"'");
@@ -139,12 +127,10 @@ public class Question_Answers {
         ResultSet r = null;
 
         try {
-            
             s = c.createStatement();
             if(!getLogin().answer.equals(null)){
                 s.executeUpdate("insert into att_answer values('" + this.ques_id + "','"+ getLogin().answer+"',false,'" + un + "')");
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -155,10 +141,10 @@ public class Question_Answers {
     
     public ArrayList<Question_Answers> view_Answer()
     {
+        Connection conn = openDatabase();
         Statement stat = null;
         ResultSet rs = null;
         ArrayList<Question_Answers> result = new ArrayList<>();
-        Connection conn = openDatabase();
         try {
             stat = conn.createStatement();
             rs = stat.executeQuery("select * from att_answer where q_ID='"+this.ques_id+"'");
