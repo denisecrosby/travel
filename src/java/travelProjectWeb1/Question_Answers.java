@@ -121,7 +121,6 @@ public class Question_Answers {
     
      public void add_Answer(String un)
     {
-        int max = 0;
         Connection c = openDatabase();
         Statement s = null;
         ResultSet r = null;
