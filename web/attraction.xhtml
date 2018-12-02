@@ -26,7 +26,7 @@
                 <li style="float:right"><a href="index.xhtml">Logout</a></li>
                 <li style="float:right"><a href="notification.xhtml">Notification</a></li>
             </ul>
-            
+
             <div class="content">
                 <h:dataTable styleClass="table" value="#{login.theLoginAccount.viewa()}" var="att" >
                     <h:column><div class="att_name"><h1><h:outputText styleClass="dataTableOutputText" value="#{att.title()}&#160;"/><h:commandButton action="#{att.addFavorite(login.theLoginAccount.accountID)}" disabled="#{att.isFavorite()}" image="#{att.favImg()}"/></h1></div></h:column>
@@ -38,7 +38,7 @@
                     <h:column><br/>
                         <h:graphicImage  value="#{att.getStar()}"/><br/>
                         <h:outputText style="font-size: 25px" value="#{att.description}"/></h:column>
-                    
+
                 </h:dataTable>
 
                 <div>
@@ -49,20 +49,20 @@
                         <f:selectItem itemValue="4" itemLabel="4"/>
                         <f:selectItem itemValue="5" itemLabel="5"/>
                     </h:selectOneRadio> 
-                    <h:commandButton value="Add Score" action="#{score.addScore(login.theLoginAccount.att_id, login.theLoginAccount.accountID)}"/>
+                    <h:commandButton value="Add your Rating" action="#{score.addScore(login.theLoginAccount.att_id, login.theLoginAccount.accountID)}"/>
                     <br/>
                     <h:message for="att_scr" id="att_scr_msg" style="color: red" > </h:message>
                 </div>
-                                
+
                 <!--**************REVIEW SECTION**************-->                
-                
+
                 <div class="review">
                     <p>
                         <h1><center><i>Reviews</i></center></h1>
                         <hr/>
                         <h:dataTable id="tab_rev" styleClass="tab" value="#{login.theLoginAccount.viewReview()}" var="rew">
                             <h:column>
- 
+
                                 <h:outputText styleClass="dataTableOutputText" value="#{rew.rev}"/>  
                                 <h:outputText styleClass="dataTableOutputText" value="&#160;(Verified User:&#160;#{rew.userName})"/>                                 
                             </h:column>
@@ -73,9 +73,9 @@
                         </div>
                     </p>
                 </div>
-                
+
                 <!--**************QUESTIONS AND ANSWER SECTION**************-->
-                
+
                 <div class="q_a">
                     <h1><center><i>Questions and Answers</i></center></h1>
                     <hr/>
@@ -100,6 +100,7 @@
                             </h:form>
                         </h:column>
                     </h:dataTable>
+                    <h2><i>Ask A New Question:</i></h2>               
                     <h:inputTextarea style="width: 50%" value="#{question_Answers.ques}"/><br/>
                     <h:commandButton class="btn" id="submit4" value="Add Question" action="#{question_Answers.add_Question(login.theLoginAccount.att_id, login.theLoginAccount.accountID)}" >
                     </h:commandButton>
