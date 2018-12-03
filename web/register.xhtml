@@ -72,7 +72,7 @@
                                 </h:selectManyCheckbox> 
                             </p>
                             <h:outputText style="color: red" rendered="#{register.errorMessage ne null}" value="#{register.errorMessage}" ></h:outputText>
-                            <h:messages/>
+                            <b><h:messages/></b>
                             <h:commandButton value="Submit" class="btn" action="#{register.insertregister}"/>
                             <h:link outcome="index.xhtml" rendered="#{register.success()}">
                                 Account creation successful, click to login

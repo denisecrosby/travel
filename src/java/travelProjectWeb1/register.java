@@ -103,6 +103,12 @@ public class register {
             //return to internalError.xhtml
         }
         
+        if (id.equals(password))
+        {
+            errorMessage = "ERROR: Password can't be the same as ID";
+            return;
+        }
+        
         success = false;
         Connection conn = openDatabase();
         Statement stat = null;
@@ -111,7 +117,7 @@ public class register {
             PreparedStatement ps1 = conn.prepareStatement("select * from account where userName = ?");
             ps1.setString(1, id);
             if (ps1.executeQuery().next()) {
-                errorMessage = "User Name Already Exists";
+                errorMessage = "ERROR: User Name Already Exists";
             } else {
                 InputStream input = path.getInputStream();
                 PreparedStatement ps2 = conn.prepareStatement("insert into account values(?, ?, ?, ?, ?)");
