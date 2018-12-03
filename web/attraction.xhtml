@@ -8,6 +8,7 @@
     <h:head>
         <link href="css/view_attraction.css" rel="stylesheet" type="text/css"/>
         <link href="css/menu.css" rel="stylesheet" type="text/css"/> 
+        <link href="css/notification.css" rel="stylesheet" type="text/css"/>
         <title>Attraction</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
@@ -23,7 +24,7 @@
                 <li> <h:link value="Approved Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewApprovals.xhtml"/></li>    
                 <li> <h:link value="Rejected Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewRejects.xhtml"/></li> 
                 <li style="float:right"><a href="index.xhtml">Logout</a></li>
-                <li style="float:right"><a href="notification.xhtml">Notification</a></li>
+                <li class="notification" style="float:right"><a href="notification.xhtml">Notification <span class="badge"><h:outputText value="#{login.theLoginAccount.notify.getcnt(login.theLoginAccount.accountID)}"/></span></a></li> 
             </ul>
 
             <div class="content">
@@ -33,7 +34,7 @@
                 </h:dataTable>
                 <hr/>
                 <h:dataTable styleClass="tab" columnClasses="first,second" value="#{login.theLoginAccount.viewa()}" var="att">
-                    <h:column><p:graphicImage value="#{login.theLoginAccount.productImage}" style="width: 100%"/></h:column>
+                    <h:column><p:graphicImage value="#{login.theLoginAccount.productImage}" style="width: 100%" stream="false"/></h:column>
                     <h:column><br/>
                         <h:graphicImage  value="#{att.getStar()}"/><br/>
                         <h:outputText style="font-size: 25px" value="#{att.description}"/></h:column>

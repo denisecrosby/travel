@@ -8,7 +8,8 @@
     <h:head>
         <link href="css/tables.css" rel="stylesheet" type="text/css"/>
         <link href="css/menu.css" rel="stylesheet" type="text/css"/> 
-        <link href="css/background2.css" rel="stylesheet" type="text/css"/>          
+        <link href="css/background2.css" rel="stylesheet" type="text/css"/>
+        <link href="css/notification.css" rel="stylesheet" type="text/css"/> 
         <title>View Favorites</title>
     </h:head>
     <h:body>
@@ -25,7 +26,7 @@
                 <li> <h:link value="Approved Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewApprovals.xhtml"/></li>    
                 <li> <h:link value="Rejected Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewRejects.xhtml"/></li> 
                 <li style="float:right"><a href="index.xhtml">Logout</a></li>
-                <li style="float:right"><a href="notification.xhtml">Notification</a></li>  
+               <li class="notification" style="float:right"><a href="notification.xhtml">Notification <span class="badge"><h:outputText value="#{login.theLoginAccount.notify.getcnt(login.theLoginAccount.accountID)}"/></span></a></li>   
             </ul>
             <br/>        
             <h:selectOneMenu id="search_city" style="width:150px" value="#{login.theLoginAccount.searchCity}">

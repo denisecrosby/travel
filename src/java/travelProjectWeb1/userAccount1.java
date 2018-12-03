@@ -14,9 +14,8 @@ import static travelProjectWeb1.Login.*;
     Authors    : raisa, denise
  */
 @Named(value = "userAccount1")
-@SessionScoped
+@javax.faces.bean.SessionScoped
 public class userAccount1 implements Serializable {
-
     protected String accountID;
     protected int att_Id;
     protected String password;
@@ -159,6 +158,7 @@ public class userAccount1 implements Serializable {
                 this.productImage = new DefaultStreamedContent(new ByteArrayInputStream(productImage));
                 System.out.println(".................outside while"+this.productImage);
                 result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite"), rs.getFloat("avg"),this.productImage));
+                
             } 
 
             

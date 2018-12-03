@@ -26,8 +26,8 @@
                 <li> <h:link value="Approved Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewApprovals.xhtml"/></li>    
                 <li> <h:link value="Rejected Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewRejects.xhtml"/></li> 
                 <li style="float:right"><a href="index.xhtml">Logout</a></li>
-                <li class="notification" style="float:right"><a href="notification.xhtml">Notification <span class="badge"><h:outputText value="#{login.theLoginAccount.notify.getcnt(login.theLoginAccount.accountID)}"/></span></a>                     
-                </li>            
+                <li class="notification" style="float:right"><a href="notification.xhtml">Notification <span class="badge"><h:outputText value="#{login.theLoginAccount.notify.getcnt(login.theLoginAccount.accountID)}"/></span></a>    </li>                 
+                            
             </ul>
             <br/>
             <h:dataTable id="att" styleClass="table" bgcolor="white" style="border-style: solid"

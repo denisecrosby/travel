@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Part;
 import org.primefaces.model.StreamedContent;
@@ -20,7 +21,7 @@ import static travelProjectWeb1.Login.*;
     Authors    : raisa, denise
  */
 @Named(value = "attraction")
-@ManagedBean
+@ViewScoped
 public class attraction {
 
     //attributes
