@@ -181,36 +181,30 @@ public class userAccount1 implements Serializable {
         ArrayList<attraction> result = new ArrayList<>();
         try {
             stat = conn.createStatement();
-            byte[] image = null;
-            StreamedContent pImage = null;
             int a = getLogin().att_id;
             rs = stat.executeQuery("Select att_id, att_name, description, cityName, stateName"
                     + ", (select truncate(coalesce(sum(score)/count(score),0),1) from att_score where att_ID = a.att_id) as avg  "
                     + ", (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + accountID + "') then 'true' else 'false' END) as favorite "
                     + " from attractions a, state, city c where a.att_id='" + a + "' and a.state_id = state.sNum and a.city_id = c.cNum ");
-            while (rs.next()) {
+            if (rs.next()) {
                 result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite"), rs.getFloat("avg")));
             }
             this.productImage = null;
-            System.out.println("in get image");
 
             PreparedStatement stmt = null;
-            byte[] productImage = null;
+            byte[] localImage = null;
             try {
-                System.out.println("Id:" + a);
                 stmt = conn.prepareStatement("select * from attractions where att_id=?");
-
                 stmt.setString(1, Integer.toString(a));
                 rs = stmt.executeQuery();
 
-                while (rs.next()) {
-                    productImage = rs.getBytes("att_Img");
+                if (rs.next()) {
+                    localImage = rs.getBytes("att_Img");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            this.productImage = new DefaultStreamedContent(new ByteArrayInputStream(productImage));
-            new attraction(this.productImage);
+            this.productImage = new DefaultStreamedContent(new ByteArrayInputStream(localImage));
 
         } catch (SQLException e) {
             e.printStackTrace();
