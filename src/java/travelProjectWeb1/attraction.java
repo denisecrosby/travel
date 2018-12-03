@@ -146,6 +146,7 @@ public class attraction {
 
     public attraction(StreamedContent image) {
         this.productImage = image;
+        System.out.println("..............single..."+image);
     }
 
     public attraction(String id, String name, String description,
@@ -169,6 +170,7 @@ public class attraction {
         this.favorite = favorite;
         this.avg = avg;
         this.productImage = image;
+        System.out.println("................all."+image);
     }
 
     public attraction(String id, String name, String description,
