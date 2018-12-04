@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Part;
 import org.primefaces.model.StreamedContent;
@@ -21,7 +20,7 @@ import static travelProjectWeb1.Login.*;
     Authors    : raisa, denise
  */
 @Named(value = "attraction")
-@ViewScoped
+@ManagedBean
 public class attraction {
 
     //attributes
@@ -310,7 +309,7 @@ public class attraction {
                 imageInputStream = new FileInputStream(new File(fileName));
             }
 
-            PreparedStatement ps = conn.prepareStatement("insert into attractions values(?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement ps = conn.prepareStatement("insert into attractions values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
             ps.setInt(1, max);
             ps.setString(2, name);
             ps.setInt(3, s);
@@ -323,6 +322,7 @@ public class attraction {
             } else {
                 ps.setBinaryStream(8, im);
             }
+            ps.setInt(9,0);
             int r = ps.executeUpdate();
 
             for (String tag : tags) {
