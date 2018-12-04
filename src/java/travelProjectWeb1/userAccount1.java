@@ -16,6 +16,7 @@ import static travelProjectWeb1.Login.*;
 @Named(value = "userAccount1")
 @javax.faces.bean.SessionScoped
 public class userAccount1 implements Serializable {
+
     protected String accountID;
     protected int att_Id;
     protected String password;
@@ -134,11 +135,7 @@ public class userAccount1 implements Serializable {
         ArrayList<attraction> result = new ArrayList<>();
         try {
             stat = conn.createStatement();
-            byte[] image = null;
-            StreamedContent pImage = null;
-            this.productImage = null;
             PreparedStatement stmt = null;
-            byte[] productImage = null;
             rs = stat.executeQuery("Select att_id, att_name, description, cityName, stateName "
                     + ", (select truncate(coalesce(sum(score)/count(score),0),1) from att_score where att_ID = a.att_id) as avg  "
                     + ", (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + accountID + "') then 'true' else 'false' END) as favorite "
@@ -146,26 +143,22 @@ public class userAccount1 implements Serializable {
                     + " and s.statusNum = a.status and s.status = 'approved' and cityName like '%" + searchCity.trim() + "%' and att_name like '%" + (searchName.equals("Name") ? "" : searchName) + "%'"
                     + " and exists (select 1 from attraction_tag where att_ID = a.att_id and tag_ID in (select tag_id from tags where tag like '%" + searchTag.trim() + "%')) order by 6 desc");
             while (rs.next()) {
-                System.out.println("Id:" + rs.getInt(1));
-                int a=rs.getInt(1);
+                int a = rs.getInt(1);
                 stmt = conn1.prepareStatement("select * from attractions where att_id=?");
                 stmt.setString(1, Integer.toString(a));
                 rs1 = stmt.executeQuery();
-                while (rs1.next()) {
-                    productImage = rs1.getBytes("att_Img");
-                    System.out.println(".................in while"+productImage);
-                }
-                this.productImage = new DefaultStreamedContent(new ByteArrayInputStream(productImage));
-                System.out.println(".................outside while"+this.productImage);
-                result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite"), rs.getFloat("avg"),this.productImage));
-                
-            } 
+                if (rs1.next()) {
+                    byte[] localimage = rs1.getBytes("att_Img");
+                    StreamedContent sc = new DefaultStreamedContent(new ByteArrayInputStream(localimage));
+                    result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite"), rs.getFloat("avg"),
+                            sc));
 
-            
+                }
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             closeDatabase(rs, stat, conn);
             closeDatabase(rs1, stat1, conn1);
         }
@@ -324,4 +317,3 @@ public class userAccount1 implements Serializable {
         this.att_Id = att_Id;
     }
 }
-
