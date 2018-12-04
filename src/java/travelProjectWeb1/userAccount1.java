@@ -136,11 +136,11 @@ public class userAccount1 implements Serializable {
         try {
             stat = conn.createStatement();
             PreparedStatement stmt = null;
-            rs = stat.executeQuery("Select att_id, att_name, description, cityName, stateName "
+            rs = stat.executeQuery("Select att_id, att_name, description, c.city, state "
                     + ", (select truncate(coalesce(sum(score)/count(score),0),1) from att_score where att_ID = a.att_id) as avg  "
                     + ", (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + accountID + "') then 'true' else 'false' END) as favorite "
-                    + " from attractions a, status s, state, city c where a.state_id = state.sNum and a.city_id = c.cNum "
-                    + " and s.statusNum = a.status and s.status = 'approved' and cityName like '%" + searchCity.trim() + "%' and att_name like '%" + (searchName.equals("Name") ? "" : searchName) + "%'"
+                    + " from attractions a, status s, att_state, att_city c where a.state_id = att_state.state_id and a.city_id = c.city_id "
+                    + " and s.statusNum = a.status and s.status = 'approved' and c.city like '%" + searchCity.trim() + "%' and att_name like '%" + (searchName.equals("Name") ? "" : searchName) + "%'"
                     + " and exists (select 1 from attraction_tag where att_ID = a.att_id and tag_ID in (select tag_id from tags where tag like '%" + searchTag.trim() + "%')) order by 6 desc");
             while (rs.next()) {
                 int a = rs.getInt(1);
@@ -150,7 +150,7 @@ public class userAccount1 implements Serializable {
                 if (rs1.next()) {
                     byte[] localimage = rs1.getBytes("att_Img");
                     StreamedContent sc = new DefaultStreamedContent(new ByteArrayInputStream(localimage));
-                    result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite"), rs.getFloat("avg"),
+                    result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("city"), rs.getString("state"), rs.getString("favorite"), rs.getFloat("avg"),
                             sc));
 
                 }
@@ -172,15 +172,15 @@ public class userAccount1 implements Serializable {
         ArrayList<attraction> result = new ArrayList<>();
         try {
             stat = conn.createStatement();
-            rs = stat.executeQuery("select * from (Select att_id, att_name, description, cityName, stateName "
+            rs = stat.executeQuery("select * from (Select att_id, att_name, description, c.city, state "
                     + ", (select truncate(coalesce(sum(score)/count(score),0),1) from att_score where att_ID = a.att_id) as avg  "
                     + ", (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + accountID + "') then 'true' else 'false' END) as favorite "
-                    + " from attractions a, status s, state, city c where a.state_id = state.sNum and a.city_id = c.cNum "
+                    + " from attractions a, status s, att_state, att_city c where a.state_id = att_state.state_id and a.city_id = c.city_id "
                     + " and s.statusNum = a.status and s.status = 'approved')a "
                     + " where avg>4"
                     + " order by 6 desc");
             while (rs.next()) {
-                result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite"), rs.getFloat("avg")));
+                result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("city"), rs.getString("state"), rs.getString("favorite"), rs.getFloat("avg")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -198,12 +198,12 @@ public class userAccount1 implements Serializable {
         try {
             stat = conn.createStatement();
             int a = getLogin().att_id;
-            rs = stat.executeQuery("Select att_id, att_name, description, cityName, stateName"
+            rs = stat.executeQuery("Select att_id, att_name, description, c.city, state"
                     + ", (select truncate(coalesce(sum(score)/count(score),0),1) from att_score where att_ID = a.att_id) as avg  "
                     + ", (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + accountID + "') then 'true' else 'false' END) as favorite "
-                    + " from attractions a, state, city c where a.att_id='" + a + "' and a.state_id = state.sNum and a.city_id = c.cNum ");
+                    + " from attractions a, att_state, att_city c where a.att_id='" + a + "' and a.state_id = att_state.state_id and a.city_id = c.city_id ");
             if (rs.next()) {
-                result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite"), rs.getFloat("avg")));
+                result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("city"), rs.getString("state"), rs.getString("favorite"), rs.getFloat("avg")));
             }
             this.productImage = null;
 
@@ -237,14 +237,14 @@ public class userAccount1 implements Serializable {
         Connection conn = openDatabase();
         try {
             stat = conn.createStatement();
-            rs = stat.executeQuery("select * from (Select att_id, att_name, description, cityName, stateName "
+            rs = stat.executeQuery("select * from (Select att_id, att_name, description, c.city, state "
                     + ", (select truncate(coalesce(sum(score)/count(score),0),1) from att_score where att_ID = a.att_id) as avg  "
                     + ", (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + accountID + "') then 'true' else 'false' END) as favorite "
-                    + " from attractions a, status s, state, city c where a.state_id = state.sNum and a.city_id = c.cNum "
-                    + " and s.statusNum = a.status and s.status = 'approved' and cityName like '%" + searchCity.trim() + "%' and att_name like '%" + (searchName.equals("Name") ? "" : searchName) + "%'"
+                    + " from attractions a, status s, att_state, att_city c where a.state_id = att_state.state_id and a.city_id = c.city_id "
+                    + " and s.statusNum = a.status and s.status = 'approved' and c.city like '%" + searchCity.trim() + "%' and att_name like '%" + (searchName.equals("Name") ? "" : searchName) + "%'"
                     + " and exists (select 1 from attraction_tag where att_ID = a.att_id and tag_ID in (select tag_id from tags where tag like '%" + searchTag.trim() + "%')))a where favorite='true' order by 6 desc");
             while (rs.next()) {
-                result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite"), rs.getFloat("avg")));
+                result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("city"), rs.getString("state"), rs.getString("favorite"), rs.getFloat("avg")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -280,15 +280,15 @@ public class userAccount1 implements Serializable {
         Connection conn = openDatabase();
         try {
             stat = conn.createStatement();
-            rs = stat.executeQuery("select * from (Select a.att_id, att_name, description, cityName, stateName "
+            rs = stat.executeQuery("select * from (Select a.att_id, att_name, description, c.city, state "
                     + ", (select truncate(coalesce(sum(score)/count(score),0),1) from att_score where att_ID = a.att_id) as avg  "
                     + ", (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + accountID + "') then 'true' else 'false' END) as favorite "
-                    + " from attractions a, status s, state, city c, acc_tag act, attraction_tag att"
-                    + " where a.state_id = state.sNum and a.city_id = c.cNum and act.username = '" + accountID + "' and att.att_ID = a.att_id and att.tag_ID = act.tag_id "
+                    + " from attractions a, status s, att_state, att_city c, acc_tag act, attraction_tag att"
+                    + " where a.state_id = att_state.state_id and a.city_id = c.city_id and act.username = '" + accountID + "' and att.att_ID = a.att_id and att.tag_ID = act.tag_id "
                     + " and s.statusNum = a.status and s.status = 'approved' "
                     + " and exists (select 1 from attraction_tag where att_ID = a.att_id and tag_ID in (select tag_id from tags where tag like '%" + searchTag.trim() + "%')))a where favorite='false' order by 6 desc LIMIT 0,3");
             while (rs.next()) {
-                result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("cityName"), rs.getString("stateName"), rs.getString("favorite"), rs.getFloat("avg")));
+                result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("city"), rs.getString("state"), rs.getString("favorite"), rs.getFloat("avg")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
