@@ -146,7 +146,7 @@ public class attraction {
 
     public attraction(StreamedContent image) {
         this.productImage = image;
-        System.out.println("..............single..."+image);
+        System.out.println("..............single..." + image);
     }
 
     public attraction(String id, String name, String description,
@@ -170,7 +170,7 @@ public class attraction {
         this.favorite = favorite;
         this.avg = avg;
         this.productImage = image;
-        System.out.println("................all."+image);
+        System.out.println("................all." + image);
     }
 
     public attraction(String id, String name, String description,
@@ -209,6 +209,19 @@ public class attraction {
                 rs.updateString("status", mark);
                 rs.updateRow();
             }
+
+            rs = stat.executeQuery("select * from att_state WHERE state_ID = (select state_id from attractions where att_id = '" + id + "')");
+            while (rs.next()) {
+                rs.updateInt("add_delete", 1);
+                rs.updateRow();
+            }
+
+            rs = stat.executeQuery("select * from att_city WHERE city_ID = (select city_id from attractions where att_id = '" + id + "')");
+            while (rs.next()) {
+                rs.updateInt("add_delete", 1);
+                rs.updateRow();
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -279,62 +292,59 @@ public class attraction {
         try {
             stat = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
-            rs=stat.executeQuery("select * from attractions where att_Name='"+name+"'");
-            if(rs.next())
-            {
-                exist=true;
+            rs = stat.executeQuery("select * from attractions where att_Name='" + name + "'");
+            if (rs.next()) {
+                exist = true;
             }
-            if(exist==true){
+            if (exist == true) {
                 FacesMessage message = new FacesMessage("Attracttion name already exist");
                 FacesContext.getCurrentInstance().addMessage("a_form:att_name", message);
                 return "creacteAttraction.xhtml";
-            }
-            else
-            {
-               rs = stat.executeQuery("select max(att_ID) from attractions");
-            if (rs.next()) {
-                max = rs.getByte(1) + 1;
-            }
-
-            if (path == null) {
-                rs = stat.executeQuery("select * from default_img where name='attraction'");
-                while (rs.next()) {
-                    image = rs.getBytes(2);
-                    im = new ByteArrayInputStream(image);
+            } else {
+                rs = stat.executeQuery("select max(att_ID) from attractions");
+                if (rs.next()) {
+                    max = rs.getByte(1) + 1;
                 }
 
-            } else {
-                InputStream input = path.getInputStream();
-                String fileName = path.getSubmittedFileName();
-                imageInputStream = new FileInputStream(new File(fileName));
+                if (path == null) {
+                    rs = stat.executeQuery("select * from default_img where name='attraction'");
+                    while (rs.next()) {
+                        image = rs.getBytes(2);
+                        im = new ByteArrayInputStream(image);
+                    }
+
+                } else {
+                    InputStream input = path.getInputStream();
+                    String fileName = path.getSubmittedFileName();
+                    imageInputStream = new FileInputStream(new File(fileName));
+                }
+
+                PreparedStatement ps = conn.prepareStatement("insert into attractions values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                ps.setInt(1, max);
+                ps.setString(2, name);
+                ps.setInt(3, s);
+                ps.setInt(4, c);
+                ps.setString(5, description);
+                ps.setString(6, userName);
+                ps.setInt(7, 1);
+                if (path != null) {
+                    ps.setBinaryStream(8, imageInputStream);
+                } else {
+                    ps.setBinaryStream(8, im);
+                }
+                ps.setInt(9, 0);
+                int r = ps.executeUpdate();
+
+                for (String tag : tags) {
+                    stat.executeUpdate("insert into attraction_tag values('" + max + "','" + tag + "')");
+                }
+                if (s_c == true) {
+                    return "add_state.xhtml";
+                } else if (ct == true) {
+                    return "add_city.xhtml";
+                }
             }
 
-            PreparedStatement ps = conn.prepareStatement("insert into attractions values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            ps.setInt(1, max);
-            ps.setString(2, name);
-            ps.setInt(3, s);
-            ps.setInt(4, c);
-            ps.setString(5, description);
-            ps.setString(6, userName);
-            ps.setInt(7, 1);
-            if (path != null) {
-                ps.setBinaryStream(8, imageInputStream);
-            } else {
-                ps.setBinaryStream(8, im);
-            }
-            ps.setInt(9,0);
-            int r = ps.executeUpdate();
-
-            for (String tag : tags) {
-                stat.executeUpdate("insert into attraction_tag values('" + max + "','" + tag + "')");
-            }
-            if (s_c == true) {
-                return "add_state.xhtml";
-            } else if (ct == true) {
-                return "add_city.xhtml";
-            } 
-            }
-            
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException ex) {

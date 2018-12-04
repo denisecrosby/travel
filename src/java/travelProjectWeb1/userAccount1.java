@@ -14,7 +14,7 @@ import static travelProjectWeb1.Login.*;
     Authors    : raisa, denise
  */
 @Named(value = "userAccount1")
-@javax.faces.bean.SessionScoped
+@SessionScoped
 public class userAccount1 implements Serializable {
 
     protected String accountID;

@@ -1,13 +1,8 @@
 package travelProjectWeb1;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
-import org.primefaces.model.StreamedContent;
-import static travelProjectWeb1.Login.closeDatabase;
-import static travelProjectWeb1.Login.openDatabase;
+import static travelProjectWeb1.Login.*;
 
 /* 
     Author    : denise
@@ -45,6 +40,5 @@ public class adminAccount extends userAccount1 {
             closeDatabase(rs, stat, conn);
         }
         return result;
-
     }
 }
