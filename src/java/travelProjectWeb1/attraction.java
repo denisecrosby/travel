@@ -317,6 +317,7 @@ public class attraction {
                     InputStream input = path.getInputStream();
                     String fileName = path.getSubmittedFileName();
                     imageInputStream = new FileInputStream(new File(fileName));
+                    
                 }
 
                 PreparedStatement ps = conn.prepareStatement("insert into attractions values(?, ?, ?, ?, ?, ?, ?, ?, ?)");

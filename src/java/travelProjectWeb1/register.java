@@ -1,5 +1,7 @@
 package travelProjectWeb1;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -113,17 +115,36 @@ public class register {
         Connection conn = openDatabase();
         Statement stat = null;
         ResultSet rs = null;
+        byte[] image=null;
+        InputStream im = null;
         try {
+            stat = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
             PreparedStatement ps1 = conn.prepareStatement("select * from account where userName = ?");
             ps1.setString(1, id);
             if (ps1.executeQuery().next()) {
                 errorMessage = "ERROR: User Name Already Exists";
             } else {
-                InputStream input = path.getInputStream();
+                if (path == null) {
+                    rs = stat.executeQuery("select * from default_img where name='profile_img'");
+                    while (rs.next()) {
+                        image = rs.getBytes(2);
+                        im = new ByteArrayInputStream(image);
+                    }
+
+                } else {
+                    InputStream input = path.getInputStream();
+                    String fileName = path.getSubmittedFileName();
+                    imageInputStream = new FileInputStream(new File(fileName));
+                }  
                 PreparedStatement ps2 = conn.prepareStatement("insert into account values(?, ?, ?, ?, ?)");
                 ps2.setString(1, id);
                 ps2.setString(2, password);
-                ps2.setBinaryStream(3, input, 3);
+                if (path != null) {
+                    ps2.setBinaryStream(3, imageInputStream);
+                } else {
+                    ps2.setBinaryStream(3, im);
+                }
                 ps2.setInt(4, ques);
                 ps2.setString(5, answer);
                 for (String tag : tags) {
