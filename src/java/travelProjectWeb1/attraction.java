@@ -39,7 +39,7 @@ public class attraction {
     public String new_state;
     public String new_city;
     public StreamedContent productImage;
-    private String errorMessage;    
+    private String errorMessage;
 
     public String getErrorMessage() {
         return errorMessage;
@@ -219,16 +219,19 @@ public class attraction {
                 rs.updateRow();
             }
 
-            rs = stat.executeQuery("select * from att_state WHERE state_ID = (select state_id from attractions where att_id = '" + id + "')");
-            while (rs.next()) {
-                rs.updateInt("add_delete", 1);
-                rs.updateRow();
-            }
+            if (mark.equals("approved")) {
 
-            rs = stat.executeQuery("select * from att_city WHERE city_ID = (select city_id from attractions where att_id = '" + id + "')");
-            while (rs.next()) {
-                rs.updateInt("add_delete", 1);
-                rs.updateRow();
+                rs = stat.executeQuery("select * from att_state WHERE state_ID = (select state_id from attractions where att_id = '" + id + "')");
+                while (rs.next()) {
+                    rs.updateInt("add_delete", 1);
+                    rs.updateRow();
+                }
+
+                rs = stat.executeQuery("select * from att_city WHERE city_ID = (select city_id from attractions where att_id = '" + id + "')");
+                while (rs.next()) {
+                    rs.updateInt("add_delete", 1);
+                    rs.updateRow();
+                }
             }
 
         } catch (SQLException e) {
@@ -308,9 +311,8 @@ public class attraction {
             if (exist == true) {
                 FacesMessage message = new FacesMessage("Attraction name already exists");
                 FacesContext.getCurrentInstance().addMessage("a_form:att_name", message);
-         //errorMessage = "ERROR: Attraction Name Already Exists";
-         
-         
+                //errorMessage = "ERROR: Attraction Name Already Exists";
+
                 return "createAttraction.xhtml";
             } else {
                 rs = stat.executeQuery("select max(att_ID) from attractions");
@@ -329,7 +331,7 @@ public class attraction {
                     InputStream input = path.getInputStream();
                     String fileName = path.getSubmittedFileName();
                     imageInputStream = new FileInputStream(new File(fileName));
-                    
+
                 }
 
                 PreparedStatement ps = conn.prepareStatement("insert into attractions values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
