@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <link href="css/notification.css" rel="stylesheet" type="text/css"/>        
+        <link href="css/menu.css" rel="stylesheet" type="text/css"/>  
+        <link href="css/form.css" rel="stylesheet" type="text/css"/>  
+        <title>User account</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <h:form enctype="multipart/form-data">
+            <ul>
+                <li><a href="welcome.xhtml">Home</a></li>
+                <li><a href="createAttraction.xhtml">Create Attraction</a></li>
+                <li><a href="viewAttractions.xhtml">Search Attractions</a></li>
+                <li><a href="viewFavorites.xhtml">View Favorites</a></li>
+                <li><a href="topAttraction.xhtml">Top Attractions</a></li>
+                <li> <h:link value="Pending Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewPending.xhtml"/></li>
+                <li> <h:link value="Approved Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewApprovals.xhtml"/></li>    
+                <li> <h:link value="Rejected Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewRejects.xhtml"/></li> 
+                <li style="float:right"><a href="index.xhtml">Logout</a></li>
+                <li class="notification" style="float:right"><a href="notification.xhtml">Notification <span class="badge"><h:outputText value="#{login.theLoginAccount.notify.getcnt(login.theLoginAccount.accountID)}"/></span></a></li> 
+                <li class="notification" style="float:right"><a href="account.xhtml">My Account</a></li> 
+            </ul>
+            <div class="content">
+                <h:dataTable styleClass="tab" columnClasses="first,second" value="#{login.theLoginAccount.viewProfile()}" var="prof">
+                <h:column><p:graphicImage value="#{prof.productImage}" style="width: 100%" stream="false"/></h:column><br/>
+                <h:column>Change Image:
+                    <h:inputFile  id="att_img" value="#{profile.path}" maxlength="16177215"  />
+                    <h:commandButton class="btn" id="submit" value="Add" action="#{profile.addProfileImage(login.theLoginAccount.accountID)}" />
+                </h:column>
+                    
+            </h:dataTable>
+            <h:dataTable styleClass="tab" columnClasses="first,second" value="#{login.theLoginAccount.viewProfile()}" var="prof">
+                <h:column><span style="font-weight: bold">UserId:</span>
+                        <h:outputText styleClass="dataTableOutputText" value="#{prof.accountID}"/>  
+                </h:column>
+             </h:dataTable>
+                <h:dataTable styleClass="tab" columnClasses="first,second" value="#{login.theLoginAccount.viewProfile()}" var="prof">
+                <h:column><span style="font-weight: bold">Password:</span>
+                        <h:outputText styleClass="dataTableOutputText" value="#{prof.password}"/><br/>
+                        <span>Change Password:</span><h:inputText id="reset" 
+                                     title="new password"
+                                     value="#{profile.password}">
+                        </h:inputText>
+                        <h:commandButton class="btn" id="submit2" value="Reset" action="#{profile.resetPassword(login.theLoginAccount.accountID)}" />
+                </h:column>
+             </h:dataTable>
+            </div>
+        </h:form>
+    </body>
+</html>

@@ -113,6 +113,10 @@ public class userAccount1 implements Serializable {
         return accountID;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public String getSearchCity() {
         return searchCity;
     }
@@ -124,6 +128,30 @@ public class userAccount1 implements Serializable {
     public userAccount1(String searchCity) {
         this.searchCity = searchCity;
     }
+    
+    public ArrayList<userAccount1> viewProfile()
+    {
+        Statement stat = null;
+        ResultSet rs = null;
+        ArrayList<userAccount1> result = new ArrayList<>();
+        Connection conn = openDatabase();
+        try {
+            stat = conn.createStatement();
+            rs = stat.executeQuery("select * from account where userName='" + accountID+ "' and password='"+password+"'");
+            while (rs.next()) {
+                byte[] localimage = rs.getBytes(3);
+                StreamedContent sc = new DefaultStreamedContent(new ByteArrayInputStream(localimage));
+                result.add(new userAccount1(rs.getString(1), rs.getString(2),sc));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeDatabase(rs, stat, conn);
+        }
+        return result;
+    }
+    
+   
 
     public ArrayList<attraction> viewAttractions() {
         Connection conn = openDatabase();
@@ -312,7 +340,13 @@ public class userAccount1 implements Serializable {
         this.password = password;
         this.notify = new notification();
     }
-
+    
+    public userAccount1(String accountId, String password,StreamedContent image) {
+        this.accountID = accountId;
+        this.password = password;
+        this.productImage=image;
+    }
+    
     public userAccount1(int att_Id) {
         this.att_Id = att_Id;
     }
