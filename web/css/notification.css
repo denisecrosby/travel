@@ -14,8 +14,6 @@ and open the template in the editor.
 
 .notification .badge {
   position: absolute;
-  top: 90px;
-  right: 75px;
   padding: 5px 10px;
   border-radius: 50%;
   background: red;
