@@ -39,6 +39,15 @@ public class attraction {
     public String new_state;
     public String new_city;
     public StreamedContent productImage;
+    private String errorMessage;    
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
 
     public StreamedContent getProductImage() {
         return productImage;
@@ -297,9 +306,12 @@ public class attraction {
                 exist = true;
             }
             if (exist == true) {
-                FacesMessage message = new FacesMessage("Attracttion name already exist");
+                FacesMessage message = new FacesMessage("Attraction name already exists");
                 FacesContext.getCurrentInstance().addMessage("a_form:att_name", message);
-                return "creacteAttraction.xhtml";
+         //errorMessage = "ERROR: Attraction Name Already Exists";
+         
+         
+                return "createAttraction.xhtml";
             } else {
                 rs = stat.executeQuery("select max(att_ID) from attractions");
                 if (rs.next()) {
