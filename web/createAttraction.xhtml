@@ -38,7 +38,7 @@
                                      requiredMessage="The ID field cannot be empty"
                                      title="Please enter your ID"
                                      value="#{attraction.name}">
-                        </h:inputText>
+                        </h:inputText><br/>
                         <h:message for="att_name" id="att_name_msg" style="color: red" > </h:message>
 
                     </p>
@@ -57,17 +57,19 @@
                     </p>
                     <p><span style="font:bold;color: red" >*</span>Description: <br/> 
                         <h:inputTextarea class="txt-area" id="att_desc" required ="true" 
-                                         requiredMessage=""
-                                         title="describe"
+                                         requiredMessage="Description field cann't be empty"
+                                         title="Describe"
                                          value="#{attraction.description}">
                         </h:inputTextarea>
+                        <br/>
+                        <h:message for="att_desc" id="att_desc_msg" style="color: red" > </h:message>
                     </p>
                     <p> Add Image
 
                         <h:inputFile  id="att_img" value="#{attraction.path}"  maxlength="16177215"  />
                     </p>
                     <p ><span style="font:bold;color: red" >*</span>Select the Tags from below
-                        <h:selectManyCheckbox   value="#{attraction.tags}">
+                        <h:selectManyCheckbox id="att_tag" required="true"  requiredMessage="Choose atleast one tag" value="#{attraction.tags}">
                             <div >
                                 <f:selectItem itemValue="1" itemLabel="History" /> 
                                 <f:selectItem itemValue="2" itemLabel="Shopping" /> 
@@ -77,11 +79,13 @@
                                 <f:selectItem itemValue="6" itemLabel="Family" />
                             </div>
                         </h:selectManyCheckbox> 
+                        <br/>
+                        <h:message for="att_tag" id="att_tag_msg" style="color: red" > </h:message>
                     </p>
                     
-                    <h:outputText style="color: red" rendered="#{attraction.errorMessage ne null}" value="#{attraction.errorMessage}"></h:outputText>
-                    <b><h:messages/></b>
-
+                    <h:outputText  style="color: red" rendered="#{attraction.errorMessage ne null}" value="#{attraction.errorMessage}"></h:outputText>
+                    
+                    <b><h:messages style="color:red;font: bold"/></b>
                     <p>
                         <h:commandButton class="btn" id="submit" value="Submit" action="#{attraction.createAttraction(login.theLoginAccount.accountID)}" />
                     </p>   
