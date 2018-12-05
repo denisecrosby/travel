@@ -28,8 +28,7 @@ and open the template in the editor.
                 <li> <h:link value="Approved Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewApprovals.xhtml"/></li>    
                 <li> <h:link value="Rejected Attractions" rendered="#{login.theLoginAccount.isAdmin()}" outcome = "viewRejects.xhtml"/></li> 
                 <li style="float:right"><a href="index.xhtml">Logout</a></li> 
-                <li class="notification" style="float:right"><h:link  rendered="#{login.theLoginAccount.notAdmin()}" outcome = "notification.xhtml">Notification <span class="badge" style="top: 10px;right: 60px" ><h:outputText value="#{login.theLoginAccount.notify.getcnt(login.theLoginAccount.accountID)}"/></span></h:link>    </li>
-                <li class="notification" style="float:right"><h:link  rendered="#{login.theLoginAccount.isAdmin()}" outcome = "notification.xhtml">Notification <span class="badge" style="top: 50px;right: 5px" ><h:outputText value="#{login.theLoginAccount.notify.getcnt(login.theLoginAccount.accountID)}"/></span></h:link></li>
+                <li class="notification" style="float:right"><h:link   outcome = "notification.xhtml">Notification <span class="badge" style="top: 10px;right: 60px" ><h:outputText value="#{login.theLoginAccount.notify.getcnt(login.theLoginAccount.accountID)}"/></span></h:link>    </li>
                 <li class="notification" style="float:right"><a href="account.xhtml">My Account</a></li> 
             </ul>
             <div class="content">
