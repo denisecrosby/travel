@@ -77,6 +77,10 @@
                             </div>
                         </h:selectManyCheckbox> 
                     </p>
+                    
+                    <h:outputText style="color: red" rendered="#{attraction.errorMessage ne null}" value="#{attraction.errorMessage}"></h:outputText>
+                    <b><h:messages/></b>
+
                     <p>
                         <h:commandButton class="btn" id="submit" value="Submit" action="#{attraction.createAttraction(login.theLoginAccount.accountID)}" />
                     </p>   
