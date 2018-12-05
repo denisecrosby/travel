@@ -233,6 +233,29 @@ public class userAccount1 implements Serializable {
             if (rs.next()) {
                 result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("city"), rs.getString("state"), rs.getString("favorite"), rs.getFloat("avg")));
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeDatabase(rs, stat, conn);
+        }
+        return result;
+    }
+
+        public ArrayList<attraction> viewaimage() {
+        Connection conn = openDatabase();
+        Statement stat = null;
+        ResultSet rs = null;
+        ArrayList<attraction> result = new ArrayList<>();
+        try {
+            stat = conn.createStatement();
+            int a = getLogin().att_id;
+            rs = stat.executeQuery("Select att_id, att_name, description, c.city, state"
+                    + ", (select truncate(coalesce(sum(score)/count(score),0),1) from att_score where att_ID = a.att_id) as avg  "
+                    + ", (case when exists(select att_id from myfavoritedes f where f.att_id = a.att_id and userName = '" + accountID + "') then 'true' else 'false' END) as favorite "
+                    + " from attractions a, att_state, att_city c where a.att_id='" + a + "' and a.state_id = att_state.state_id and a.city_id = c.city_id ");
+            if (rs.next()) {
+                result.add(new attraction(rs.getString("att_id"), rs.getString("att_name"), rs.getString("description"), rs.getString("city"), rs.getString("state"), rs.getString("favorite"), rs.getFloat("avg")));
+            }
             this.productImage = null;
 
             PreparedStatement stmt = null;
@@ -257,7 +280,7 @@ public class userAccount1 implements Serializable {
         }
         return result;
     }
-
+    
     public ArrayList<attraction> viewFavorites() {
         Statement stat = null;
         ResultSet rs = null;
