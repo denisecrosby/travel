@@ -357,6 +357,14 @@ public class userAccount1 implements Serializable {
     public boolean isAdmin() {
         return isAdmin;
     }
+    
+    public boolean notAdmin() {
+        if(isAdmin==false)
+        {
+        return true;
+        }
+        return false;
+    }
 
     public userAccount1(String accountId, String password) {
         this.accountID = accountId;
