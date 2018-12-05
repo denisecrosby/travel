@@ -21,7 +21,7 @@
                 <div class="inner">
                     <div class="content">
                         <div>
-                            <p><h:outputText value="&#160;"/>Username  
+                            <p><span style="font:bold;color: red" >*</span><h:outputText value="&#160;"/>Username  
                                 <h:inputText id="id" required ="true" 
                                              requiredMessage="The ID field cannot be empty"
                                              title="Please enter your ID"
@@ -32,14 +32,14 @@
                                     <f:validateRegex pattern=".*[a-zA-Z].*"/>                                      
                                 </h:inputText>
                             </p>
-                            <p><h:outputText value="&#160;"/>Password
+                            <p><span style="font:bold;color: red" >*</span><h:outputText value="&#160;"/>Password
                                 <h:inputSecret id="password" value="#{register.password}" >
                                     <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^]).{3,10})" />
                                 </h:inputSecret>
                                 <p><h:outputText value="&#160;"/>Your password must have a capital letter, a number, and a special character.</p>
                             </p>
-                            <p><h:outputText value="&#160;"/>Required Photo: <h:inputFile value="#{register.path}" /></p>
-                            <p><h:outputText value="&#160;"/>Select security question:
+                            <p><h:outputText value="&#160;"/>Photo: <h:inputFile value="#{register.path}" /></p>
+                            <p><span style="font:bold;color: red" >*</span><h:outputText value="&#160;"/>Select security question:
                                 <h:selectOneMenu id="acc_question"  style="width:150px" value="#{register.ques}" >
                                     <div>
                                         <f:selectItem   itemValue="0" itemLabel="--Select---" />
@@ -56,11 +56,11 @@
                                     </div>
                                 </h:selectOneMenu>
                             </p>
-                            <p><h:outputText value="&#160;"/>Your answer:
+                            <p><span style="font:bold;color: red" >*</span><h:outputText value="&#160;"/>Your answer:
                                 <h:inputText id="acc_ans" value="#{register.answer}"/>
                             </p>
-                            <p><h:outputText value="&#160;"/>Select tags
-                                <h:selectManyCheckbox  id="att_tags" value="#{register.tags}" required="true" requiredMessage="You should select atleast one tag">
+                            <p><span style="font:bold;color: red" >*</span><h:outputText value="&#160;"/>Select tags
+                                <h:selectManyCheckbox  id="att_tags" value="#{register.tags}" required="true" requiredMessage="Select at least one tag">
                                     <div >
                                         <f:selectItem itemValue="1" itemLabel="History" /> 
                                         <f:selectItem itemValue="2" itemLabel="Shopping" /> 
@@ -74,9 +74,10 @@
                             <h:outputText style="color: red" rendered="#{register.errorMessage ne null}" value="#{register.errorMessage}" ></h:outputText>
                             <b><h:messages/></b>
                             <h:commandButton value="Submit" class="btn" action="#{register.insertregister}"/>
-                            <h:link outcome="index.xhtml" rendered="#{register.success()}">
+                            <br/>
+                            <center><h:link outcome="index.xhtml" rendered="#{register.success()}">
                                 Account creation successful, click to login
-                            </h:link>
+                            </h:link></center>
                         </div>
                     </div>
                 </div>
