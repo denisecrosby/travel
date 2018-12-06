@@ -219,7 +219,7 @@ public class attraction {
                 rs.updateRow();
             }
 
-            if (mark.equals("approve")) {
+            if (state.equals("approve")) {
 
                 rs = stat.executeQuery("select * from att_state WHERE state_ID = (select state_id from attractions where att_id = '" + id + "')");
                 while (rs.next()) {
