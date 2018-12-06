@@ -120,7 +120,7 @@ String password;
             if (path != null) {
                     ps.setBinaryStream(1, imageInputStream);
                 } else {
-                    ps.setBinaryStream(8, im);
+                    ps.setBinaryStream(1, im);
                 }
             int r = ps.executeUpdate();
         } catch (SQLException e) {
